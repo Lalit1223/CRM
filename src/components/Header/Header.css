@@ -1,0 +1,78 @@
+/* src/components/Header/Header.css */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 16px;
+    background-color: #ffffff;
+    border-bottom: 1px solid #e0e0e0;
+    height: 60px;
+  }
+  
+  .header-left {
+    display: flex;
+    align-items: center;
+  }
+  
+  .navigation-buttons {
+    display: flex;
+    margin-right: 16px;
+  }
+  
+  .icon-button {
+    background: none;
+    border: none;
+    color: #5a5a5a;
+    padding: 8px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .icon-button:hover {
+    background-color: #f5f5f5;
+  }
+  
+  .address-bar {
+    display: flex;
+    align-items: center;
+  }
+  
+  .logo {
+    width: 24px;
+    height: 24px;
+    margin-right: 8px;
+  }
+  
+  .app-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+  }
+  
+  .header-right {
+    display: flex;
+    align-items: center;
+  }
+  
+  .help-button {
+    display: flex;
+    align-items: center;
+    background: none;
+    border: none;
+    color: #5a5a5a;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 8px;
+  }
+  
+  .help-button span {
+    margin-left: 6px;
+  }
+  
+  .help-button:hover {
+    background-color: #f5f5f5;
+  }

@@ -1,0 +1,218 @@
+/* src/pages/Customers/Customers.css */
+.customers-page {
+    padding: 20px;
+  }
+  
+  .customers-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+  }
+  
+  .customers-header h2 {
+    font-size: 20px;
+    font-weight: 500;
+    color: #333;
+  }
+  
+  .header-actions {
+    display: flex;
+    align-items: center;
+  }
+  
+  .import-btn {
+    background-color: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    padding: 8px 16px;
+    margin-right: 12px;
+    font-size: 14px;
+    cursor: pointer;
+  }
+  
+  .add-customer-btn {
+    display: flex;
+    align-items: center;
+    background-color: #25D366;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 16px;
+    font-size: 14px;
+    cursor: pointer;
+  }
+  
+  .add-customer-btn svg {
+    margin-right: 6px;
+  }
+  
+  .customers-controls {
+    display: flex;
+    align-items: center;
+    margin-bottom: 24px;
+  }
+  
+  .search-bar {
+    position: relative;
+    flex: 1;
+    margin-right: 16px;
+  }
+  
+  .search-icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #888;
+  }
+  
+  .search-bar input {
+    width: 100%;
+    padding: 10px 12px 10px 40px;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+  
+  .filter-button {
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    padding: 10px 16px;
+    font-size: 14px;
+    cursor: pointer;
+  }
+  
+  .filter-button svg {
+    margin-right: 6px;
+    color: #666;
+  }
+  
+  .customers-view {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+  }
+  
+  .view-tabs {
+    display: flex;
+    border-bottom: 1px solid #e0e0e0;
+  }
+  
+  .view-tab {
+    padding: 12px 20px;
+    background: none;
+    border: none;
+    font-size: 14px;
+    color: #666;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+  }
+  
+  .view-tab.active {
+    color: #25D366;
+    border-bottom-color: #25D366;
+    font-weight: 500;
+  }
+  
+  .count {
+    color: #888;
+    font-weight: normal;
+  }
+  
+  .customers-table {
+    width: 100%;
+  }
+  
+  .table-header {
+    display: flex;
+    background-color: #f9f9f9;
+    border-bottom: 1px solid #e0e0e0;
+    padding: 12px 20px;
+    font-weight: 500;
+    color: #666;
+    font-size: 14px;
+  }
+  
+  .table-row {
+    display: flex;
+    padding: 16px 20px;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  
+  .table-row:last-child {
+    border-bottom: none;
+  }
+  
+  .table-row:hover {
+    background-color: #f9f9f9;
+  }
+  
+  .table-cell {
+    flex: 1;
+    display: flex;
+    align-items: center;
+  }
+  
+  .name-cell {
+    flex: 1.5;
+  }
+  
+  .actions-cell {
+    justify-content: flex-end;
+    flex: 0.8;
+  }
+  
+  .avatar {
+    width: 32px;
+    height: 32px;
+    background-color: #25D366;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 12px;
+    font-weight: 500;
+  }
+  
+  .customer-name {
+    font-weight: 500;
+    color: #333;
+  }
+  
+  .tags-cell {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .customer-tag {
+    font-size: 12px;
+    padding: 2px 8px;
+    background-color: #f0f0f0;
+    color: #666;
+    border-radius: 12px;
+    margin-right: 6px;
+  }
+  
+  .action-btn {
+    background: none;
+    border: none;
+    color: #888;
+    padding: 6px;
+    margin-left: 4px;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .action-btn:hover {
+    background-color: #f0f0f0;
+    color: #333;
+  }

@@ -1,0 +1,145 @@
+/* src/pages/Home/Home.css */
+.home-container {
+    padding: 20px;
+  }
+  
+  .welcome-section {
+    margin-bottom: 30px;
+  }
+  
+  .welcome-section h2 {
+    font-size: 24px;
+    font-weight: 500;
+    margin-bottom: 10px;
+    color: #333;
+  }
+  
+  .wa-number {
+    display: flex;
+    align-items: center;
+    color: #666;
+    font-size: 14px;
+  }
+  
+  .phone-number {
+    font-weight: 500;
+    margin-left: 8px;
+  }
+  
+  .content-area {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    min-height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 30px;
+  }
+  
+  .loading-indicator {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #666;
+  }
+  
+  .spinner {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid #25D366;
+    animation: spin 1s linear infinite;
+    margin-bottom: 16px;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  .training-card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .training-info {
+    display: flex;
+    flex: 3;
+  }
+  
+  .training-icon {
+    margin-right: 16px;
+    padding-top: 6px;
+  }
+  
+  .training-text h3 {
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 4px;
+    color: #333;
+  }
+  
+  .training-text p {
+    color: #666;
+    margin-bottom: 12px;
+  }
+  
+  .training-details {
+    display: flex;
+    margin-bottom: 16px;
+  }
+  
+  .training-time, .training-frequency {
+    display: flex;
+    align-items: center;
+    color: #666;
+    font-size: 14px;
+    margin-right: 20px;
+  }
+  
+  .training-time svg, .training-frequency svg {
+    margin-right: 6px;
+  }
+  
+  .register-button {
+    background-color: #25D366;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 16px;
+    font-size: 14px;
+    cursor: pointer;
+  }
+  
+  .register-button:hover {
+    background-color: #1da959;
+  }
+  
+  .qr-code {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-left: 1px solid #eee;
+    padding-left: 20px;
+  }
+  
+  .qr-code img {
+    width: 120px;
+    height: 120px;
+    margin-bottom: 10px;
+  }
+  
+  .qr-code p {
+    font-size: 12px;
+    color: #666;
+    text-align: center;
+  }
