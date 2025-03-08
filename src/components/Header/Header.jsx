@@ -30,7 +30,7 @@ const Header = () => {
         </div>
         <div className="address-bar">
           <img src={logo} alt="LG Media" className="logo" />
-          <h1 className="app-title">LG Media</h1>
+          <h1 className="app-title">Pixe</h1>
         </div>
       </div>
       <div className="header-right">
