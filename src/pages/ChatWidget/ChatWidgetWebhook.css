@@ -1,0 +1,362 @@
+/* src/pages/ChatWidget/ChatWidgetWebhook.css */
+.chat-widget-webhook-container {
+    padding: 20px;
+    height: calc(100vh - 60px);
+    overflow-y: auto;
+  }
+  
+  .webhook-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  
+  .back-button {
+    display: flex;
+    align-items: center;
+    padding: 8px 12px;
+    background: none;
+    border: 1px solid var(--border-color, #e0e0e0);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: var(--text-secondary, #666666);
+  }
+  
+  .back-button:hover {
+    background-color: var(--hover-color, #f0f0f0);
+  }
+  
+  .back-button span {
+    margin-left: 6px;
+    font-size: 14px;
+  }
+  
+  .webhook-header h1 {
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--text-color, #333333);
+  }
+  
+  .widget-details {
+    margin-bottom: 20px;
+  }
+  
+  .widget-details h2 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: var(--text-color, #333333);
+  }
+  
+  .widget-domain {
+    font-size: 14px;
+    color: var(--text-secondary, #666666);
+  }
+  
+  .webhook-info-card {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background-color: #E8F5E9;
+    border: 1px solid #C8E6C9;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 25px;
+  }
+  
+  .info-icon {
+    color: #4CAF50;
+  }
+  
+  .info-content h3 {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: #2E7D32;
+  }
+  
+  .info-content p {
+    font-size: 14px;
+    color: #388E3C;
+    line-height: 1.5;
+  }
+  
+  .webhook-form-container {
+    background-color: var(--card-bg-color, #ffffff);
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 25px;
+  }
+  
+  .webhook-form-container h3 {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: var(--text-color, #333333);
+  }
+  
+  .webhook-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+  }
+  
+  .form-group label {
+    margin-bottom: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-color, #333333);
+  }
+  
+  .form-group input[type="text"],
+  .form-group select {
+    padding: 10px 12px;
+    border: 1px solid var(--border-color, #e0e0e0);
+    border-radius: 6px;
+    font-size: 14px;
+    transition: border-color 0.2s ease;
+  }
+  
+  .form-group input[type="text"]:focus,
+  .form-group select:focus {
+    border-color: var(--primary-color, #25D366);
+    outline: none;
+  }
+  
+  .field-hint {
+    font-size: 12px;
+    color: var(--text-secondary, #666666);
+    margin-top: 5px;
+  }
+  
+  .checkbox-group {
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .checkbox-group label {
+    margin-bottom: 0;
+  }
+  
+  .add-webhook-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 16px;
+    background-color: var(--primary-color, #25D366);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    align-self: flex-start;
+  }
+  
+  .add-webhook-button:hover {
+    background-color: var(--secondary-color, #128C7E);
+  }
+  
+  .add-webhook-button span {
+    margin-left: 8px;
+  }
+  
+  .webhooks-table-container {
+    background-color: var(--card-bg-color, #ffffff);
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 25px;
+  }
+  
+  .webhooks-table-container h3 {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: var(--text-color, #333333);
+  }
+  
+  .webhooks-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .webhooks-table th {
+    padding: 12px 15px;
+    text-align: left;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-color, #333333);
+    background-color: #f5f5f5;
+    border-bottom: 1px solid var(--border-color, #e0e0e0);
+  }
+  
+  .webhooks-table td {
+    padding: 12px 15px;
+    font-size: 14px;
+    border-bottom: 1px solid var(--border-color, #e0e0e0);
+  }
+  
+  .webhooks-table tr:last-child td {
+    border-bottom: none;
+  }
+  
+  .webhook-url {
+    word-break: break-all;
+    max-width: 300px;
+  }
+  
+  /* Toggle switch styles */
+  .toggle-container {
+    display: inline-block;
+    position: relative;
+  }
+  
+  .toggle-input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+    position: absolute;
+  }
+  
+  .toggle-label {
+    display: block;
+    width: 44px;
+    height: 22px;
+    background-color: #e0e0e0;
+    border-radius: 11px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    position: relative;
+  }
+  
+  .toggle-label::after {
+    content: "";
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 18px;
+    height: 18px;
+    background-color: white;
+    border-radius: 50%;
+    transition: transform 0.2s ease;
+  }
+  
+  .toggle-input:checked + .toggle-label {
+    background-color: var(--primary-color, #25D366);
+  }
+  
+  .toggle-input:checked + .toggle-label::after {
+    transform: translateX(22px);
+  }
+  
+  .delete-webhook-button {
+    background: none;
+    border: 1px solid var(--border-color, #e0e0e0);
+    border-radius: 4px;
+    color: #e53935;
+    padding: 5px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .delete-webhook-button:hover {
+    background-color: #FFEBEE;
+    border-color: #FFCDD2;
+  }
+  
+  .no-webhooks {
+    background-color: var(--card-bg-color, #ffffff);
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    padding: 40px 20px;
+    text-align: center;
+    color: var(--text-secondary, #666666);
+    font-size: 14px;
+    margin-bottom: 25px;
+  }
+  
+  .webhook-data-preview {
+    background-color: var(--card-bg-color, #ffffff);
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 25px;
+  }
+  
+  .webhook-data-preview h3 {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: var(--text-color, #333333);
+  }
+  
+  .code-container {
+    background-color: #2d2d2d;
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  
+  .code-container pre {
+    margin: 0;
+    padding: 15px;
+    overflow-x: auto;
+  }
+  
+  .code-container code {
+    font-family: 'Courier New', Courier, monospace;
+    color: #e6e6e6;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  
+  /* Loading state */
+  .loading-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 50px 0;
+  }
+  
+  .loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid var(--primary-color, #25D366);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 16px;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .webhook-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+    }
+    
+    .webhooks-table {
+      display: block;
+      overflow-x: auto;
+    }
+    
+    .webhook-url {
+      max-width: 200px;
+    }
+  }

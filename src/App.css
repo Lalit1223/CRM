@@ -28,7 +28,6 @@ body {
   flex: 1;
   margin-left: 60px;
   transition: margin-left 0.3s ease;
-  padding-top: 60px; /* For fixed header */
 }
 
 .main-content.sidebar-expanded {
@@ -80,4 +79,36 @@ button {
 
 ::-webkit-scrollbar-thumb:hover {
   background: #a8a8a8;
+}
+/* Add these styles to your src/App.css file */
+
+/* Login view adjustments */
+.login-view {
+  margin-left: 0 !important;
+  padding-top: 0 !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  width: 100%;
+}
+
+/* Ensure login container takes full width when in login view */
+.login-view .login-container {
+  width: 100%;
+}
+
+/* Override default padding when in login mode */
+.app:has(.login-view) .main-container {
+  padding: 0;
+}
+
+/* Alternative if :has is not supported in your target browsers */
+.login-mode .main-container {
+  padding: 0;
+}
+
+.login-mode .main-content {
+  margin-left: 0;
+  padding-top: 0;
 }

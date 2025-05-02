@@ -1,6 +1,7 @@
 // src/pages/Home/Home.jsx
 import React from "react";
 import "./Home.css";
+import FeatureCards from "../../components/FeatureCards/FeatureCards";
 
 const Home = () => {
   return (
@@ -13,12 +14,8 @@ const Home = () => {
         </div>
       </div>
 
-      {/* <div className="content-area">
-        <div className="loading-indicator">
-          <div className="spinner"></div>
-          <p>Loading</p>
-        </div>
-      </div> */}
+      {/* Feature Cards Grid */}
+      <FeatureCards />
 
       <div className="training-card">
         <div className="training-info">

@@ -1,0 +1,766 @@
+/* src/pages/Payments/Payments.css */
+
+.payments-page {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  }
+  
+  /* Header Styles */
+  .payments-header {
+    margin-bottom: 2rem;
+    border-bottom: 1px solid #e5e7eb;
+    padding-bottom: 1.5rem;
+  }
+  
+  .payments-header h1 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 0.5rem;
+  }
+  
+  .payments-header p {
+    color: #6b7280;
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .payments-tabs {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+  
+  .payments-tabs button {
+    padding: 0.5rem 1rem;
+    border-radius: 0.375rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    border: none;
+    background-color: #f3f4f6;
+    color: #4b5563;
+    transition: all 0.2s;
+  }
+  
+  .payments-tabs button:hover {
+    background-color: #e5e7eb;
+  }
+  
+  .payments-tabs button.active {
+    background-color: #25D366;
+    color: white;
+  }
+  
+  /* Stats Cards */
+  .payments-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  
+  .stat-card {
+    background: linear-gradient(to bottom right, #f0fff4, #dcfce7);
+    padding: 1.25rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+  
+  .stat-card h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 0.25rem;
+  }
+  
+  .stat-card p {
+    color: #6b7280;
+    font-size: 0.875rem;
+    margin: 0;
+  }
+  
+  /* Recent Activity Section */
+  .recent-activity {
+    margin-bottom: 2rem;
+  }
+  
+  .recent-activity h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #111827;
+    margin-bottom: 1rem;
+  }
+  
+  .activity-list {
+    background-color: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.5rem;
+    overflow: hidden;
+  }
+  
+  .activity-item {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    border-bottom: 1px solid #e5e7eb;
+  }
+  
+  .activity-item:last-child {
+    border-bottom: none;
+  }
+  
+  .activity-icon {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    margin-right: 1rem;
+  }
+  
+  .activity-icon.success {
+    background-color: #d1fae5;
+    color: #065f46;
+  }
+  
+  .activity-icon.warning {
+    background-color: #fee2e2;
+    color: #b91c1c;
+  }
+  
+  .activity-icon.info {
+    background-color: #e0f2fe;
+    color: #0369a1;
+  }
+  
+  .activity-details {
+    flex: 1;
+  }
+  
+  .activity-details p {
+    margin: 0 0 0.25rem 0;
+    font-size: 0.875rem;
+    color: #111827;
+  }
+  
+  .activity-meta {
+    font-size: 0.75rem;
+    color: #6b7280;
+  }
+  
+  /* Payment Features Grid */
+  .payments-features h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #111827;
+    margin-bottom: 1rem;
+  }
+  
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1rem;
+  }
+  
+  .feature-item {
+    background-color: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.5rem;
+    padding: 1.25rem;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  
+  .feature-item:hover {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+  }
+  
+  .feature-icon {
+    background-color: #f0fff4;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 0.375rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0.75rem;
+  }
+  
+  .feature-item h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #111827;
+    margin-bottom: 0.5rem;
+  }
+  
+  .feature-item p {
+    color: #6b7280;
+    font-size: 0.875rem;
+    margin: 0;
+  }
+  
+  /* Gateway Management */
+  .payments-gateways {
+    margin-bottom: 2rem;
+  }
+  
+  .gateways-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+  
+  .gateways-header h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #111827;
+    margin: 0;
+  }
+  
+  .gateway-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  
+  .gateway-item {
+    background-color: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .gateway-info {
+    display: flex;
+    align-items: center;
+  }
+  
+  .gateway-icon {
+    margin-right: 1rem;
+  }
+  
+  .gateway-info h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #111827;
+    margin: 0 0 0.25rem 0;
+  }
+  
+  .gateway-status {
+    font-size: 0.75rem;
+  }
+  
+  .gateway-status.connected {
+    color: #059669;
+  }
+  
+  .gateway-status.disconnected {
+    color: #6b7280;
+  }
+  
+  .gateway-actions {
+    display: flex;
+    gap: 0.5rem;
+  }
+  
+  .gateway-details {
+    background-color: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    margin-top: 1rem;
+  }
+  
+  .gateway-details h2 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #111827;
+    margin-bottom: 1rem;
+  }
+  
+  .copy-input {
+    display: flex;
+    align-items: center;
+  }
+  
+  .copy-input input {
+    flex: 1;
+    background-color: #fff;
+    cursor: not-allowed;
+  }
+  
+  /* Transactions Management */
+  .payments-transactions {
+    margin-bottom: 2rem;
+  }
+  
+  .transactions-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .transactions-header h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #111827;
+    margin: 0;
+  }
+  
+  .transactions-filters {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+  
+  .search-box {
+    position: relative;
+  }
+  
+  .search-box input {
+    padding-right: 2.5rem;
+  }
+  
+  .search-box svg {
+    position: absolute;
+    right: 0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #9ca3af;
+  }
+  
+  .transaction-list {
+    border: 1px solid #e5e7eb;
+    border-radius: 0.5rem;
+    overflow: hidden;
+  }
+  
+  .transaction-header {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr;
+    padding: 0.75rem 1rem;
+    background-color: #f9fafb;
+    font-weight: 600;
+    color: #4b5563;
+    font-size: 0.875rem;
+  }
+  
+  .transaction-item {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr;
+    padding: 0.75rem 1rem;
+    border-top: 1px solid #e5e7eb;
+    align-items: center;
+    font-size: 0.875rem;
+  }
+  
+  .payment-status {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 9999px;
+    display: inline-block;
+    text-align: center;
+    width: fit-content;
+  }
+  
+  .payment-status.successful {
+    background-color: #d1fae5;
+    color: #065f46;
+  }
+  
+  .payment-status.failed {
+    background-color: #fee2e2;
+    color: #b91c1c;
+  }
+  
+  .payment-status.pending {
+    background-color: #fef3c7;
+    color: #92400e;
+  }
+  
+  .transaction-actions {
+    display: flex;
+    gap: 0.5rem;
+  }
+  
+  /* Templates Management */
+  .payments-templates {
+    margin-bottom: 2rem;
+  }
+  
+  .templates-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+  
+  .templates-header h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #111827;
+    margin: 0;
+  }
+  
+  .template-list {
+    border: 1px solid #e5e7eb;
+    border-radius: 0.5rem;
+    overflow: hidden;
+  }
+  
+  .template-header {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    padding: 0.75rem 1rem;
+    background-color: #f9fafb;
+    font-weight: 600;
+    color: #4b5563;
+    font-size: 0.875rem;
+  }
+  
+  .template-item {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    padding: 0.75rem 1rem;
+    border-top: 1px solid #e5e7eb;
+    align-items: center;
+  }
+  
+  .template-status {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 9999px;
+    display: inline-block;
+    text-align: center;
+    width: fit-content;
+  }
+  
+  .template-status.approved {
+    background-color: #d1fae5;
+    color: #065f46;
+  }
+  
+  .template-status.pending {
+    background-color: #fef3c7;
+    color: #92400e;
+  }
+  
+  .template-actions {
+    display: flex;
+    gap: 0.5rem;
+  }
+  
+  /* Form Styles */
+  .gateway-form-container,
+  .template-form-container {
+    background-color: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+  }
+  
+  .gateway-form-container h2,
+  .template-form-container h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #111827;
+    margin-bottom: 1.5rem;
+  }
+  
+  .form-group {
+    margin-bottom: 1.25rem;
+  }
+  
+  .form-group label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #4b5563;
+    margin-bottom: 0.5rem;
+  }
+  
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    width: 100%;
+    padding: 0.625rem 0.75rem;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.375rem;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    border-color: #25D366;
+    box-shadow: 0 0 0 3px rgba(37, 211, 102, 0.1);
+  }
+  
+  .form-group.checkbox {
+    display: flex;
+    align-items: center;
+  }
+  
+  .form-group.checkbox input {
+    width: auto;
+    margin-right: 0.5rem;
+  }
+  
+  .form-group.checkbox label {
+    margin-bottom: 0;
+  }
+  
+  .radio-group {
+    display: flex;
+    gap: 1rem;
+  }
+  
+  .radio-item {
+    display: flex;
+    align-items: center;
+  }
+  
+  .radio-item input {
+    width: auto;
+    margin-right: 0.5rem;
+  }
+  
+  .radio-item label {
+    margin-bottom: 0;
+  }
+  
+  .file-upload {
+    position: relative;
+  }
+  
+  .file-upload input {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+  }
+  
+  .file-label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.625rem 1rem;
+    background-color: #f3f4f6;
+    border: 1px dashed #d1d5db;
+    border-radius: 0.375rem;
+    cursor: pointer;
+  }
+  
+  .template-variables {
+    margin-top: 0.5rem;
+  }
+  
+  .template-variables p {
+    font-size: 0.75rem;
+    color: #6b7280;
+    margin-bottom: 0.25rem;
+  }
+  
+  .variable-tag {
+    display: inline-block;
+    font-size: 0.75rem;
+    background-color: #f3f4f6;
+    color: #4b5563;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    margin-right: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+  }
+  
+  /* Button Styles */
+  .primary-button,
+  .secondary-button,
+  .button,
+  .icon-button,
+  .action-button {
+    font-size: 0.875rem;
+    font-weight: 500;
+    border-radius: 0.375rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    outline: none;
+    border: none;
+  }
+  
+  .primary-button {
+    background-color: #25D366;
+    color: white;
+    padding: 0.5rem 1rem;
+  }
+  
+  .primary-button:hover {
+    background-color: #22c55e;
+  }
+  
+  .secondary-button {
+    background-color: #f3f4f6;
+    color: #4b5563;
+    padding: 0.5rem 1rem;
+    border: 1px solid #d1d5db;
+  }
+  
+  .secondary-button:hover {
+    background-color: #e5e7eb;
+  }
+  
+  .button {
+    background-color: #f3f4f6;
+    color: #4b5563;
+    padding: 0.5rem 1rem;
+  }
+  
+  .button:hover {
+    background-color: #e5e7eb;
+  }
+  
+  .icon-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    color: #6b7280;
+    background-color: transparent;
+    border-radius: 50%;
+  }
+  
+  .icon-button:hover {
+    background-color: #f3f4f6;
+    color: #111827;
+  }
+  
+  .payments-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+    border-top: 1px solid #e5e7eb;
+    padding-top: 1.5rem;
+  }
+  
+  .action-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    text-decoration: none;
+    background-color: #f3f4f6;
+    color: #4b5563;
+    border: 1px solid #e5e7eb;
+    flex: 1;
+  }
+  
+  .action-button:hover {
+    background-color: #e5e7eb;
+  }
+  
+  .action-button.primary {
+    background-color: #25D366;
+    color: white;
+    border-color: #25D366;
+  }
+  
+  .action-button.primary:hover {
+    background-color: #22c55e;
+  }
+  
+  /* Responsive Adjustments */
+  @media (max-width: 768px) {
+    .payments-page {
+      padding: 1.5rem;
+    }
+    
+    .transaction-header,
+    .transaction-item {
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+    }
+    
+    .transaction-header span:nth-child(5),
+    .transaction-item span:nth-child(5) {
+      display: none;
+    }
+    
+    .template-header,
+    .template-item {
+      grid-template-columns: 2fr 1fr 1fr;
+    }
+    
+    .template-actions {
+      grid-column: span 3;
+      justify-content: flex-end;
+      padding-top: 0.5rem;
+    }
+    
+    .payments-actions {
+      flex-direction: column;
+    }
+  }
+  
+  @media (max-width: 640px) {
+    .payments-tabs {
+      overflow-x: auto;
+      padding-bottom: 0.5rem;
+    }
+    
+    .stat-card {
+      padding: 1rem;
+    }
+    
+    .transaction-header,
+    .transaction-item {
+      grid-template-columns: 2fr 1fr 1fr;
+    }
+    
+    .transaction-header span:nth-child(4),
+    .transaction-item span:nth-child(4) {
+      display: none;
+    }
+    
+    .transaction-actions {
+      grid-column: span 3;
+      justify-content: flex-end;
+      padding-top: 0.5rem;
+    }
+    
+    .template-header,
+    .template-item {
+      grid-template-columns: 1fr;
+      gap: 0.5rem;
+    }
+    
+    .template-header span:not(:first-child) {
+      display: none;
+    }
+  }

@@ -1,0 +1,835 @@
+/* src/pages/CRM/CRM.css */
+.crm-container {
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+  
+  .modal-header h2 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+    margin: 0;
+  }
+  
+  .close-button {
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: #666;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
+  }
+  
+  .close-button:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .modal-body {
+    padding: 20px;
+  }
+  
+  .contact-details-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 24px;
+    gap: 16px;
+  }
+  
+  .contact-details-info {
+    flex: 1;
+  }
+  
+  .contact-details-info h3 {
+    font-size: 20px;
+    font-weight: 600;
+    color: #333;
+    margin: 0 0 12px 0;
+  }
+  
+  .contact-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .contact-meta-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #666;
+  }
+  
+  .contact-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 12px;
+  }
+  
+  .tag {
+    padding: 4px 10px;
+    border-radius: 16px;
+    font-size: 12px;
+    background-color: #f0f0f0;
+    color: #666;
+  }
+  
+  .contact-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .contact-section {
+    margin-bottom: 24px;
+  }
+  
+  .contact-section h4 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+    margin: 0 0 12px 0;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  
+  .contact-notes {
+    font-size: 14px;
+    line-height: 1.5;
+    color: #333;
+  }
+  
+  .contact-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  
+  .stat-card {
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    padding: 16px;
+    text-align: center;
+  }
+  
+  .stat-value {
+    font-size: 24px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 4px;
+  }
+  
+  .stat-label {
+    font-size: 14px;
+    color: #666;
+  }
+  
+  .last-message {
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    padding: 16px;
+    font-style: italic;
+    color: #666;
+    position: relative;
+  }
+  
+  .no-data {
+    color: #999;
+    font-style: italic;
+    font-size: 14px;
+  }
+  
+  .empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 0;
+    color: #999;
+    text-align: center;
+  }
+  
+  .empty-state h3 {
+    margin: 16px 0 8px;
+    color: #666;
+  }
+  
+  /* Form styling for adding contacts */
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .form-group label {
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 8px;
+  }
+  
+  .form-group input,
+  .form-group textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    font-size: 14px;
+    transition: border-color 0.2s;
+  }
+  
+  .form-group input:focus,
+  .form-group textarea:focus {
+    border-color: #25D366;
+    outline: none;
+  }
+  
+  .required {
+    color: #f5222d;
+  }
+  
+  .tag-selection {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+  
+  .add-tag-button {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 8px 12px;
+    background-color: #f9f9f9;
+    border: 1px dashed #d9d9d9;
+    border-radius: 4px;
+    font-size: 14px;
+    color: #666;
+    cursor: pointer;
+  }
+  
+  .add-tag-button:hover {
+    color: #25D366;
+    border-color: #25D366;
+  }
+  
+  .new-tag-input {
+    display: flex;
+    align-items: center;
+    margin-top: 8px;
+  }
+  
+  .new-tag-input input {
+    flex: 1;
+    padding: 8px 12px;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px 0 0 4px;
+    font-size: 14px;
+  }
+  
+  .new-tag-actions {
+    display: flex;
+  }
+  
+  .tag-action-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border: 1px solid #e0e0e0;
+    background-color: white;
+    cursor: pointer;
+  }
+  
+  .tag-action-button.save {
+    color: #25D366;
+    border-right: none;
+    border-radius: 0;
+  }
+  
+  .tag-action-button.cancel {
+    color: #f5222d;
+    border-radius: 0 4px 4px 0;
+  }
+  
+  .form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 24px;
+    border-top: 1px solid #f0f0f0;
+    padding-top: 20px;
+  }
+  
+  /* Responsive styles */
+  @media (max-width: 768px) {
+    .crm-content {
+      flex-direction: column;
+      height: auto;
+    }
+    
+    .filter-sidebar {
+      width: 100%;
+      border-right: none;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 16px;
+    }
+    
+    .tag-list {
+      flex-direction: row;
+      flex-wrap: wrap;
+    }
+    
+    .contact-card {
+      flex-wrap: wrap;
+    }
+    
+    .contact-tag {
+      margin-left: 0;
+      margin-top: 8px;
+    }
+    
+    .contact-details-header {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    
+    .contact-actions {
+      flex-direction: row;
+      width: 100%;
+      margin-top: 16px;
+    }
+    
+    .form-actions {
+      flex-direction: column;
+    }
+    
+    .modal-content {
+      width: 100%;
+      max-width: 100%;
+      height: 100%;
+      max-height: 100%;
+      border-radius: 0;
+    }
+  }
+  }
+  
+  .crm-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 24px;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .crm-header h1 {
+    font-size: 24px;
+    font-weight: 600;
+    color: #333;
+    margin: 0;
+  }
+  
+  .crm-actions {
+    display: flex;
+    gap: 12px;
+  }
+  
+  .action-button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    border: 1px solid #e0e0e0;
+    background-color: white;
+    color: #666;
+    transition: all 0.2s ease;
+  }
+  
+  .action-button:hover {
+    background-color: #f5f5f5;
+  }
+  
+  .action-button.primary {
+    background-color: #25D366;
+    color: white;
+    border: none;
+  }
+  
+  .action-button.primary:hover {
+    background-color: #1da959;
+  }
+  
+  .crm-content {
+    display: flex;
+    height: calc(100vh - 120px); /* Adjust based on your header height */
+    overflow: hidden;
+  }
+  
+  .filter-sidebar {
+    width: 240px;
+    border-right: 1px solid #eee;
+    padding: 16px;
+    overflow-y: auto;
+  }
+  
+  .filter-section h3 {
+    font-size: 14px;
+    font-weight: 600;
+    color: #333;
+    margin-top: 0;
+    margin-bottom: 12px;
+  }
+  
+  .tag-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .tag-chip {
+    display: flex;
+    align-items: center;
+    padding: 8px 12px;
+    background-color: #f5f5f5;
+    border-radius: 4px;
+    font-size: 14px;
+    color: #666;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .tag-chip:hover {
+    background-color: #eee;
+  }
+  
+  .tag-chip.selected {
+    background-color: #25D366;
+    color: white;
+  }
+  
+  .reset-filters {
+    margin-top: 16px;
+    text-align: center;
+  }
+  
+  .reset-button {
+    background: none;
+    border: none;
+    color: #666;
+    font-size: 14px;
+    cursor: pointer;
+    text-decoration: underline;
+    padding: 4px 8px;
+  }
+  
+  .reset-button:hover {
+    color: #25D366;
+  }
+  
+  .contacts-content {
+    flex: 1;
+    padding: 16px 24px;
+    overflow-y: auto;
+  }
+  
+  .search-bar {
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+    gap: 12px;
+  }
+  
+  .search-box {
+    flex: 1;
+    position: relative;
+  }
+  
+  .search-icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #999;
+  }
+  
+  .search-box input {
+    width: 100%;
+    padding: 10px 10px 10px 40px;
+    border-radius: 4px;
+    border: 1px solid #e0e0e0;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s ease;
+  }
+  
+  .search-box input:focus {
+    border-color: #25D366;
+  }
+  
+  .contacts-count {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 12px;
+  }
+  
+  .contacts-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .contact-card {
+    display: flex;
+    align-items: center;
+    padding: 16px;
+    border-radius: 8px;
+    border: 1px solid #eee;
+    background-color: white;
+    transition: all 0.2s ease;
+    cursor: pointer;
+  }
+  
+  .contact-card:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  }
+  
+  .favorite-btn {
+    margin-right: 16px;
+    background: none;
+    border: none;
+    color: #ccc;
+    cursor: pointer;
+    transition: color 0.2s ease;
+  }
+  
+  .favorite-btn:hover, .favorite-btn.active {
+    color: #FFD700;
+  }
+  
+  .contact-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background-color: #f0f0f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 16px;
+    font-size: 18px;
+    font-weight: 500;
+    color: #666;
+  }
+  
+  .contact-avatar.large {
+    width: 64px;
+    height: 64px;
+    font-size: 24px;
+  }
+  
+  .contact-info {
+    flex: 1;
+  }
+  
+  .contact-name {
+    font-size: 16px;
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 4px;
+  }
+  
+  .contact-phone {
+    font-size: 14px;
+    color: #666;
+  }
+  
+  .contact-tag {
+    margin-left: auto;
+    padding: 4px 12px;
+    border-radius: 16px;
+    font-size: 12px;
+    font-weight: 500;
+    background-color: #f0f0f0;
+    color: #666;
+  }
+  
+  .tag-customer {
+    background-color: #e6f7ef;
+    color: #25D366;
+  }
+  
+  .tag-lead {
+    background-color: #e6f4ff;
+    color: #1890ff;
+  }
+  
+  .tag-hot-lead {
+    background-color: #fff2e6;
+    color: #fa8c16;
+  }
+  
+  .tag-enterprise {
+    background-color: #f9f0ff;
+    color: #722ed1;
+  }
+  
+  .tag-support {
+    background-color: #f5f5f5;
+    color: #8c8c8c;
+  }
+  
+  .tag-paid {
+    background-color: #f6ffed;
+    color: #52c41a;
+  }
+  
+  /* Contact details modal styles */
+  .contact-details-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .modal-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+  
+  .modal-content {
+    position: relative;
+    width: 600px;
+    max-width: 90%;
+    max-height: 90vh;
+    background-color: white;
+    border-radius: 8px;
+    overflow-y: auto;
+    z-index: 1001;
+  }
+  
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+    border-bottom: 1px solid #eee;
+    position: sticky;
+    top: 0;
+    background-color: white;
+    z-index: 1;
+  }
+
+
+  /* Add these styles to your CRM.css file */
+
+/* Import modal styles */
+.import-options {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .import-format-options {
+    display: flex;
+    gap: 24px;
+    margin-top: 8px;
+  }
+  
+  .radio-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+  }
+  
+  .radio-label input[type="radio"] {
+    margin: 0;
+  }
+  
+  .import-file-area {
+    margin-top: 8px;
+  }
+  
+  .file-drop-area {
+    border: 2px dashed #d9d9d9;
+    border-radius: 8px;
+    padding: 32px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #666;
+  }
+  
+  .file-drop-area:hover {
+    border-color: #25D366;
+    background-color: rgba(37, 211, 102, 0.05);
+  }
+  
+  .file-drop-area.has-file {
+    border-style: solid;
+    border-color: #25D366;
+    background-color: rgba(37, 211, 102, 0.05);
+  }
+  
+  .file-drop-area p {
+    margin: 12px 0 8px;
+    font-size: 16px;
+  }
+  
+  .file-format {
+    font-size: 12px;
+    color: #999;
+    margin-top: 4px;
+  }
+  
+  .selected-file {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .filename {
+    font-weight: 500;
+    margin-top: 8px;
+  }
+  
+  .filesize {
+    font-size: 12px;
+    color: #999;
+  }
+  
+  .import-errors {
+    background-color: #fff2f0;
+    border: 1px solid #ffccc7;
+    border-radius: 4px;
+    padding: 12px 16px;
+  }
+  
+  .error-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #f5222d;
+    font-weight: 500;
+    margin-bottom: 8px;
+  }
+  
+  .error-list {
+    margin: 0;
+    padding-left: 24px;
+    color: #666;
+    font-size: 14px;
+  }
+  
+  .error-list li {
+    margin-bottom: 4px;
+  }
+  
+  .import-preview {
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    padding: 16px;
+  }
+  
+  .import-preview h4 {
+    margin: 0 0 12px 0;
+    font-size: 14px;
+    font-weight: 600;
+    color: #333;
+  }
+  
+  .preview-contacts {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-height: 300px;
+    overflow-y: auto;
+  }
+  
+  .preview-contact {
+    display: flex;
+    align-items: center;
+    padding: 8px 12px;
+    background-color: white;
+    border-radius: 4px;
+    border: 1px solid #eee;
+  }
+  
+  .preview-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: #f0f0f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 12px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #666;
+  }
+  
+  .preview-details {
+    flex: 1;
+  }
+  
+  .preview-name {
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+  }
+  
+  .preview-phone, .preview-email {
+    font-size: 12px;
+    color: #666;
+  }
+  
+  .preview-tags {
+    display: flex;
+    gap: 4px;
+  }
+  
+  .preview-tag {
+    font-size: 10px;
+    padding: 2px 6px;
+    border-radius: 10px;
+    background-color: #f0f0f0;
+    color: #666;
+  }
+  
+  .preview-tag.more {
+    background-color: #eee;
+  }
+  
+  /* Tag class for imported contacts */
+  .tag-imported {
+    background-color: #e6f7ff;
+    color: #1890ff;
+  }

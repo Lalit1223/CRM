@@ -1,0 +1,368 @@
+/* src/pages/AutomationBuilder/AutomationWorkflow.css */
+
+.automation-workflow-container {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 60px);
+    background-color: #f5f7fb;
+  }
+  
+  .workflow-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    background-color: white;
+    border-bottom: 1px solid #e4e9f2;
+    height: 60px;
+  }
+  
+  .left-section {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  
+  .back-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    background: none;
+    border: none;
+    color: #5e636e;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .back-button:hover {
+    background-color: #f1f3f9;
+    color: #25D366;
+  }
+  
+  .automation-name-input {
+    font-size: 18px;
+    font-weight: 600;
+    padding: 8px 12px;
+    border: 1px solid transparent;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+  }
+  
+  .automation-name-input:focus {
+    outline: none;
+    border-color: #e4e9f2;
+    background-color: #f9fafc;
+  }
+  
+  .right-section {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  
+  .settings-button {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    color: #5e636e;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .settings-button:hover {
+    background-color: #f1f3f9;
+    color: #25D366;
+  }
+  
+  .test-button, .save-button {
+    height: 36px;
+    padding: 0 12px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .test-button {
+    background-color: white;
+    border: 1px solid #e4e9f2;
+    color: #5e636e;
+  }
+  
+  .test-button:hover {
+    background-color: #f1f3f9;
+    border-color: #d8dde6;
+  }
+  
+  .save-button {
+    background-color: #25D366;
+    border: 1px solid #25D366;
+    color: white;
+  }
+  
+  .save-button:hover {
+    background-color: #1da856;
+    border-color: #1da856;
+  }
+  
+  .save-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+  
+  /* Workflow Editor Layout */
+  .workflow-editor {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+  }
+  
+  .workflow-sidebar {
+    width: 240px;
+    background-color: white;
+    border-right: 1px solid #e4e9f2;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  
+  .sidebar-section {
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+  }
+  
+  .sidebar-section h3 {
+    font-size: 14px;
+    font-weight: 600;
+    color: #5e636e;
+    margin: 0 0 12px 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  
+  .action-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .action-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    border-radius: 6px;
+    background-color: #f9fafc;
+    border: 1px solid #e4e9f2;
+    cursor: grab;
+    transition: all 0.2s ease;
+  }
+  
+  .action-item:hover {
+    background-color: #f1f3f9;
+    transform: translateY(-2px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  }
+  
+  .action-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 6px;
+    background-color: #25D366;
+    color: white;
+  }
+  
+  .action-item span {
+    font-size: 14px;
+    font-weight: 500;
+  }
+  
+  /* Workflow Canvas */
+  .workflow-canvas {
+    flex: 1;
+    padding: 24px;
+    overflow: auto;
+    background-color: #f5f7fb;
+  }
+  
+  .workflow-steps {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .workflow-step {
+    background-color: white;
+    border-radius: 8px;
+    border: 1px solid #e4e9f2;
+    overflow: hidden;
+    transition: all 0.2s ease;
+  }
+  
+  .workflow-step.trigger {
+    border-left: 3px solid #ff9800;
+  }
+  
+  .step-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  
+  .step-header:hover {
+    background-color: #f9fafc;
+  }
+  
+  .step-header span {
+    font-weight: 500;
+  }
+  
+  .rotate {
+    transform: rotate(180deg);
+  }
+  
+  .trigger-options {
+    padding: 8px;
+    border-top: 1px solid #e4e9f2;
+  }
+  
+  .trigger-option {
+    padding: 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  
+  .trigger-option:hover {
+    background-color: #f1f3f9;
+  }
+  
+  .trigger-name {
+    font-weight: 500;
+    margin-bottom: 4px;
+  }
+  
+  .trigger-description {
+    font-size: 13px;
+    color: #8e96a3;
+  }
+  
+  .connector {
+    display: flex;
+    justify-content: center;
+    height: 40px;
+    position: relative;
+  }
+  
+  .connector-line {
+    width: 2px;
+    height: 100%;
+    background-color: #e4e9f2;
+  }
+  
+  .empty-step {
+    border: 2px dashed #e4e9f2;
+    background-color: #f9fafc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    margin-bottom: 24px;
+  }
+  
+  .empty-step-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #8e96a3;
+  }
+  
+  .plus-icon {
+    margin-bottom: 12px;
+    color: #25D366;
+  }
+  
+  .empty-step-content p {
+    margin: 0 0 8px 0;
+    font-weight: 500;
+  }
+  
+  .empty-step-content span {
+    margin-bottom: 8px;
+    font-size: 12px;
+  }
+  
+  .add-action-button {
+    padding: 8px 16px;
+    background-color: #25D366;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+  }
+  
+  .add-action-button:hover {
+    background-color: #1da856;
+  }
+  
+  /* Properties Panel */
+  .workflow-properties {
+    width: 300px;
+    background-color: white;
+    border-left: 1px solid #e4e9f2;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  
+  .properties-header {
+    padding: 16px;
+    border-bottom: 1px solid #e4e9f2;
+  }
+  
+  .properties-header h3 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+  }
+  
+  .properties-content {
+    flex: 1;
+    padding: 16px;
+    overflow-y: auto;
+  }
+  
+  .property-placeholder {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #8e96a3;
+    padding: 20px;
+  }
+  
+  .property-placeholder p {
+    max-width: 200px;
+    line-height: 1.5;
+  }

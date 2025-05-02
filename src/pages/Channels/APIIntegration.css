@@ -1,0 +1,393 @@
+/* src/pages/Channels/APIIntegration.css */
+
+.api-integration-container {
+    padding: 24px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  
+  .api-integration-container h1 {
+    font-size: 24px;
+    margin-bottom: 24px;
+    color: #333;
+  }
+  
+  .loading-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 48px 0;
+  }
+  
+  .loading-spinner {
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #25D366;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    animation: spin 1s linear infinite;
+    margin-bottom: 16px;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  .api-sections {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+  
+  .api-section {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 24px;
+  }
+  
+  .api-section h2 {
+    font-size: 20px;
+    margin-top: 0;
+    margin-bottom: 12px;
+    color: #333;
+  }
+  
+  .section-description {
+    margin-bottom: 24px;
+    font-size: 14px;
+    color: #666;
+    line-height: 1.5;
+  }
+  
+  .api-keys-info {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  
+  .api-key-item {
+    margin-bottom: 16px;
+  }
+  
+  .api-key-item label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #555;
+  }
+  
+  .masked-input,
+  .input-with-copy {
+    display: flex;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  
+  .masked-input input,
+  .input-with-copy input {
+    flex: 1;
+    padding: 10px 12px;
+    border: none;
+    font-size: 14px;
+    font-family: monospace;
+  }
+  
+  .masked-input input:focus,
+  .input-with-copy input:focus {
+    outline: none;
+  }
+  
+  .copy-btn {
+    padding: 0 12px;
+    background-color: #f5f5f5;
+    border: none;
+    border-left: 1px solid #ddd;
+    cursor: pointer;
+    font-size: 13px;
+    color: #555;
+  }
+  
+  .copy-btn:hover {
+    background-color: #e0e0e0;
+  }
+  
+  .api-info-note {
+    background-color: #f9f9f9;
+    border-left: 4px solid #25D366;
+    padding: 12px;
+    margin-top: 16px;
+    border-radius: 4px;
+  }
+  
+  .api-info-note p {
+    margin: 0;
+    font-size: 14px;
+    color: #555;
+    line-height: 1.5;
+  }
+  
+  .webhook-setup {
+    margin-top: 16px;
+  }
+  
+  .input-with-button {
+    display: flex;
+    margin-bottom: 16px;
+  }
+  
+  .input-with-button input {
+    flex: 1;
+    padding: 10px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px 0 0 4px;
+    font-size: 14px;
+  }
+  
+  .input-with-button input:focus {
+    border-color: #25D366;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(37, 211, 102, 0.2);
+  }
+  
+  .verify-btn {
+    padding: 0 16px;
+    background-color: #25D366;
+    color: white;
+    border: none;
+    border-radius: 0 4px 4px 0;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 14px;
+  }
+  
+  .verify-btn:disabled {
+    background-color: #a5d6a7;
+    cursor: not-allowed;
+  }
+  
+  .webhook-status {
+    margin-bottom: 16px;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+  
+  .webhook-status.verified {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+  }
+  
+  .webhook-code-examples {
+    margin-top: 24px;
+  }
+  
+  .webhook-code-examples h3 {
+    font-size: 16px;
+    margin-bottom: 16px;
+    color: #333;
+  }
+  
+  .code-tabs {
+    display: flex;
+    border-bottom: 1px solid #e0e0e0;
+    margin-bottom: 16px;
+  }
+  
+  .code-tab {
+    padding: 8px 16px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #666;
+    border-bottom: 2px solid transparent;
+  }
+  
+  .code-tab.active {
+    color: #25D366;
+    border-bottom-color: #25D366;
+    font-weight: 500;
+  }
+  
+  .code-content {
+    display: none;
+    position: relative;
+  }
+  
+  .code-content.active {
+    display: block;
+  }
+  
+  .code-block {
+    background-color: #f9f9f9;
+    padding: 16px;
+    border-radius: 4px;
+    overflow-x: auto;
+    font-family: monospace;
+    font-size: 13px;
+    line-height: 1.5;
+    color: #333;
+    margin: 0;
+    white-space: pre-wrap;
+  }
+  
+  .copy-code-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    padding: 4px 8px;
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 12px;
+    color: #555;
+    cursor: pointer;
+  }
+  
+  .test-message-form {
+    margin-top: 16px;
+  }
+  
+  .form-group {
+    margin-bottom: 16px;
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #555;
+  }
+  
+  .form-group input,
+  .form-group select {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+  
+  .form-group input:focus,
+  .form-group select:focus {
+    border-color: #25D366;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(37, 211, 102, 0.2);
+  }
+  
+  .template-variables {
+    background-color: #f9f9f9;
+    border-radius: 6px;
+    padding: 16px;
+    margin-top: 16px;
+  }
+  
+  .template-variables h3 {
+    font-size: 16px;
+    margin-top: 0;
+    margin-bottom: 16px;
+    color: #333;
+  }
+  
+  .variable-example {
+    font-size: 12px;
+    color: #777;
+    font-weight: normal;
+    margin-left: 8px;
+  }
+  
+  .send-test-btn {
+    padding: 10px 20px;
+    background-color: #25D366;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    margin-top: 16px;
+  }
+  
+  .send-test-btn:disabled {
+    background-color: #a5d6a7;
+    cursor: not-allowed;
+  }
+  
+  .test-result {
+    margin-top: 16px;
+    padding: 12px;
+    border-radius: 4px;
+  }
+  
+  .test-result p {
+    margin: 0 0 8px 0;
+    font-weight: 500;
+  }
+  
+  .test-result.success {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+  }
+  
+  .test-result.error {
+    background-color: #ffebee;
+    color: #c62828;
+  }
+  
+  .test-details {
+    font-size: 13px;
+    line-height: 1.4;
+  }
+  
+  .api-code-examples {
+    margin-top: 32px;
+  }
+  
+  .api-code-examples h3 {
+    font-size: 16px;
+    margin-bottom: 16px;
+    color: #333;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .api-integration-container {
+      padding: 16px;
+    }
+    
+    .api-keys-info {
+      grid-template-columns: 1fr;
+    }
+    
+    .masked-input,
+    .input-with-copy {
+      flex-direction: column;
+    }
+    
+    .copy-btn {
+      width: 100%;
+      border-left: none;
+      border-top: 1px solid #ddd;
+    }
+    
+    .input-with-button {
+      flex-direction: column;
+    }
+    
+    .input-with-button input {
+      border-radius: 4px;
+    }
+    
+    .verify-btn {
+      width: 100%;
+      margin-top: 8px;
+      border-radius: 4px;
+      padding: 8px 0;
+    }
+    
+    .code-block {
+      font-size: 12px;
+    }
+  }

@@ -17,17 +17,6 @@ const Header = () => {
   return (
     <div className="header">
       <div className="header-left">
-        <div className="navigation-buttons">
-          <button className="icon-button">
-            <ChevronLeft size={20} />
-          </button>
-          <button className="icon-button">
-            <ChevronRight size={20} />
-          </button>
-          <button className="icon-button">
-            <RefreshCw size={20} />
-          </button>
-        </div>
         <div className="address-bar">
           <img src={logo} alt="LG Media" className="logo" />
           <h1 className="app-title">Pixe</h1>
@@ -46,6 +35,24 @@ const Header = () => {
         <button className="help-button">
           <HelpCircle size={16} />
           <span>Get help</span>
+        </button>
+
+        <button
+          onClick={() => {
+            localStorage.removeItem("isLoggedIn");
+            window.location.href = "/login";
+          }}
+          style={{
+            marginLeft: "auto",
+            background: "#f45b69",
+            color: "white",
+            border: "none",
+            padding: "5px 10px",
+            borderRadius: "4px",
+            cursor: "pointer",
+          }}
+        >
+          Logout
         </button>
       </div>
     </div>

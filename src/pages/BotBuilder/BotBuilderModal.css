@@ -1,0 +1,271 @@
+/* Modal styles */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(23, 43, 77, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+  }
+  
+  .modal-container {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+    width: 90%;
+    max-width: 1000px;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 24px;
+    border-bottom: 1px solid #DFE1E6;
+  }
+  
+  .modal-header h3 {
+    margin: 0;
+    font-size: 1.3rem;
+    color: #172B4D;
+  }
+  
+  .modal-close {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    border-radius: 4px;
+    color: #6B778C;
+  }
+  
+  .modal-close:hover {
+    background-color: #F4F5F7;
+    color: #172B4D;
+  }
+  
+  .modal-content {
+    padding: 0;
+    overflow-y: auto;
+    flex: 1;
+  }
+  
+  .trigger-modal .modal-content {
+    padding: 0;
+  }
+  
+  /* Enhanced platform badge */
+  .platform-badge {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background-color: #F4F5F7;
+    padding: 4px 10px;
+    border-radius: 16px;
+    margin-left: 12px;
+    font-size: 0.85rem;
+    color: #42526E;
+  }
+  
+  /* Dropdown enhancements */
+  .dropdown-divider {
+    height: 1px;
+    background-color: #DFE1E6;
+    margin: 6px 0;
+  }
+  
+  .dropdown-header {
+    padding: 6px 12px;
+    font-size: 0.75rem;
+    color: #6B778C;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+  
+  .dropdown-content button.active {
+    background-color: #DEEBFF;
+    color: #0052CC;
+  }
+  
+  /* Trigger configuration panel */
+  .builder-main-content {
+    position: relative;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  
+  .trigger-configuration-panel {
+    padding: 24px;
+    overflow-y: auto;
+    height: 100%;
+  }
+  
+  .trigger-configuration-panel h2 {
+    margin-top: 0;
+    margin-bottom: 8px;
+    color: #172B4D;
+  }
+  
+  .configuration-description {
+    color: #6B778C;
+    margin-bottom: 24px;
+    max-width: 800px;
+  }
+  
+  .platform-selection {
+    margin-bottom: 24px;
+  }
+  
+  .platform-selection h3 {
+    margin-top: 0;
+    margin-bottom: 12px;
+    font-size: 1rem;
+    color: #172B4D;
+  }
+  
+  .platform-buttons {
+    display: flex;
+    gap: 12px;
+  }
+  
+  .platform-button.large {
+    padding: 12px 16px;
+    font-size: 1rem;
+  }
+  
+  .trigger-types-grid {
+    margin-bottom: 24px;
+  }
+  
+  .trigger-types-grid h3 {
+    margin-top: 0;
+    margin-bottom: 16px;
+    font-size: 1rem;
+    color: #172B4D;
+  }
+  
+  .configuration-actions {
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 16px;
+  }
+  
+  /* Triggers overview */
+  .triggers-overview {
+    background-color: #F4F5F7;
+    padding: 16px;
+    border-bottom: 1px solid #DFE1E6;
+  }
+  
+  .empty-triggers {
+    background-color: white;
+    border-radius: 8px;
+    padding: 24px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+  
+  .empty-icon {
+    background-color: #DEEBFF;
+    border-radius: 50%;
+    width: 64px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #0052CC;
+  }
+  
+  .empty-triggers h3 {
+    margin: 0;
+    color: #172B4D;
+  }
+  
+  .empty-triggers p {
+    margin-top: 0;
+    margin-bottom: 16px;
+    color: #6B778C;
+    max-width: 400px;
+  }
+  
+  .triggers-list {
+    background-color: white;
+    border-radius: 8px;
+    padding: 16px;
+  }
+  
+  .triggers-list h3 {
+    margin-top: 0;
+    margin-bottom: 16px;
+    font-size: 1rem;
+    color: #172B4D;
+  }
+  
+  .triggers-items {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  
+  .trigger-card {
+    border: 1px solid #DFE1E6;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  
+  .trigger-card-header {
+    display: flex;
+    align-items: center;
+    padding: 12px;
+    background-color: #F4F5F7;
+    gap: 12px;
+  }
+  
+  .trigger-details {
+    flex: 1;
+  }
+  
+  .trigger-name {
+    font-weight: 500;
+    color: #172B4D;
+  }
+  
+  .trigger-platform {
+    font-size: 0.8rem;
+    color: #6B778C;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 2px;
+  }
+  
+  .trigger-actions {
+    display: flex;
+    gap: 6px;
+  }
+  
+  .trigger-config-summary {
+    padding: 12px;
+    font-size: 0.9rem;
+  }
+  
+  .trigger-config-summary p {
+    margin: 4px 0;
+  }

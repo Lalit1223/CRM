@@ -20,7 +20,14 @@ import {
   Trash2,
   X,
   Upload,
+  Calendar,
+  User,
+  Paperclip,
+  Smile,
+  Image,
+  Phone,
 } from "lucide-react";
+
 import "./BroadcastList.css";
 
 const BroadcastList = () => {
@@ -31,12 +38,20 @@ const BroadcastList = () => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [newBroadcastName, setNewBroadcastName] = useState("");
   const [contactsFile, setContactsFile] = useState(null);
+  const [showBroadcastModal, setShowBroadcastModal] = useState(false);
+  const [messageText, setMessageText] = useState("");
+  const [scheduledDate, setScheduledDate] = useState("");
+  const [scheduledTime, setScheduledTime] = useState("");
+  const [isScheduled, setIsScheduled] = useState(false);
+  const [attachments, setAttachments] = useState([]);
+  const [isSending, setIsSending] = useState(false);
+  const attachmentInputRef = useRef(null);
 
   // Fixed: Removed the extra square brackets that caused the nested array
   const [broadcastLists, setBroadcastLists] = useState([
     {
       id: 1,
-      name: "AK GD 5 March",
+      name: "OneconnectX...",
       members: 39,
       date: "2025-03-05",
       message:
@@ -78,7 +93,7 @@ const BroadcastList = () => {
     },
     {
       id: 3,
-      name: "Abhi dnp",
+      name: "daily Message",
       members: 85,
       date: "2025-02-28",
       stats: {
@@ -96,29 +111,10 @@ const BroadcastList = () => {
         noResponsePercentage: 89.4,
       },
     },
+
     {
       id: 4,
-      name: "Gauri Test",
-      members: 1,
-      date: "2025-02-25",
-      stats: {
-        sent: 1,
-        sentPercentage: 100,
-        delivered: 1,
-        deliveredPercentage: 100,
-        unread: 0,
-        unreadPercentage: 0,
-        read: 1,
-        readPercentage: 100,
-        replied: 1,
-        repliedPercentage: 100,
-        noResponse: 0,
-        noResponsePercentage: 0,
-      },
-    },
-    {
-      id: 5,
-      name: "4 march 2025 gd 11:30",
+      name: "Pixie",
       members: 30,
       date: "2025-03-04",
       stats: {
@@ -133,46 +129,6 @@ const BroadcastList = () => {
         replied: 4,
         repliedPercentage: 13.3,
         noResponse: 26,
-        noResponsePercentage: 86.7,
-      },
-    },
-    {
-      id: 6,
-      name: "Test by Sahil",
-      members: 0,
-      date: "2025-02-22",
-      stats: {
-        sent: 0,
-        sentPercentage: 0,
-        delivered: 0,
-        deliveredPercentage: 0,
-        unread: 0,
-        unreadPercentage: 0,
-        read: 0,
-        readPercentage: 0,
-        replied: 0,
-        repliedPercentage: 0,
-        noResponse: 0,
-        noResponsePercentage: 0,
-      },
-    },
-    {
-      id: 7,
-      name: "Vishu test 2",
-      members: 15,
-      date: "2025-02-20",
-      stats: {
-        sent: 15,
-        sentPercentage: 100,
-        delivered: 14,
-        deliveredPercentage: 93.3,
-        unread: 10,
-        unreadPercentage: 66.7,
-        read: 4,
-        readPercentage: 26.7,
-        replied: 2,
-        repliedPercentage: 13.3,
-        noResponse: 13,
         noResponsePercentage: 86.7,
       },
     },
@@ -283,6 +239,105 @@ const BroadcastList = () => {
     if (file) {
       setContactsFile(file);
     }
+  };
+
+  // Add these functions to your BroadcastList component
+  // They're referenced in your JSX but are missing from your implementation
+
+  const handleAttachmentUpload = (e) => {
+    const files = Array.from(e.target.files);
+    if (files.length > 0) {
+      const newAttachments = files.map((file) => ({
+        id: Date.now() + Math.random().toString(36).substr(2, 9),
+        name: file.name,
+        type: file.type,
+        size: file.size,
+        file,
+      }));
+      setAttachments([...attachments, ...newAttachments]);
+    }
+  };
+
+  const removeAttachment = (id) => {
+    setAttachments(attachments.filter((attachment) => attachment.id !== id));
+  };
+
+  const getCurrentDateTime = () => {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, "0");
+    const day = String(now.getDate()).padStart(2, "0");
+    const hours = String(now.getHours()).padStart(2, "0");
+    const minutes = String(now.getMinutes()).padStart(2, "0");
+
+    return {
+      date: `${year}-${month}-${day}`,
+      time: `${hours}:${minutes}`,
+    };
+  };
+
+  const handleSendBroadcast = () => {
+    if (!messageText.trim() && attachments.length === 0) return;
+
+    // Set loading state
+    setIsSending(true);
+
+    // Simulate API call with setTimeout
+    setTimeout(() => {
+      // Create a new stats object for the broadcast
+      const newStats = {
+        sent: selectedBroadcast.members,
+        sentPercentage: 100,
+        delivered: 0,
+        deliveredPercentage: 0,
+        unread: selectedBroadcast.members,
+        unreadPercentage: 100,
+        read: 0,
+        readPercentage: 0,
+        replied: 0,
+        repliedPercentage: 0,
+        noResponse: selectedBroadcast.members,
+        noResponsePercentage: 100,
+      };
+
+      // Update the selected broadcast with the new message and stats
+      const updatedBroadcasts = broadcastLists.map((broadcast) => {
+        if (broadcast.id === selectedBroadcast.id) {
+          return {
+            ...broadcast,
+            message: messageText,
+            lastBroadcast: {
+              date: new Date().toISOString(),
+              scheduled: isScheduled
+                ? `${scheduledDate} ${scheduledTime}`
+                : null,
+            },
+            stats: newStats,
+          };
+        }
+        return broadcast;
+      });
+
+      // Update state
+      setBroadcastLists(updatedBroadcasts);
+      setSelectedBroadcast(
+        updatedBroadcasts.find((b) => b.id === selectedBroadcast.id)
+      );
+
+      // Reset form
+      setMessageText("");
+      setScheduledDate("");
+      setScheduledTime("");
+      setIsScheduled(false);
+      setAttachments([]);
+      setIsSending(false);
+
+      // Close modal
+      setShowBroadcastModal(false);
+
+      // Show success notification (you could add a toast notification here)
+      console.log("Broadcast message sent successfully!");
+    }, 2000);
   };
 
   return (
@@ -463,7 +518,23 @@ const BroadcastList = () => {
                   <Edit size={16} />
                   <span>Edit</span>
                 </button>
-                <button className="action-btn">
+                <button
+                  className="action-btn"
+                  onClick={() => {
+                    // Initialize with the current date and time
+                    const currentDateTime = getCurrentDateTime();
+                    setScheduledDate(currentDateTime.date);
+                    setScheduledTime(currentDateTime.time);
+
+                    // Set initial message text if the broadcast already has a message
+                    if (selectedBroadcast.message) {
+                      setMessageText(selectedBroadcast.message);
+                    }
+
+                    // Show the modal
+                    setShowBroadcastModal(true);
+                  }}
+                >
                   <Send size={16} />
                   <span>Broadcast Message</span>
                 </button>
@@ -620,6 +691,201 @@ const BroadcastList = () => {
               >
                 Delete
               </button>
+            </div>
+          </div>
+        </div>
+      )}
+      {/* Broadcast Message Modal */}
+      {showBroadcastModal && (
+        <div className="modal-overlay">
+          <div className="modal-container broadcast-modal">
+            <div className="modal-header">
+              <h3>Send Broadcast Message</h3>
+              <button
+                className="close-btn"
+                onClick={() => setShowBroadcastModal(false)}
+                disabled={isSending}
+              >
+                <X size={18} />
+              </button>
+            </div>
+
+            <div className="modal-content">
+              <div className="broadcast-info">
+                <div className="broadcast-detail">
+                  <Users size={16} />
+                  <span>
+                    Sending to <strong>{selectedBroadcast.name}</strong> (
+                    {selectedBroadcast.members} recipients)
+                  </span>
+                </div>
+              </div>
+
+              <div className="message-compose">
+                <textarea
+                  className="message-textarea"
+                  placeholder="Type your message here..."
+                  value={messageText}
+                  onChange={(e) => setMessageText(e.target.value)}
+                  disabled={isSending}
+                ></textarea>
+
+                <div className="compose-tools">
+                  <button
+                    className="tool-btn"
+                    onClick={() => attachmentInputRef.current.click()}
+                    disabled={isSending}
+                  >
+                    <Paperclip size={18} />
+                  </button>
+                  <button className="tool-btn" disabled={isSending}>
+                    <Image size={18} />
+                  </button>
+                  <button className="tool-btn" disabled={isSending}>
+                    <Smile size={18} />
+                  </button>
+                  <input
+                    type="file"
+                    multiple
+                    ref={attachmentInputRef}
+                    onChange={handleAttachmentUpload}
+                    style={{ display: "none" }}
+                  />
+                </div>
+
+                {attachments.length > 0 && (
+                  <div className="attachments-list">
+                    <h4>Attachments</h4>
+                    {attachments.map((attachment) => (
+                      <div key={attachment.id} className="attachment-item">
+                        <div className="attachment-info">
+                          <span className="attachment-name">
+                            {attachment.name}
+                          </span>
+                          <span className="attachment-size">
+                            {(attachment.size / 1024).toFixed(1)} KB
+                          </span>
+                        </div>
+                        <button
+                          className="remove-attachment"
+                          onClick={() => removeAttachment(attachment.id)}
+                          disabled={isSending}
+                        >
+                          <X size={14} />
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                <div className="scheduling-options">
+                  <div className="scheduling-toggle">
+                    <label className="toggle-switch">
+                      <input
+                        type="checkbox"
+                        checked={isScheduled}
+                        onChange={() => setIsScheduled(!isScheduled)}
+                        disabled={isSending}
+                      />
+                      <span className="toggle-slider"></span>
+                    </label>
+                    <span>Schedule for later</span>
+                  </div>
+
+                  {isScheduled && (
+                    <div className="schedule-inputs">
+                      <div className="input-group">
+                        <label>
+                          <Calendar size={16} />
+                          <span>Date</span>
+                        </label>
+                        <input
+                          type="date"
+                          value={scheduledDate}
+                          onChange={(e) => setScheduledDate(e.target.value)}
+                          min={getCurrentDateTime().date}
+                          disabled={isSending}
+                        />
+                      </div>
+
+                      <div className="input-group">
+                        <label>
+                          <Clock size={16} />
+                          <span>Time</span>
+                        </label>
+                        <input
+                          type="time"
+                          value={scheduledTime}
+                          onChange={(e) => setScheduledTime(e.target.value)}
+                          disabled={isSending}
+                        />
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                {/* Variables/placeholders section */}
+                <div className="variables-section">
+                  <h4>Available Variables</h4>
+                  <div className="variables-list">
+                    <button
+                      className="variable-btn"
+                      onClick={() => setMessageText(messageText + "{{Name}}")}
+                      disabled={isSending}
+                    >
+                      <User size={14} />
+                      <span>{"{{Name}}"}</span>
+                    </button>
+                    <button
+                      className="variable-btn"
+                      onClick={() => setMessageText(messageText + "{{Phone}}")}
+                      disabled={isSending}
+                    >
+                      <Phone size={14} />
+                      <span>{"{{Phone}}"}</span>
+                    </button>
+                  </div>
+                  <p className="help-text">
+                    Variables will be replaced with recipient data when the
+                    message is sent.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="modal-footer">
+              <div className="character-count">
+                {messageText.length}/1024 characters
+              </div>
+              <div className="action-buttons">
+                <button
+                  className="cancel-btn"
+                  onClick={() => setShowBroadcastModal(false)}
+                  disabled={isSending}
+                >
+                  Cancel
+                </button>
+                <button
+                  className="confirm-btn send-btn"
+                  onClick={handleSendBroadcast}
+                  disabled={
+                    isSending ||
+                    (!messageText.trim() && attachments.length === 0)
+                  }
+                >
+                  {isSending ? (
+                    <>
+                      <div className="loading-spinner"></div>
+                      <span>Sending...</span>
+                    </>
+                  ) : (
+                    <>
+                      <Send size={16} />
+                      <span>{isScheduled ? "Schedule" : "Send Now"}</span>
+                    </>
+                  )}
+                </button>
+              </div>
             </div>
           </div>
         </div>
