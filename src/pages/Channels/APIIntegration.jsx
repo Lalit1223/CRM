@@ -323,7 +323,7 @@ ${Object.entries(variablesObj)
       }
     );
     
-    console.log('Message sent successfully:', response.data);
+    // console.log('Message sent successfully:', response.data);
     return response.data;
   } catch (error) {
     console.error('Error sending message:', error.response?.data || error.message);

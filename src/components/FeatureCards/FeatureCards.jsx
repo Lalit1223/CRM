@@ -29,33 +29,16 @@ const FeatureCards = () => {
       buttonText: "Go To Unified Team Inbox",
       buttonLink: "/chats",
     },
-
     {
       id: 4,
-      icon: "bot",
-      title: "Bot Builder",
-      description: "Create chat bots with our Visual Flow Builder",
-      buttonText: "Go To Bot Builder",
-      buttonLink: "/bot-builder",
-    },
-    {
-      id: 5,
-      icon: "automation",
-      title: "Automation Builder",
-      description: "Drag-n-Drop Software Automation Builder.",
-      buttonText: "Go To Automations Builder",
-      buttonLink: "/automation-builder",
-    },
-    {
-      id: 6,
       icon: "whatsapp",
       title: "WhatsApp MiniApps",
       description: "Create WhatsApp Native Flows",
       buttonText: "Go To WhatsApp MiniApps",
-      buttonLink: "/whatsapp-miniapps",
+      buttonLink: "/workflow-builder",
     },
     {
-      id: 7,
+      id: 5,
       icon: "ecommerce",
       title: "Ecommerce",
       description: "One Stop Solution",
@@ -63,52 +46,36 @@ const FeatureCards = () => {
       buttonLink: "/ecommerce",
     },
     {
+      id: 6,
+      icon: "analytics",
+      title: "Analytics",
+      description: "Comprehensive analytics and reporting",
+      buttonText: "Go To Analytics",
+      buttonLink: "/analytics",
+    },
+    {
+      id: 7,
+      icon: "users",
+      title: "Agents",
+      description: "Manage and register agents",
+      buttonText: "Go To Agents",
+      buttonLink: "/agents",
+    },
+    {
       id: 8,
-      icon: "calendar",
-      title: "Calendar Bookings",
-      description: "Schedule And Manage Appointment Bookings Easily.",
-      buttonText: "Go To Calendar",
-      buttonLink: "/calendar",
+      icon: "campaign",
+      title: "Campaigns",
+      description: "Create and manage marketing campaigns",
+      buttonText: "Go To Campaigns",
+      buttonLink: "/campaigns",
     },
     {
       id: 9,
-      icon: "media",
-      title: "Media Manager",
-      description: "Media Manager Bot",
-      buttonText: "Go To Media Manager",
-      buttonLink: "/media-manager",
-    },
-    // {
-    //   id: 10,
-    //   icon: "rewards",
-    //   title: "Rewardz",
-    //   description: "Manage Reward Points",
-    //   buttonText: "Go To Rewardz",
-    //   buttonLink: "/rewards",
-    // },
-    {
-      id: 11,
-      icon: "chat",
-      title: "Chat Widget",
-      description: "Create Chat Widget for Your Website",
-      buttonText: "Go To Chat Widget",
-      buttonLink: "/chat-widget",
-    },
-    {
-      id: 12,
-      icon: "experiences",
-      title: "Dynamic Experiences",
-      description: "Dynamic Experiences",
-      buttonText: "Go To Dynamic Experiences",
-      buttonLink: "/dynamic-experiences",
-    },
-    {
-      id: 13,
-      icon: "payments",
-      title: "Payments",
-      description: "Manage Payments and Subscriptions",
-      buttonText: "Go To Payments",
-      buttonLink: "/payments",
+      icon: "catalog",
+      title: "Product Catalogs",
+      description: "Manage your product catalogs",
+      buttonText: "Go To Product Catalogs",
+      buttonLink: "/product-catalogs",
     },
   ];
 
@@ -215,57 +182,6 @@ const FeatureCards = () => {
             />
           </svg>
         );
-      case "bot":
-        return (
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <rect
-              x="3"
-              y="7"
-              width="18"
-              height="14"
-              rx="2"
-              stroke="#25D366"
-              strokeWidth="2"
-            />
-            <path
-              d="M8 12H8.01M12 12H12.01M16 12H16.01"
-              stroke="#25D366"
-              strokeWidth="2"
-              strokeLinecap="round"
-            />
-            <path
-              d="M16 3L12 7L8 3"
-              stroke="#25D366"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        );
-      case "automation":
-        return (
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M12 2L6 7M12 2L18 7M12 2V18M19 22H5"
-              stroke="#25D366"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        );
       case "whatsapp":
         return (
           <svg
@@ -323,81 +239,7 @@ const FeatureCards = () => {
             />
           </svg>
         );
-      case "calendar":
-        return (
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <rect
-              x="3"
-              y="4"
-              width="18"
-              height="18"
-              rx="2"
-              stroke="#25D366"
-              strokeWidth="2"
-            />
-            <path
-              d="M16 2V6"
-              stroke="#25D366"
-              strokeWidth="2"
-              strokeLinecap="round"
-            />
-            <path
-              d="M8 2V6"
-              stroke="#25D366"
-              strokeWidth="2"
-              strokeLinecap="round"
-            />
-            <path
-              d="M3 10H21"
-              stroke="#25D366"
-              strokeWidth="2"
-              strokeLinecap="round"
-            />
-            <path
-              d="M8 14H8.01"
-              stroke="#25D366"
-              strokeWidth="2"
-              strokeLinecap="round"
-            />
-            <path
-              d="M12 14H12.01"
-              stroke="#25D366"
-              strokeWidth="2"
-              strokeLinecap="round"
-            />
-            <path
-              d="M16 14H16.01"
-              stroke="#25D366"
-              strokeWidth="2"
-              strokeLinecap="round"
-            />
-            <path
-              d="M8 18H8.01"
-              stroke="#25D366"
-              strokeWidth="2"
-              strokeLinecap="round"
-            />
-            <path
-              d="M12 18H12.01"
-              stroke="#25D366"
-              strokeWidth="2"
-              strokeLinecap="round"
-            />
-            <path
-              d="M16 18H16.01"
-              stroke="#25D366"
-              strokeWidth="2"
-              strokeLinecap="round"
-            />
-          </svg>
-        );
-      case "media":
+      case "analytics":
         return (
           <svg
             width="24"
@@ -407,17 +249,21 @@ const FeatureCards = () => {
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
-              d="M19 3H5C3.89543 3 3 3.89543 3 5V19C3 20.1046 3.89543 21 5 21H19C20.1046 21 21 20.1046 21 19V5C21 3.89543 20.1046 3 19 3Z"
+              d="M18 20V10"
               stroke="#25D366"
               strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             />
             <path
-              d="M8.5 10C9.32843 10 10 9.32843 10 8.5C10 7.67157 9.32843 7 8.5 7C7.67157 7 7 7.67157 7 8.5C7 9.32843 7.67157 10 8.5 10Z"
+              d="M12 20V4"
               stroke="#25D366"
               strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             />
             <path
-              d="M21 15L16 10L5 21"
+              d="M6 20V14"
               stroke="#25D366"
               strokeWidth="2"
               strokeLinecap="round"
@@ -425,7 +271,7 @@ const FeatureCards = () => {
             />
           </svg>
         );
-      case "rewards":
+      case "users":
         return (
           <svg
             width="24"
@@ -435,67 +281,28 @@ const FeatureCards = () => {
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
-              d="M12 15C15.866 15 19 11.866 19 8C19 4.13401 15.866 1 12 1C8.13401 1 5 4.13401 5 8C5 11.866 8.13401 15 12 15Z"
+              d="M17 21V19C17 17.9391 16.5786 16.9217 15.8284 16.1716C15.0783 15.4214 14.0609 15 13 15H5C3.93913 15 2.92172 15.4214 2.17157 16.1716C1.42143 16.9217 1 17.9391 1 19V21"
               stroke="#25D366"
               strokeWidth="2"
               strokeLinecap="round"
               strokeLinejoin="round"
             />
             <path
-              d="M8.21 13.89L7 22.99L12 19.99L17 22.99L15.79 13.88"
-              stroke="#25D366"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        );
-      case "chat":
-        return (
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M21 12C21 16.9706 16.9706 21 12 21C10.7282 21 9.52224 20.7439 8.42883 20.2786C8.29851 20.2274 8.1563 20.216 8.01909 20.2456L3.64322 21.108C3.12475 21.2055 2.79449 20.8752 2.89197 20.3568L3.7544 15.9809C3.78403 15.8437 3.7726 15.7015 3.72143 15.5712C3.25608 14.4778 3 13.2718 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z"
+              d="M9 11C11.2091 11 13 9.20914 13 7C13 4.79086 11.2091 3 9 3C6.79086 3 5 4.79086 5 7C5 9.20914 6.79086 11 9 11Z"
               stroke="#25D366"
               strokeWidth="2"
               strokeLinecap="round"
               strokeLinejoin="round"
             />
             <path
-              d="M8 10.5H16"
+              d="M23 21V19C22.9993 18.1136 22.7044 17.2527 22.1614 16.5522C21.6184 15.8517 20.8581 15.3515 20 15.1299"
               stroke="#25D366"
               strokeWidth="2"
               strokeLinecap="round"
+              strokeLinejoin="round"
             />
             <path
-              d="M8 14H13"
-              stroke="#25D366"
-              strokeWidth="2"
-              strokeLinecap="round"
-            />
-          </svg>
-        );
-      case "experiences":
-        return (
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
-              stroke="#25D366"
-              strokeWidth="2"
-            />
-            <path
-              d="M7.5 12L10.5 15L16.5 9"
+              d="M16 3.12988C16.8604 3.35018 17.623 3.85058 18.1676 4.55219C18.7122 5.2538 19.0078 6.11671 19.0078 7.00488C19.0078 7.89305 18.7122 8.75596 18.1676 9.45757C17.623 10.1592 16.8604 10.6596 16 10.8799"
               stroke="#25D366"
               strokeWidth="2"
               strokeLinecap="round"
@@ -503,7 +310,7 @@ const FeatureCards = () => {
             />
           </svg>
         );
-      case "payments":
+      case "campaign":
         return (
           <svg
             width="24"
@@ -512,21 +319,58 @@ const FeatureCards = () => {
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <rect
-              x="2"
-              y="5"
-              width="20"
-              height="14"
-              rx="2"
-              stroke="#25D366"
-              strokeWidth="2"
-            />
-            <path d="M2 10H22" stroke="#25D366" strokeWidth="2" />
             <path
-              d="M6 15H10"
+              d="M3 3V21H21"
               stroke="#25D366"
               strokeWidth="2"
               strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+            <path
+              d="M7 14L11 10L15 14L21 8"
+              stroke="#25D366"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+            <path
+              d="M21 12V8H17"
+              stroke="#25D366"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        );
+      case "catalog":
+        return (
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M21 16V8.00002C20.9996 7.6493 20.9071 7.30483 20.7315 7.00119C20.556 6.69754 20.3037 6.44539 20 6.27002L13 2.27002C12.696 2.09449 12.3511 2.00229 12 2.00229C11.6489 2.00229 11.304 2.09449 11 2.27002L4 6.27002C3.69626 6.44539 3.44398 6.69754 3.26846 7.00119C3.09294 7.30483 3.00036 7.6493 3 8.00002V16C3.00036 16.3508 3.09294 16.6952 3.26846 16.9989C3.44398 17.3025 3.69626 17.5547 4 17.73L11 21.73C11.304 21.9056 11.6489 21.9978 12 21.9978C12.3511 21.9978 12.696 21.9056 13 21.73L20 17.73C20.3037 17.5547 20.556 17.3025 20.7315 16.9989C20.9071 16.6952 20.9996 16.3508 21 16Z"
+              stroke="#25D366"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+            <path
+              d="M3.27002 6.96002L12 12L20.73 6.96002"
+              stroke="#25D366"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+            <path
+              d="M12 22.08V12"
+              stroke="#25D366"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             />
           </svg>
         );

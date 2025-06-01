@@ -151,7 +151,7 @@ export const ChatProvider = ({ children }) => {
     // Function to send a message in a chat
     sendMessage: async (chatId, message) => {
       // This would be replaced with an actual API call
-      console.log(`Sending message to chat ${chatId}: ${message}`);
+      // console.log(`Sending message to chat ${chatId}: ${message}`);
 
       // Optimistically update the UI
       const updatedChats = chats.map((chat) => {
@@ -174,7 +174,7 @@ export const ChatProvider = ({ children }) => {
     // Function to assign a chat to the current user
     assignChat: async (chatId) => {
       // This would be replaced with an actual API call
-      console.log(`Assigning chat ${chatId} to current user`);
+      // console.log(`Assigning chat ${chatId} to current user`);
 
       // Optimistically update the UI
       const updatedChats = chats.map((chat) => {
@@ -193,7 +193,7 @@ export const ChatProvider = ({ children }) => {
     // Function to mark a chat as done
     markAsDone: async (chatId) => {
       // This would be replaced with an actual API call
-      console.log(`Marking chat ${chatId} as done`);
+      // console.log(`Marking chat ${chatId} as done`);
 
       // Optimistically update the UI
       const updatedChats = chats.map((chat) => {
@@ -212,27 +212,27 @@ export const ChatProvider = ({ children }) => {
     // Function to trigger a chatbot for a contact
     triggerBot: async (chatId, botId, triggerNow = false) => {
       // This would be replaced with an actual API call
-      console.log(
-        `Assigning bot ${botId} to chat ${chatId}. Trigger immediately: ${triggerNow}`
-      );
+      // console.log(
+      //   `Assigning bot ${botId} to chat ${chatId}. Trigger immediately: ${triggerNow}`
+      // );
     },
     // Function to add a chat note
     addChatNote: async (chatId, note) => {
       // This would be replaced with an actual API call
-      console.log(`Adding note to chat ${chatId}: ${note}`);
+      // console.log(`Adding note to chat ${chatId}: ${note}`);
     },
     // Function to send a canned reply
     sendCannedReply: async (chatId, replyId) => {
       // This would be replaced with an actual API call
-      console.log(`Sending canned reply ${replyId} to chat ${chatId}`);
+      // console.log(`Sending canned reply ${replyId} to chat ${chatId}`);
     },
     // Function to send a template message (required after 24h)
     sendTemplateMessage: async (chatId, templateId, variables) => {
       // This would be replaced with an actual API call
-      console.log(
-        `Sending template ${templateId} to chat ${chatId} with variables:`,
-        variables
-      );
+      // console.log(
+      //   `Sending template ${templateId} to chat ${chatId} with variables:`,
+      //   variables
+      // );
     },
   };
 

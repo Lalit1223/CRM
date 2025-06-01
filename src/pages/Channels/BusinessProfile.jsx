@@ -78,7 +78,7 @@ const BusinessProfile = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     // Process form data and update business profile
-    console.log("Updated profile:", profile);
+    //console.log("Updated profile:", profile);
     // API call to update profile would go here
 
     // Show success message

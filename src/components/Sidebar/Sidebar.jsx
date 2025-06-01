@@ -61,6 +61,141 @@ const Sidebar = ({ onMouseEnter, onMouseLeave }) => {
             />
           </svg>
         );
+      case "users":
+        return (
+          <svg
+            width="22"
+            height="22"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M17 21V19C17 17.9391 16.5786 16.9217 15.8284 16.1716C15.0783 15.4214 14.0609 15 13 15H5C3.93913 15 2.92172 15.4214 2.17157 16.1716C1.42143 16.9217 1 17.9391 1 19V21"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+            <path
+              d="M9 11C11.2091 11 13 9.20914 13 7C13 4.79086 11.2091 3 9 3C6.79086 3 5 4.79086 5 7C5 9.20914 6.79086 11 9 11Z"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+            <path
+              d="M23 21V19C22.9993 18.1136 22.7044 17.2527 22.1614 16.5522C21.6184 15.8517 20.8581 15.3515 20 15.1299"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+            <path
+              d="M16 3.12988C16.8604 3.35018 17.623 3.85058 18.1676 4.55219C18.7122 5.2538 19.0078 6.11671 19.0078 7.00488C19.0078 7.89305 18.7122 8.75596 18.1676 9.45757C17.623 10.1592 16.8604 10.6596 16 10.8799"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        );
+      case "campaign":
+        return (
+          <svg
+            width="22"
+            height="22"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M3 3V21H21"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+            <path
+              d="M7 14L11 10L15 14L21 8"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+            <path
+              d="M21 12V8H17"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        );
+      case "products":
+        return (
+          <svg
+            width="22"
+            height="22"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M19 3H5C3.89543 3 3 3.89543 3 5V19C3 20.1046 3.89543 21 5 21H19C20.1046 21 21 20.1046 21 19V5C21 3.89543 20.1046 3 19 3Z"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+            <path
+              d="M3 9H21"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+            <path
+              d="M9 21V9"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        );
+      case "catalog":
+        return (
+          <svg
+            width="22"
+            height="22"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M21 16V8.00002C20.9996 7.6493 20.9071 7.30483 20.7315 7.00119C20.556 6.69754 20.3037 6.44539 20 6.27002L13 2.27002C12.696 2.09449 12.3511 2.00229 12 2.00229C11.6489 2.00229 11.304 2.09449 11 2.27002L4 6.27002C3.69626 6.44539 3.44398 6.69754 3.26846 7.00119C3.09294 7.30483 3.00036 7.6493 3 8.00002V16C3.00036 16.3508 3.09294 16.6952 3.26846 16.9989C3.44398 17.3025 3.69626 17.5547 4 17.73L11 21.73C11.304 21.9056 11.6489 21.9978 12 21.9978C12.3511 21.9978 12.696 21.9056 13 21.73L20 17.73C20.3037 17.5547 20.556 17.3025 20.7315 16.9989C20.9071 16.6952 20.9996 16.3508 21 16Z"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+            <path
+              d="M3.27002 6.96002L12 12L20.73 6.96002"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+            <path
+              d="M12 22.08V12"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        );
       case "channels":
         return (
           <svg
@@ -167,174 +302,6 @@ const Sidebar = ({ onMouseEnter, onMouseLeave }) => {
             />
           </svg>
         );
-      case "bot":
-        return (
-          <svg
-            width="22"
-            height="22"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <rect
-              x="3"
-              y="7"
-              width="18"
-              height="14"
-              rx="2"
-              stroke="currentColor"
-              strokeWidth="2"
-            />
-            <path
-              d="M8 12H8.01M12 12H12.01M16 12H16.01"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-            />
-            <path
-              d="M16 3L12 7L8 3"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        );
-      case "broadcast":
-        return (
-          <svg
-            width="22"
-            height="22"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <circle
-              cx="12"
-              cy="12"
-              r="2"
-              stroke="currentColor"
-              strokeWidth="2"
-            />
-            <path
-              d="M16.24 7.76C17.3226 8.84302 17.9359 10.2932 17.9359 11.8C17.9359 13.3068 17.3226 14.757 16.24 15.84"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-            <path
-              d="M19.07 4.93C20.9447 6.80528 21.9774 9.34836 21.9774 12C21.9774 14.6516 20.9447 17.1947 19.07 19.07"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-            <path
-              d="M7.76 16.24C6.67698 15.157 6.06373 13.7068 6.06373 12.2C6.06373 10.6932 6.67698 9.24302 7.76 8.16"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-            <path
-              d="M4.93 19.07C3.05529 17.1947 2.02255 14.6516 2.02255 12C2.02255 9.34836 3.05529 6.80528 4.93 4.93"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        );
-      case "customers":
-        return (
-          <svg
-            width="22"
-            height="22"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M17 21V19C17 17.9391 16.5786 16.9217 15.8284 16.1716C15.0783 15.4214 14.0609 15 13 15H5C3.93913 15 2.92172 15.4214 2.17157 16.1716C1.42143 16.9217 1 17.9391 1 19V21"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-            <path
-              d="M9 11C11.2091 11 13 9.20914 13 7C13 4.79086 11.2091 3 9 3C6.79086 3 5 4.79086 5 7C5 9.20914 6.79086 11 9 11Z"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-            <path
-              d="M23 20.9999V18.9999C22.9993 18.1136 22.7044 17.2527 22.1614 16.5522C21.6184 15.8517 20.8581 15.3515 20 15.1299"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-            <path
-              d="M16 3.12988C16.8604 3.35018 17.623 3.85058 18.1676 4.55219C18.7122 5.2538 19.0078 6.11671 19.0078 7.00488C19.0078 7.89305 18.7122 8.75596 18.1676 9.45757C17.623 10.1592 16.8604 10.6596 16 10.8799"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        );
-      case "analytics":
-        return (
-          <svg
-            width="22"
-            height="22"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M18 20V10"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-            <path
-              d="M12 20V4"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-            <path
-              d="M6 20V14"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        );
-      case "automation":
-        return (
-          <svg
-            width="22"
-            height="22"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M12 2L6 7M12 2L18 7M12 2V18M19 22H5"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        );
       case "whatsapp-miniapps":
         return (
           <svg
@@ -392,7 +359,7 @@ const Sidebar = ({ onMouseEnter, onMouseLeave }) => {
             />
           </svg>
         );
-      case "media":
+      case "analytics":
         return (
           <svg
             width="22"
@@ -402,51 +369,25 @@ const Sidebar = ({ onMouseEnter, onMouseLeave }) => {
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
-              d="M19 3H5C3.89543 3 3 3.89543 3 5V19C3 20.1046 3.89543 21 5 21H19C20.1046 21 21 20.1046 21 19V5C21 3.89543 20.1046 3 19 3Z"
-              stroke="currentColor"
-              strokeWidth="2"
-            />
-            <path
-              d="M8.5 10C9.32843 10 10 9.32843 10 8.5C10 7.67157 9.32843 7 8.5 7C7.67157 7 7 7.67157 7 8.5C7 9.32843 7.67157 10 8.5 10Z"
-              stroke="currentColor"
-              strokeWidth="2"
-            />
-            <path
-              d="M21 15L16 10L5 21"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        );
-      case "chat":
-        return (
-          <svg
-            width="22"
-            height="22"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M21 12C21 16.9706 16.9706 21 12 21C10.7282 21 9.52224 20.7439 8.42883 20.2786C8.29851 20.2274 8.1563 20.216 8.01909 20.2456L3.64322 21.108C3.12475 21.2055 2.79449 20.8752 2.89197 20.3568L3.7544 15.9809C3.78403 15.8437 3.7726 15.7015 3.72143 15.5712C3.25608 14.4778 3 13.2718 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z"
+              d="M18 20V10"
               stroke="currentColor"
               strokeWidth="2"
               strokeLinecap="round"
               strokeLinejoin="round"
             />
             <path
-              d="M8 10.5H16"
+              d="M12 20V4"
               stroke="currentColor"
               strokeWidth="2"
               strokeLinecap="round"
+              strokeLinejoin="round"
             />
             <path
-              d="M8 14H13"
+              d="M6 20V14"
               stroke="currentColor"
               strokeWidth="2"
               strokeLinecap="round"
+              strokeLinejoin="round"
             />
           </svg>
         );
@@ -489,26 +430,19 @@ const Sidebar = ({ onMouseEnter, onMouseLeave }) => {
 
   const menuItems = [
     { path: "/", name: "Home", icon: "home" },
+    { path: "/agents", name: "Agents", icon: "users" },
+    { path: "/campaigns", name: "Campaigns", icon: "campaign" },
+    { path: "/ecommerce", name: "Products", icon: "products" },
+    { path: "/product-catalogs", name: "Product Catalogs", icon: "catalog" },
     { path: "/channels", name: "Social Channels", icon: "channels" },
     { path: "/chats", name: "Chats", icon: "chats" },
     { path: "/crm", name: "CRM", icon: "crm" },
-    { path: "/bot-builder", name: "Bot Builder", icon: "bot" },
     {
-      path: "/automation-builder",
-      name: "Automation Builder",
-      icon: "automation",
-    },
-    {
-      path: "/whatsapp-miniapps",
-      name: "WhatsApp MiniApps",
+      path: "/workflow-builder",
+      name: "Whatsapp MiniApps",
       icon: "whatsapp-miniapps",
     },
-    { path: "/ecommerce", name: "Ecommerce", icon: "ecommerce" },
-    { path: "/broadcast-list", name: "Broadcast List", icon: "broadcast" },
-    { path: "/customers", name: "Customers", icon: "customers" },
-    { path: "/analytics", name: "Analytics", icon: "analytics", badge: "BETA" },
-    { path: "/media-manager", name: "Media Manager", icon: "media" },
-    { path: "/chat-widget", name: "Chat Widget", icon: "chat" },
+    { path: "/analytics", name: "Analytics", icon: "analytics" },
   ];
 
   // Don't render sidebar on login page

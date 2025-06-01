@@ -1,0 +1,577 @@
+/* src/pages/Campaigns/CampaignsList.css */
+.campaigns-list-container {
+  padding: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.campaigns-list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.header-left h1 {
+  font-size: 24px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.header-left p {
+  color: #666;
+  font-size: 14px;
+}
+
+.add-campaign-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #25D366;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.add-campaign-button:hover {
+  background-color: #128C7E;
+}
+
+.error-message {
+  background-color: #ffebee;
+  color: #f44336;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.campaigns-list-filters {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.search-filter {
+  flex: 1;
+  min-width: 250px;
+}
+
+/* Proper search input container positioning */
+.search-input-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+/* Proper search icon positioning to prevent overlapping */
+.search-input-container .search-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #9e9e9e;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Proper input padding to prevent text overlap with icon */
+.search-input-container .search-input {
+  width: 100%;
+  padding: 10px 10px 10px 40px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 14px;
+  height: 40px;
+  line-height: normal;
+  position: relative;
+  background-color: white;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.search-input:focus {
+  border-color: #25D366;
+  box-shadow: 0 0 0 3px rgba(37, 211, 102, 0.1);
+  outline: none;
+}
+
+.filters {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* Proper filter group positioning */
+.filter-group {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+/* Proper filter icon positioning */
+.filter-group .filter-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #9e9e9e;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Proper filter select left padding */
+.filter-group .filter-select {
+  padding: 8px 8px 8px 36px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 14px;
+  height: 40px;
+  background-color: white;
+  cursor: pointer;
+  min-width: 160px;
+  position: relative;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.filter-select:focus {
+  border-color: #25D366;
+  box-shadow: 0 0 0 3px rgba(37, 211, 102, 0.1);
+  outline: none;
+}
+
+.refresh-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: none;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  color: #666;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.refresh-button:hover {
+  background-color: #f5f5f5;
+  border-color: #d0d0d0;
+}
+
+.campaigns-table-container {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  margin-bottom: 24px;
+}
+
+.loading-indicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+}
+
+.loading-indicator .spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid rgba(37, 211, 102, 0.1);
+  border-radius: 50%;
+  border-top-color: #25D366;
+  animation: spin 1s ease-in-out infinite;
+  margin-bottom: 16px;
+}
+
+.loading-indicator p {
+  color: #666;
+  font-size: 14px;
+}
+
+.no-campaigns {
+  padding: 40px;
+  text-align: center;
+}
+
+.no-campaigns p {
+  color: #666;
+  margin-bottom: 20px;
+}
+
+/* Campaigns table */
+.campaigns-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.campaigns-table th {
+  text-align: left;
+  padding: 16px;
+  font-weight: 600;
+  color: #333;
+  border-bottom: 1px solid #e0e0e0;
+  background-color: #f9f9f9;
+  font-size: 14px;
+}
+
+.campaigns-table td {
+  padding: 16px;
+  border-bottom: 1px solid #e0e0e0;
+  color: #333;
+  font-size: 14px;
+  vertical-align: top;
+}
+
+.campaign-name {
+  min-width: 200px;
+}
+
+.campaign-title {
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.campaign-description {
+  font-size: 12px;
+  color: #666;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  max-width: 300px;
+}
+
+/* Budget and schedule formatting */
+.budget-info, .schedule-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 13px;
+}
+
+/* Status badges */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.status-badge .status-icon {
+  display: flex;
+  align-items: center;
+}
+
+.status-badge.submitted {
+  background-color: #e3f2fd;
+  color: #1976d2;
+}
+
+.status-badge.approved {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+}
+
+.status-badge.rejected {
+  background-color: #ffebee;
+  color: #c62828;
+}
+
+.status-badge.running {
+  background-color: #e0f7fa;
+  color: #00838f;
+}
+
+.status-badge.paused {
+  background-color: #fff8e1;
+  color: #f57f17;
+}
+
+.status-badge.completed {
+  background-color: #f3e5f5;
+  color: #7b1fa2;
+}
+
+/* Objective badges */
+.objective-badge {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+.objective-badge.awareness {
+  background-color: #e0f7fa;
+  color: #00838f;
+}
+
+.objective-badge.consideration {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+}
+
+.objective-badge.conversions {
+  background-color: #f3e5f5;
+  color: #7b1fa2;
+}
+
+.objective-badge.traffic {
+  background-color: #e3f2fd;
+  color: #1976d2;
+}
+
+.objective-badge.engagement {
+  background-color: #fff8e1;
+  color: #f57f17;
+}
+
+/* Action cell styling */
+.action-cell {
+  position: relative;
+}
+
+.action-menu-button {
+  background: none;
+  border: none;
+  color: #666;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.action-menu-button:hover {
+  background-color: #f5f5f5;
+}
+
+.action-dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  z-index: 10;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  min-width: 150px;
+  overflow: hidden;
+}
+
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  text-align: left;
+  padding: 10px 12px;
+  background: none;
+  border: none;
+  font-size: 14px;
+  color: #333;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.dropdown-item:hover {
+  background-color: #f5f5f5;
+}
+
+.dropdown-item.delete {
+  color: #f44336;
+}
+
+.dropdown-item.delete:hover {
+  background-color: #ffebee;
+}
+
+/* Pagination styling */
+.pagination-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 8px;
+  font-size: 14px;
+  gap: 16px;
+}
+
+.pagination-info {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  color: #666;
+}
+
+.pagination-limit {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.limit-select {
+  padding: 6px 8px;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  font-size: 14px;
+  background-color: white;
+}
+
+.pagination-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pagination-button {
+  padding: 6px 12px;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  background-color: white;
+  color: #333;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.pagination-button:hover:not(:disabled) {
+  background-color: #f5f5f5;
+}
+
+.pagination-button:disabled {
+  color: #bdbdbd;
+  cursor: not-allowed;
+}
+
+.pagination-pages {
+  display: flex;
+  gap: 4px;
+}
+
+.pagination-page {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  background-color: white;
+  color: #333;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.pagination-page:hover {
+  background-color: #f5f5f5;
+}
+
+.pagination-page.active {
+  background-color: #25D366;
+  color: white;
+  border-color: #25D366;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .campaigns-table-container {
+    overflow-x: auto;
+  }
+  
+  .campaigns-table {
+    min-width: 900px;
+  }
+}
+
+@media (max-width: 768px) {
+  .campaigns-list-container {
+    padding: 16px;
+  }
+  
+  .campaigns-list-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  
+  .header-right {
+    width: 100%;
+  }
+  
+  .add-campaign-button {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .campaigns-list-filters {
+    flex-direction: column;
+  }
+  
+  .search-filter {
+    width: 100%;
+  }
+  
+  .filters {
+    width: 100%;
+    justify-content: space-between;
+  }
+  
+  .pagination-container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .pagination-info {
+    width: 100%;
+    justify-content: space-between;
+  }
+  
+  .pagination-controls {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+.view-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background-color: #f0f9ff;
+  color: #0369a1;
+  border: 1px solid #bae6fd;
+  border-radius: 4px;
+  padding: 6px 12px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.view-button:hover {
+  background-color: #e0f2fe;
+  border-color: #7dd3fc;
+}
+
+.view-button:active {
+  background-color: #bae6fd;
+}

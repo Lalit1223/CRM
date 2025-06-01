@@ -262,7 +262,7 @@ const TemplateCreator = () => {
 
     setIsSaving(true);
 
-    console.log("Submitting template:", finalTemplateData);
+    //console.log("Submitting template:", finalTemplateData);
     // API call to create/submit template would go here
 
     // Simulate API call

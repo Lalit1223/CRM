@@ -1,911 +1,718 @@
-// src/pages/Ecommerce/Ecommerce.jsx
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import {
-  ShoppingBag,
-  Tag,
-  Box,
-  List,
-  Settings,
-  Database,
-  ShoppingCart,
-  Check,
-  PlusCircle,
-  RefreshCw,
-  Download,
-  Upload,
-  Clock,
-  CheckCircle,
-  XCircle,
-  AlertTriangle,
-  ExternalLink,
+  Package,
+  Plus,
   Search,
   Filter,
+  RefreshCw,
+  Eye,
+  Edit,
+  Clock,
+  Check,
+  X,
+  AlertCircle,
+  Trash2,
+  FileText,
+  Star,
+  ShoppingCart,
+  Send,
 } from "lucide-react";
-import "./Ecommerce.css";
 
 const Ecommerce = () => {
   const [activeTab, setActiveTab] = useState("products");
-  const [searchQuery, setSearchQuery] = useState("");
-  const [filterStatus, setFilterStatus] = useState("all");
-  const [setupComplete, setSetupComplete] = useState({
-    catalogIcon: true,
-    metaCatalog: true,
-    catalogLinked: true,
-    storefrontConnected: true,
-    apiEnabled: true,
-    systemFieldsSync: false,
-    categoriesUpdated: false,
-    complianceSet: false,
+  const [products, setProducts] = useState([]);
+  const [catalogs, setCatalogs] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+  const [filters, setFilters] = useState({
+    status: "",
+    category: "",
+    subCategory: "",
+    search: "",
+    page: 1,
+    limit: 10,
+    sort: "createdAt",
+    order: "desc",
+  });
+  const [pagination, setPagination] = useState({
+    currentPage: 1,
+    totalPages: 1,
+    totalItems: 0,
   });
 
-  // Dummy products data
-  const products = [
-    {
-      id: 1,
-      sku: "PRD001",
-      name: "Premium T-Shirt",
-      description: "High quality cotton t-shirt with logo",
-      price: 24.99,
-      salePrice: 19.99,
-      currency: "USD",
-      stock: 100,
-      category: "Apparel",
-      status: "Active",
-      pushStatus: "Synced",
-      image: "https://via.placeholder.com/100x100",
-    },
-    {
-      id: 2,
-      sku: "PRD002",
-      name: "Canvas Tote Bag",
-      description: "Eco-friendly canvas bag for shopping",
-      price: 15.99,
-      salePrice: null,
-      currency: "USD",
-      stock: 75,
-      category: "Accessories",
-      status: "Active",
-      pushStatus: "Synced",
-      image: "https://via.placeholder.com/100x100",
-    },
-    {
-      id: 3,
-      sku: "PRD003",
-      name: "Coffee Mug",
-      description: "Ceramic coffee mug with logo",
-      price: 12.99,
-      salePrice: 9.99,
-      currency: "USD",
-      stock: 50,
-      category: "Homeware",
-      status: "Draft",
-      pushStatus: "Not Synced",
-      image: "https://via.placeholder.com/100x100",
-    },
-    {
-      id: 4,
-      sku: "PRD004",
-      name: "Wireless Earbuds",
-      description: "Bluetooth wireless earbuds with charging case",
-      price: 89.99,
-      salePrice: 79.99,
-      currency: "USD",
-      stock: 30,
-      category: "Electronics",
-      status: "Active",
-      pushStatus: "Failed",
-      image: "https://via.placeholder.com/100x100",
-    },
-    {
-      id: 5,
-      sku: "PRD005",
-      name: "Notebook Set",
-      description: "Set of 3 premium notebooks with different designs",
-      price: 18.99,
-      salePrice: null,
-      currency: "USD",
-      stock: 120,
-      category: "Stationery",
-      status: "Inactive",
-      pushStatus: "Not Synced",
-      image: "https://via.placeholder.com/100x100",
-    },
-  ];
+  const navigate = useNavigate();
 
-  // Dummy orders data
-  const orders = [
-    {
-      id: "ORD12345",
-      customer: "John Doe",
-      date: "2023-12-14",
-      total: 44.98,
-      currency: "USD",
-      status: "Confirmed",
-      payment: "Paid",
-      items: 2,
-    },
-    {
-      id: "ORD12344",
-      customer: "Jane Smith",
-      date: "2023-12-13",
-      total: 15.99,
-      currency: "USD",
-      status: "Processing",
-      payment: "Paid",
-      items: 1,
-    },
-    {
-      id: "ORD12343",
-      customer: "Mike Johnson",
-      date: "2023-12-12",
-      total: 89.99,
-      currency: "USD",
-      status: "Shipped",
-      payment: "Paid",
-      items: 1,
-    },
-    {
-      id: "ORD12342",
-      customer: "Sarah Williams",
-      date: "2023-12-11",
-      total: 34.97,
-      currency: "USD",
-      status: "Delivered",
-      payment: "Paid",
-      items: 3,
-    },
-    {
-      id: "ORD12341",
-      customer: "Robert Brown",
-      date: "2023-12-10",
-      total: 129.98,
-      currency: "USD",
-      status: "Pending",
-      payment: "Awaiting",
-      items: 2,
-    },
-  ];
+  // API base URL
+  const baseUrl =
+    import.meta.env.VITE_API_BASE_URL ||
+    "https://pixe-backend-tkrb.onrender.com";
 
-  // Filter products based on search and filter
-  const filteredProducts = products.filter((product) => {
-    // Filter by search query
-    const matchesSearch =
-      product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      product.sku.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      product.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      product.category.toLowerCase().includes(searchQuery.toLowerCase());
+  // Get admin token from localStorage or sessionStorage
+  const token =
+    localStorage.getItem("adminToken") ||
+    localStorage.getItem("token") ||
+    sessionStorage.getItem("adminToken") ||
+    sessionStorage.getItem("token") ||
+    localStorage.getItem("authToken") ||
+    sessionStorage.getItem("authToken");
 
-    // Filter by status
-    const matchesStatus =
-      filterStatus === "all" ||
-      (filterStatus === "active" && product.status === "Active") ||
-      (filterStatus === "draft" && product.status === "Draft") ||
-      (filterStatus === "inactive" && product.status === "Inactive");
-
-    return matchesSearch && matchesStatus;
-  });
-
-  // Filter orders based on search
-  const filteredOrders = orders.filter((order) => {
-    return (
-      order.id.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      order.customer.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      order.status.toLowerCase().includes(searchQuery.toLowerCase())
+  // Check if we actually have a token
+  if (!token) {
+    console.warn(
+      "No authentication token found in storage. API requests will likely fail with 401 Unauthorized."
     );
-  });
+  }
 
-  const renderSetupGuide = () => (
-    <div className="setup-guide">
-      <h2>WhatsApp Commerce Setup Guide</h2>
+  // Fetch products and catalogs on component mount
+  useEffect(() => {
+    fetchCatalogs();
+    fetchProducts();
+  }, [filters]);
 
-      <div className="setup-steps">
-        <div
-          className={`setup-step ${
-            setupComplete.catalogIcon ? "completed" : ""
-          }`}
-        >
-          <div className="step-number">
-            {setupComplete.catalogIcon ? (
-              <CheckCircle size={24} />
-            ) : (
-              <span>1</span>
-            )}
-          </div>
-          <div className="step-content">
-            <h3>Enable Catalog Icon</h3>
-            <p>Enable the catalog icon for your WhatsApp API number.</p>
-            {setupComplete.catalogIcon ? (
-              <span className="status-completed">Completed</span>
-            ) : (
-              <button className="setup-button">Enable Now</button>
-            )}
-          </div>
-        </div>
+  // Fetch products based on current filters
+  const fetchProducts = async () => {
+    setIsLoading(true);
+    setError("");
 
-        <div
-          className={`setup-step ${
-            setupComplete.metaCatalog ? "completed" : ""
-          }`}
-        >
-          <div className="step-number">
-            {setupComplete.metaCatalog ? (
-              <CheckCircle size={24} />
-            ) : (
-              <span>2</span>
-            )}
-          </div>
-          <div className="step-content">
-            <h3>Create Meta Catalog</h3>
-            <p>Create a catalog in Meta Commerce Manager.</p>
-            {setupComplete.metaCatalog ? (
-              <span className="status-completed">Completed</span>
-            ) : (
-              <button className="setup-button">Create Catalog</button>
-            )}
-          </div>
-        </div>
+    try {
+      // Build query string from filters
+      const queryParams = new URLSearchParams({
+        status: filters.status,
+        category: filters.category,
+        subCategory: filters.subCategory,
+        search: filters.search,
+        page: filters.page,
+        limit: filters.limit,
+        sort: filters.sort,
+        order: filters.order,
+      });
 
-        <div
-          className={`setup-step ${
-            setupComplete.catalogLinked ? "completed" : ""
-          }`}
-        >
-          <div className="step-number">
-            {setupComplete.catalogLinked ? (
-              <CheckCircle size={24} />
-            ) : (
-              <span>3</span>
-            )}
-          </div>
-          <div className="step-content">
-            <h3>Link Meta Catalog With WhatsApp API</h3>
-            <p>Connect your Meta catalog with your WhatsApp API number.</p>
-            {setupComplete.catalogLinked ? (
-              <span className="status-completed">Completed</span>
-            ) : (
-              <button className="setup-button">Link Now</button>
-            )}
-          </div>
-        </div>
+      const response = await fetch(
+        `${baseUrl}/api/products/admin?${queryParams}`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
-        <div
-          className={`setup-step ${
-            setupComplete.storefrontConnected ? "completed" : ""
-          }`}
-        >
-          <div className="step-number">
-            {setupComplete.storefrontConnected ? (
-              <CheckCircle size={24} />
-            ) : (
-              <span>4</span>
-            )}
-          </div>
-          <div className="step-content">
-            <h3>Connect Meta Catalog With Ecommerce Section</h3>
-            <p>
-              Link your Meta catalog as a storefront in the Ecommerce section.
-            </p>
-            {setupComplete.storefrontConnected ? (
-              <span className="status-completed">Completed</span>
-            ) : (
-              <button className="setup-button">Connect Now</button>
-            )}
-          </div>
-        </div>
+      const data = await response.json();
 
-        <div
-          className={`setup-step ${
-            setupComplete.apiEnabled ? "completed" : ""
-          }`}
-        >
-          <div className="step-number">
-            {setupComplete.apiEnabled ? (
-              <CheckCircle size={24} />
-            ) : (
-              <span>5</span>
-            )}
-          </div>
-          <div className="step-content">
-            <h3>Enable Ecommerce APIs</h3>
-            <p>Enable APIs for Ecommerce functionality.</p>
-            {setupComplete.apiEnabled ? (
-              <span className="status-completed">Completed</span>
-            ) : (
-              <button className="setup-button">Enable APIs</button>
-            )}
-          </div>
-        </div>
+      if (data.success) {
+        setProducts(data.productRequests || []);
+        setPagination({
+          currentPage: data.currentPage || 1,
+          totalPages: data.totalPages || 1,
+          totalItems: data.total || 0,
+        });
+      } else {
+        setError(data.message || "Failed to fetch products");
+      }
+    } catch (err) {
+      console.error("Error fetching products:", err);
+      setError("An error occurred while fetching products. Please try again.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
-        <div
-          className={`setup-step ${
-            setupComplete.systemFieldsSync ? "completed" : ""
-          }`}
-        >
-          <div className="step-number">
-            {setupComplete.systemFieldsSync ? (
-              <CheckCircle size={24} />
-            ) : (
-              <span>6</span>
-            )}
-          </div>
-          <div className="step-content">
-            <h3>Sync System Fields</h3>
-            <p>Synchronize product and order system fields.</p>
-            {setupComplete.systemFieldsSync ? (
-              <span className="status-completed">Completed</span>
-            ) : (
-              <button
-                className="setup-button"
-                onClick={() =>
-                  setSetupComplete({ ...setupComplete, systemFieldsSync: true })
-                }
-              >
-                Sync Fields
-              </button>
-            )}
-          </div>
-        </div>
+  // Fetch available catalogs
+  const fetchCatalogs = async () => {
+    try {
+      const response = await fetch(`${baseUrl}/api/product-catalogs/admin`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
 
-        <div
-          className={`setup-step ${
-            setupComplete.categoriesUpdated ? "completed" : ""
-          }`}
-        >
-          <div className="step-number">
-            {setupComplete.categoriesUpdated ? (
-              <CheckCircle size={24} />
-            ) : (
-              <span>7</span>
-            )}
-          </div>
-          <div className="step-content">
-            <h3>Update Product Categories</h3>
-            <p>Create and update product categories.</p>
-            {setupComplete.categoriesUpdated ? (
-              <span className="status-completed">Completed</span>
-            ) : (
-              <button
-                className="setup-button"
-                onClick={() =>
-                  setSetupComplete({
-                    ...setupComplete,
-                    categoriesUpdated: true,
-                  })
-                }
-              >
-                Update Categories
-              </button>
-            )}
-          </div>
-        </div>
+      const data = await response.json();
 
-        <div
-          className={`setup-step ${
-            setupComplete.complianceSet ? "completed" : ""
-          }`}
-        >
-          <div className="step-number">
-            {setupComplete.complianceSet ? (
-              <CheckCircle size={24} />
-            ) : (
-              <span>8</span>
-            )}
-          </div>
-          <div className="step-content">
-            <h3>Set Compliance (Indian Businesses Only)</h3>
-            <p>For Indian businesses, set business compliance information.</p>
-            {setupComplete.complianceSet ? (
-              <span className="status-completed">Completed</span>
-            ) : (
-              <button
-                className="setup-button"
-                onClick={() =>
-                  setSetupComplete({ ...setupComplete, complianceSet: true })
-                }
-              >
-                Set Compliance
-              </button>
-            )}
-          </div>
-        </div>
-      </div>
-    </div>
-  );
+      if (data.success) {
+        setCatalogs(data.data || []);
+      } else {
+        console.error("Failed to fetch catalogs:", data.message);
+      }
+    } catch (err) {
+      console.error("Error fetching catalogs:", err);
+    }
+  };
 
-  const renderProductsTab = () => (
-    <div className="products-tab">
-      <div className="tab-actions">
-        <div className="search-container">
-          <Search size={20} className="search-icon" />
-          <input
-            type="text"
-            placeholder="Search products..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-          />
-        </div>
-        <div className="filter-container">
-          <select
-            value={filterStatus}
-            onChange={(e) => setFilterStatus(e.target.value)}
-            className="status-filter"
-          >
-            <option value="all">All Status</option>
-            <option value="active">Active</option>
-            <option value="draft">Draft</option>
-            <option value="inactive">Inactive</option>
-          </select>
-          <Link to="/ecommerce/products/new" className="add-product-button">
-            <PlusCircle size={18} />
-            <span>Add Product</span>
-          </Link>
-          <button className="push-products-button">
-            <Upload size={18} />
-            <span>Push Products</span>
-          </button>
-          <button className="bulk-import-button">
-            <Download size={18} />
-            <span>Bulk Import</span>
-          </button>
-        </div>
-      </div>
+  // Handle filter changes
+  const handleFilterChange = (e) => {
+    const { name, value } = e.target;
+    setFilters((prev) => ({
+      ...prev,
+      [name]: value,
+      page: 1, // Reset to first page when filters change
+    }));
+  };
 
-      <div className="products-table">
-        <table>
-          <thead>
-            <tr>
-              <th>Image</th>
-              <th>SKU</th>
-              <th>Name</th>
-              <th>Category</th>
-              <th>Price</th>
-              <th>Sale Price</th>
-              <th>Stock</th>
-              <th>Status</th>
-              <th>Push Status</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {filteredProducts.length > 0 ? (
-              filteredProducts.map((product) => (
-                <tr key={product.id}>
-                  <td>
-                    <img
-                      src={product.image}
-                      alt={product.name}
-                      className="product-thumbnail"
-                    />
-                  </td>
-                  <td>{product.sku}</td>
-                  <td className="product-name">
-                    <span>{product.name}</span>
-                    <span className="product-description">
-                      {product.description}
-                    </span>
-                  </td>
-                  <td>{product.category}</td>
-                  <td>
-                    {product.currency} {product.price.toFixed(2)}
-                  </td>
-                  <td>
-                    {product.salePrice
-                      ? `${product.currency} ${product.salePrice.toFixed(2)}`
-                      : "-"}
-                  </td>
-                  <td>{product.stock}</td>
-                  <td>
-                    <span
-                      className={`status-badge status-${product.status.toLowerCase()}`}
-                    >
-                      {product.status}
-                    </span>
-                  </td>
-                  <td>
-                    <span
-                      className={`push-status-badge ${product.pushStatus
-                        .toLowerCase()
-                        .replace(" ", "-")}`}
-                    >
-                      {product.pushStatus}
-                    </span>
-                  </td>
-                  <td>
-                    <div className="product-actions">
-                      <button className="edit-button" title="Edit Product">
-                        <Settings size={16} />
-                      </button>
-                      <button
-                        className="view-button"
-                        title="View in Meta Catalog"
-                      >
-                        <ExternalLink size={16} />
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              ))
-            ) : (
-              <tr>
-                <td colSpan="10" className="no-results">
-                  No products found. Try a different search or filter.
-                </td>
-              </tr>
-            )}
-          </tbody>
-        </table>
-      </div>
-    </div>
-  );
+  // Handle search input
+  const handleSearch = (e) => {
+    setFilters((prev) => ({
+      ...prev,
+      search: e.target.value,
+      page: 1,
+    }));
+  };
 
-  const renderOrdersTab = () => (
-    <div className="orders-tab">
-      <div className="tab-actions">
-        <div className="search-container">
-          <Search size={20} className="search-icon" />
-          <input
-            type="text"
-            placeholder="Search orders..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-          />
-        </div>
-        <div className="filter-container">
-          <button className="filter-button">
-            <Filter size={18} />
-            <span>Filter</span>
-          </button>
-          <button className="refresh-button">
-            <RefreshCw size={18} />
-            <span>Refresh</span>
-          </button>
-        </div>
-      </div>
+  // Handle pagination
+  const handlePageChange = (newPage) => {
+    if (newPage > 0 && newPage <= pagination.totalPages) {
+      setFilters((prev) => ({
+        ...prev,
+        page: newPage,
+      }));
+    }
+  };
 
-      <div className="orders-table">
-        <table>
-          <thead>
-            <tr>
-              <th>Order ID</th>
-              <th>Customer</th>
-              <th>Date</th>
-              <th>Items</th>
-              <th>Total</th>
-              <th>Status</th>
-              <th>Payment</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {filteredOrders.length > 0 ? (
-              filteredOrders.map((order) => (
-                <tr key={order.id}>
-                  <td>{order.id}</td>
-                  <td>{order.customer}</td>
-                  <td>{order.date}</td>
-                  <td>{order.items}</td>
-                  <td>
-                    {order.currency} {order.total.toFixed(2)}
-                  </td>
-                  <td>
-                    <span
-                      className={`status-badge status-${order.status.toLowerCase()}`}
-                    >
-                      {order.status}
-                    </span>
-                  </td>
-                  <td>
-                    <span
-                      className={`payment-status ${order.payment.toLowerCase()}`}
-                    >
-                      {order.payment}
-                    </span>
-                  </td>
-                  <td>
-                    <div className="order-actions">
-                      <button
-                        className="view-button"
-                        title="View Order Details"
-                      >
-                        <Settings size={16} />
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              ))
-            ) : (
-              <tr>
-                <td colSpan="8" className="no-results">
-                  No orders found. Try a different search.
-                </td>
-              </tr>
-            )}
-          </tbody>
-        </table>
-      </div>
-    </div>
-  );
+  // Handle limit change
+  const handleLimitChange = (e) => {
+    setFilters((prev) => ({
+      ...prev,
+      limit: parseInt(e.target.value, 10),
+      page: 1,
+    }));
+  };
 
-  const renderCategoriesTab = () => (
-    <div className="categories-tab">
-      <div className="tab-actions">
-        <button className="add-category-button">
-          <PlusCircle size={18} />
-          <span>Add Category</span>
-        </button>
-      </div>
+  // Handle refresh
+  const handleRefresh = () => {
+    fetchProducts();
+    fetchCatalogs();
+  };
 
-      <div className="categories-grid">
-        <div className="category-card">
-          <div className="category-icon">
-            <ShoppingBag size={24} />
-          </div>
-          <h3>Apparel</h3>
-          <span className="category-count">12 products</span>
-          <div className="category-actions">
-            <button className="edit-button" title="Edit Category">
-              <Settings size={16} />
-            </button>
-          </div>
-        </div>
+  // UPDATED: Handle product creation - Navigate to standalone route
+  const handleAddProduct = () => {
+    navigate("/ecommerce/products/create");
+  };
 
-        <div className="category-card">
-          <div className="category-icon">
-            <Box size={24} />
-          </div>
-          <h3>Accessories</h3>
-          <span className="category-count">8 products</span>
-          <div className="category-actions">
-            <button className="edit-button" title="Edit Category">
-              <Settings size={16} />
-            </button>
-          </div>
-        </div>
+  // UPDATED: Handle product edit - Navigate to standalone route
+  const handleEditProduct = (product) => {
+    navigate(`/ecommerce/products/edit/${product._id}`);
+  };
 
-        <div className="category-card">
-          <div className="category-icon">
-            <ShoppingCart size={24} />
-          </div>
-          <h3>Homeware</h3>
-          <span className="category-count">5 products</span>
-          <div className="category-actions">
-            <button className="edit-button" title="Edit Category">
-              <Settings size={16} />
-            </button>
-          </div>
-        </div>
+  // Handle product deletion
+  const handleDeleteProduct = async (productId) => {
+    if (!window.confirm("Are you sure you want to delete this product?")) {
+      return;
+    }
 
-        <div className="category-card">
-          <div className="category-icon">
-            <Database size={24} />
-          </div>
-          <h3>Electronics</h3>
-          <span className="category-count">3 products</span>
-          <div className="category-actions">
-            <button className="edit-button" title="Edit Category">
-              <Settings size={16} />
-            </button>
-          </div>
-        </div>
+    try {
+      setError("");
+      setSuccess("");
 
-        <div className="category-card">
-          <div className="category-icon">
-            <List size={24} />
-          </div>
-          <h3>Stationery</h3>
-          <span className="category-count">7 products</span>
-          <div className="category-actions">
-            <button className="edit-button" title="Edit Category">
-              <Settings size={16} />
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
+      const response = await fetch(`${baseUrl}/api/products/${productId}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
-  const renderSystemFieldsTab = () => (
-    <div className="system-fields-tab">
-      <div className="tab-header">
-        <h2>System Fields Configuration</h2>
-        <p>
-          Configure and sync system fields for your product catalog and orders.
-        </p>
-      </div>
+      const data = await response.json();
 
-      <div className="fields-types-tabs">
-        <button className="fields-tab-button active">Product Fields</button>
-        <button className="fields-tab-button">Order Fields</button>
-      </div>
+      if (data.success) {
+        setSuccess("Product deleted successfully");
+        fetchProducts(); // Refresh the list
+      } else {
+        setError(data.message || "Failed to delete product");
+      }
+    } catch (err) {
+      console.error("Error deleting product:", err);
+      setError("Failed to delete product");
+    }
+  };
 
-      <div className="system-fields-content">
-        <div className="system-fields-actions">
-          <button className="sync-fields-button">
-            <RefreshCw size={18} />
-            <span>Sync System Fields</span>
-          </button>
-        </div>
+  // Handle product view details
+  const handleViewProduct = (productId) => {
+    navigate(`/ecommerce/products/${productId}`);
+  };
 
-        <div className="system-fields-list">
-          <div className="system-field-item">
-            <div className="field-info">
-              <h3>Brand</h3>
-              <div className="field-attributes">
-                <span className="field-type">Text</span>
-                <span className="field-required">Required</span>
-              </div>
-            </div>
-            <button className="edit-field-button">
-              <Settings size={16} />
-            </button>
-          </div>
+  // Handle product submission for review
+  const handleSubmitForReview = async (productId) => {
+    try {
+      setError("");
+      setSuccess("");
 
-          <div className="system-field-item">
-            <div className="field-info">
-              <h3>Category</h3>
-              <div className="field-attributes">
-                <span className="field-type">Dropdown</span>
-                <span className="field-required">Required</span>
-              </div>
-            </div>
-            <button className="edit-field-button">
-              <Settings size={16} />
-            </button>
-          </div>
+      const response = await fetch(
+        `${baseUrl}/api/products/${productId}/apply`,
+        {
+          method: "PATCH",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            status: "submitted",
+            adminNotes: "Product is ready for review.",
+          }),
+        }
+      );
 
-          <div className="system-field-item">
-            <div className="field-info">
-              <h3>External Product Link</h3>
-              <div className="field-attributes">
-                <span className="field-type">URL</span>
-                <span className="field-required">Required</span>
-              </div>
-            </div>
-            <button className="edit-field-button">
-              <Settings size={16} />
-            </button>
-          </div>
+      const data = await response.json();
 
-          <div className="system-field-item">
-            <div className="field-info">
-              <h3>Origin Country</h3>
-              <div className="field-attributes">
-                <span className="field-type">Text</span>
-                <span className="field-required">
-                  Required for Indian businesses
-                </span>
-              </div>
-            </div>
-            <button className="edit-field-button">
-              <Settings size={16} />
-            </button>
-          </div>
+      if (data.success) {
+        setSuccess("Product submitted for review successfully");
+        fetchProducts(); // Refresh the list
+      } else {
+        setError(data.message || "Failed to submit product for review");
+      }
+    } catch (err) {
+      console.error("Error submitting product for review:", err);
+      setError("Failed to submit product for review");
+    }
+  };
 
-          <div className="system-field-item">
-            <div className="field-info">
-              <h3>Importer Name</h3>
-              <div className="field-attributes">
-                <span className="field-type">Text</span>
-                <span className="field-required">
-                  Required for Indian businesses
-                </span>
-              </div>
-            </div>
-            <button className="edit-field-button">
-              <Settings size={16} />
-            </button>
-          </div>
+  // Format date
+  const formatDate = (dateString) => {
+    return new Date(dateString).toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+    });
+  };
 
-          <div className="system-field-item">
-            <div className="field-info">
-              <h3>WhatsApp Compliance Category</h3>
-              <div className="field-attributes">
-                <span className="field-type">Dropdown</span>
-                <span className="field-required">
-                  Required for Indian businesses
-                </span>
-              </div>
-            </div>
-            <button className="edit-field-button">
-              <Settings size={16} />
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
+  // Render status badge
+  const renderStatusBadge = (status) => {
+    const statusMap = {
+      draft: {
+        icon: <Clock size={14} />,
+        class: "draft",
+        text: "Draft",
+      },
+      submitted: {
+        icon: <Send size={14} />,
+        class: "submitted",
+        text: "Pending Review",
+      },
+      approved: {
+        icon: <Check size={14} />,
+        class: "approved",
+        text: "Approved",
+      },
+      rejected: {
+        icon: <X size={14} />,
+        class: "rejected",
+        text: "Rejected",
+      },
+      published: {
+        icon: <ShoppingCart size={14} />,
+        class: "published",
+        text: "Published",
+      },
+    };
+
+    const statusInfo = statusMap[status] || {
+      icon: null,
+      class: "",
+      text: status,
+    };
+
+    return (
+      <span className={`status-badge ${statusInfo.class}`}>
+        {statusInfo.icon && (
+          <span className="status-icon">{statusInfo.icon}</span>
+        )}
+        <span>{statusInfo.text}</span>
+      </span>
+    );
+  };
+
+  // Get currency symbol
+  const getCurrencySymbol = (currency) => {
+    const currencyMap = {
+      USD: "$",
+      EUR: "€",
+      GBP: "£",
+      INR: "₹",
+      JPY: "¥",
+    };
+
+    return currencyMap[currency] || currency;
+  };
 
   return (
     <div className="ecommerce-container">
+      {/* Header */}
       <div className="ecommerce-header">
-        <h1>E-commerce Management</h1>
-        <div className="ecommerce-stats">
-          <div className="stat-card">
-            <div className="stat-icon products-icon">
-              <Tag size={20} />
-            </div>
-            <div className="stat-info">
-              <span className="stat-value">{products.length}</span>
-              <span className="stat-label">Products</span>
-            </div>
-          </div>
-          <div className="stat-card">
-            <div className="stat-icon orders-icon">
-              <ShoppingBag size={20} />
-            </div>
-            <div className="stat-info">
-              <span className="stat-value">{orders.length}</span>
-              <span className="stat-label">Orders</span>
-            </div>
-          </div>
-          <div className="stat-card">
-            <div className="stat-icon revenue-icon">
-              <ShoppingCart size={20} />
-            </div>
-            <div className="stat-info">
-              <span className="stat-value">$316.91</span>
-              <span className="stat-label">Revenue</span>
-            </div>
-          </div>
-          <div className="stat-card">
-            <div className="stat-icon setup-icon">
-              <Check size={20} />
-            </div>
-            <div className="stat-info">
-              <span className="stat-value">5/8</span>
-              <span className="stat-label">Setup Steps</span>
-            </div>
-          </div>
+        <div className="header-left">
+          <h1>WhatsApp Product Management</h1>
+          <p>Manage your products and catalogs for WhatsApp Commerce</p>
+        </div>
+        <div className="header-right">
+          <button className="add-product-button" onClick={handleAddProduct}>
+            <Plus size={16} />
+            <span>Add Product</span>
+          </button>
         </div>
       </div>
 
+      {/* Tabs */}
       <div className="ecommerce-tabs">
-        <button
-          className={`tab-button ${activeTab === "setup" ? "active" : ""}`}
-          onClick={() => setActiveTab("setup")}
-        >
-          <Settings size={16} />
-          <span>Setup Guide</span>
-        </button>
         <button
           className={`tab-button ${activeTab === "products" ? "active" : ""}`}
           onClick={() => setActiveTab("products")}
         >
-          <Tag size={16} />
+          <Package size={18} />
           <span>Products</span>
         </button>
         <button
-          className={`tab-button ${activeTab === "orders" ? "active" : ""}`}
-          onClick={() => setActiveTab("orders")}
+          className={`tab-button ${activeTab === "catalogs" ? "active" : ""}`}
+          onClick={() => setActiveTab("catalogs")}
         >
-          <ShoppingBag size={16} />
-          <span>Orders</span>
-        </button>
-        <button
-          className={`tab-button ${activeTab === "categories" ? "active" : ""}`}
-          onClick={() => setActiveTab("categories")}
-        >
-          <List size={16} />
-          <span>Categories</span>
-        </button>
-        <button
-          className={`tab-button ${
-            activeTab === "systemfields" ? "active" : ""
-          }`}
-          onClick={() => setActiveTab("systemfields")}
-        >
-          <Database size={16} />
-          <span>System Fields</span>
+          <FileText size={18} />
+          <span>Catalogs</span>
         </button>
       </div>
 
+      {/* Alert Messages */}
+      {error && (
+        <div className="error-message">
+          <AlertCircle size={16} />
+          <span>{error}</span>
+          <button className="close-alert" onClick={() => setError("")}>
+            <X size={14} />
+          </button>
+        </div>
+      )}
+
+      {success && (
+        <div className="success-message">
+          <Check size={16} />
+          <span>{success}</span>
+          <button className="close-alert" onClick={() => setSuccess("")}>
+            <X size={14} />
+          </button>
+        </div>
+      )}
+
+      {/* Content area */}
       <div className="ecommerce-content">
-        {activeTab === "setup" && renderSetupGuide()}
-        {activeTab === "products" && renderProductsTab()}
-        {activeTab === "orders" && renderOrdersTab()}
-        {activeTab === "categories" && renderCategoriesTab()}
-        {activeTab === "systemfields" && renderSystemFieldsTab()}
+        {activeTab === "products" && (
+          <>
+            {/* Filters */}
+            <div className="product-filters">
+              <div className="search-filter">
+                <div className="search-input-container">
+                  <Search size={18} className="search-icon" />
+                  <input
+                    type="text"
+                    placeholder="Search products..."
+                    value={filters.search}
+                    onChange={handleSearch}
+                    className="search-input"
+                  />
+                </div>
+              </div>
+
+              <div className="filters">
+                <div className="filter-group">
+                  <Filter size={16} className="filter-icon" />
+                  <select
+                    name="status"
+                    value={filters.status}
+                    onChange={handleFilterChange}
+                    className="filter-select"
+                  >
+                    <option value="">All Status</option>
+                    <option value="draft">Draft</option>
+                    <option value="submitted">Pending Review</option>
+                    <option value="approved">Approved</option>
+                    <option value="rejected">Rejected</option>
+                    <option value="published">Published</option>
+                  </select>
+                </div>
+
+                <div className="filter-group">
+                  <Filter size={16} className="filter-icon" />
+                  <select
+                    name="category"
+                    value={filters.category}
+                    onChange={handleFilterChange}
+                    className="filter-select"
+                  >
+                    <option value="">All Categories</option>
+                    <option value="electronics">Electronics</option>
+                    <option value="fashion">Fashion</option>
+                    <option value="home">Home & Garden</option>
+                    <option value="beauty">Beauty & Health</option>
+                    <option value="sports">Sports</option>
+                    <option value="toys">Toys & Games</option>
+                    <option value="automotive">Automotive</option>
+                  </select>
+                </div>
+
+                <button className="refresh-button" onClick={handleRefresh}>
+                  <RefreshCw size={16} />
+                </button>
+              </div>
+            </div>
+
+            {/* Products List */}
+            <div className="products-list-content">
+              {isLoading ? (
+                <div className="loading-indicator">
+                  <div className="spinner"></div>
+                  <p>Loading products...</p>
+                </div>
+              ) : products.length === 0 ? (
+                <div className="no-products">
+                  <Package size={48} />
+                  <h3>No products found</h3>
+                  <p>
+                    {filters.search || filters.status || filters.category
+                      ? "Try a different search term or clear filters."
+                      : "Create your first product to get started."}
+                  </p>
+                  <button
+                    className="add-product-button"
+                    onClick={handleAddProduct}
+                  >
+                    <Plus size={16} />
+                    <span>Add Product</span>
+                  </button>
+                </div>
+              ) : (
+                <div className="products-grid">
+                  {products.map((product) => (
+                    <div key={product._id} className="product-card">
+                      <div className="product-image">
+                        {product.images && product.images.length > 0 ? (
+                          <img
+                            src={
+                              product.images.find((img) => img.isPrimary)
+                                ?.url || product.images[0].url
+                            }
+                            alt={product.name}
+                          />
+                        ) : (
+                          <div className="no-image">
+                            <Package size={32} />
+                            <span>No Image</span>
+                          </div>
+                        )}
+                        {renderStatusBadge(product.status)}
+                      </div>
+
+                      <div className="product-details">
+                        <h3 className="product-name">{product.name}</h3>
+
+                        <div className="product-info">
+                          <div className="product-price">
+                            {product.salePrice ? (
+                              <>
+                                <span className="sale-price">
+                                  {getCurrencySymbol(product.currency)}
+                                  {product.salePrice.toFixed(2)}
+                                </span>
+                                <span className="original-price">
+                                  {getCurrencySymbol(product.currency)}
+                                  {product.price.toFixed(2)}
+                                </span>
+                              </>
+                            ) : (
+                              <span className="regular-price">
+                                {getCurrencySymbol(product.currency)}
+                                {product.price.toFixed(2)}
+                              </span>
+                            )}
+                          </div>
+
+                          <div className="product-meta">
+                            <span className="product-brand">
+                              {product.brand}
+                            </span>
+                            <span className="product-category">
+                              {product.category}
+                            </span>
+                          </div>
+
+                          <div className="product-inventory">
+                            <span className="inventory-label">Qty:</span>
+                            <span className="inventory-value">
+                              {product.inventory?.quantity || 0}
+                            </span>
+                            <span className="inventory-label">SKU:</span>
+                            <span className="inventory-value">
+                              {product.inventory?.sku || "N/A"}
+                            </span>
+                          </div>
+
+                          <div className="product-catalog">
+                            <span className="catalog-label">Catalog:</span>
+                            <span className="catalog-value">
+                              {product.catalogId?.name || "N/A"}
+                            </span>
+                          </div>
+
+                          <div className="product-date">
+                            <span className="date-label">Created:</span>
+                            <span className="date-value">
+                              {formatDate(product.createdAt)}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="product-actions">
+                        <button
+                          className="action-btn btn-view"
+                          onClick={() => handleViewProduct(product._id)}
+                        >
+                          <Eye size={14} />
+                          <span>View</span>
+                        </button>
+
+                        <button
+                          className="action-btn btn-edit"
+                          onClick={() => handleEditProduct(product)}
+                        >
+                          <Edit size={14} />
+                          <span>Edit</span>
+                        </button>
+
+                        {product.status === "draft" && (
+                          <>
+                            <button
+                              className="action-btn btn-submit"
+                              onClick={() => handleSubmitForReview(product._id)}
+                            >
+                              <Send size={14} />
+                              <span>Submit</span>
+                            </button>
+
+                            <button
+                              className="action-btn btn-delete"
+                              onClick={() => handleDeleteProduct(product._id)}
+                            >
+                              <Trash2 size={14} />
+                              <span>Delete</span>
+                            </button>
+                          </>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* Pagination */}
+            {!isLoading && products.length > 0 && (
+              <div className="pagination-container">
+                <div className="pagination-info">
+                  <span>
+                    Showing {(filters.page - 1) * filters.limit + 1} to{" "}
+                    {Math.min(
+                      filters.page * filters.limit,
+                      pagination.totalItems
+                    )}{" "}
+                    of {pagination.totalItems} products
+                  </span>
+
+                  <div className="pagination-limit">
+                    <span>Show:</span>
+                    <select
+                      value={filters.limit}
+                      onChange={handleLimitChange}
+                      className="limit-select"
+                    >
+                      <option value="10">10</option>
+                      <option value="20">20</option>
+                      <option value="50">50</option>
+                      <option value="100">100</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div className="pagination-controls">
+                  <button
+                    className="pagination-button"
+                    disabled={filters.page === 1}
+                    onClick={() => handlePageChange(1)}
+                  >
+                    First
+                  </button>
+                  <button
+                    className="pagination-button"
+                    disabled={filters.page === 1}
+                    onClick={() => handlePageChange(filters.page - 1)}
+                  >
+                    Previous
+                  </button>
+
+                  <div className="pagination-pages">
+                    {Array.from(
+                      { length: Math.min(5, pagination.totalPages) },
+                      (_, i) => {
+                        let pageNum;
+                        if (pagination.totalPages <= 5) {
+                          pageNum = i + 1;
+                        } else if (filters.page <= 3) {
+                          pageNum = i + 1;
+                        } else if (filters.page >= pagination.totalPages - 2) {
+                          pageNum = pagination.totalPages - 4 + i;
+                        } else {
+                          pageNum = filters.page - 2 + i;
+                        }
+
+                        return (
+                          <button
+                            key={i}
+                            className={`pagination-page ${
+                              pageNum === filters.page ? "active" : ""
+                            }`}
+                            onClick={() => handlePageChange(pageNum)}
+                          >
+                            {pageNum}
+                          </button>
+                        );
+                      }
+                    )}
+                  </div>
+
+                  <button
+                    className="pagination-button"
+                    disabled={filters.page === pagination.totalPages}
+                    onClick={() => handlePageChange(filters.page + 1)}
+                  >
+                    Next
+                  </button>
+                  <button
+                    className="pagination-button"
+                    disabled={filters.page === pagination.totalPages}
+                    onClick={() => handlePageChange(pagination.totalPages)}
+                  >
+                    Last
+                  </button>
+                </div>
+              </div>
+            )}
+          </>
+        )}
+
+        {activeTab === "catalogs" && (
+          <div className="catalogs-redirect">
+            <div className="redirect-content">
+              <FileText size={48} />
+              <h3>Catalog Management</h3>
+              <p>
+                Manage your product catalogs in the dedicated Catalogs section
+              </p>
+              <button
+                className="redirect-button"
+                onClick={() => navigate("/product-catalogs")}
+              >
+                Go to Catalogs
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

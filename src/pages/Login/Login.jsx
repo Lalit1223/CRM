@@ -1,10 +1,11 @@
 // src/pages/Login/Login.jsx
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Mail, Lock, Eye, EyeOff } from "lucide-react";
+import { Mail, Lock, Eye, EyeOff, AlertCircle } from "lucide-react";
+import { useAuth } from "../../contexts/AuthContext";
 import "./Login.css";
 
-const Login = ({ setIsLoggedIn }) => {
+const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -13,8 +14,20 @@ const Login = ({ setIsLoggedIn }) => {
   const [error, setError] = useState("");
 
   const navigate = useNavigate();
+  const { login } = useAuth();
 
-  const handleLogin = (e) => {
+  // Check if there's a saved email from previous login
+  useEffect(() => {
+    const savedEmail = localStorage.getItem("userEmail");
+    const isRemembered = localStorage.getItem("isRemembered") === "true";
+
+    if (savedEmail && isRemembered) {
+      setEmail(savedEmail);
+      setRememberMe(true);
+    }
+  }, []);
+
+  const handleLogin = async (e) => {
     e.preventDefault();
 
     // Basic validation
@@ -32,37 +45,46 @@ const Login = ({ setIsLoggedIn }) => {
     setIsLoading(true);
     setError("");
 
-    // For demo purposes, we'll accept any credentials
-    // In a real app, you would validate against your backend
-    setTimeout(() => {
-      try {
-        // Save to localStorage if "Remember me" is checked
-        if (rememberMe) {
-          localStorage.setItem("userEmail", email);
-          localStorage.setItem("isRemembered", "true");
-        }
+    try {
+      // Call the login method from AuthContext
+      const result = await login({
+        email_id: email,
+        password,
+        rememberMe,
+      });
 
-        // Save auth state
-        localStorage.setItem("isLoggedIn", "true");
-
-        // Update auth state in the parent component
-        setIsLoggedIn(true);
-
-        // Add login-mode class to body when in login mode
+      if (result.success) {
+        // Remove login-mode class from body
         document.body.classList.remove("login-mode");
 
         // Navigate to home page
         navigate("/");
-      } catch (error) {
-        setError("An error occurred during login. Please try again.");
-      } finally {
-        setIsLoading(false);
+      } else {
+        // Handle unsuccessful login
+        setError(
+          result.message || "Login failed. Please check your credentials."
+        );
       }
-    }, 1000);
+    } catch (error) {
+      // Handle unexpected errors
+      console.error("Login error:", error);
+      setError(
+        error.message || "An error occurred during login. Please try again."
+      );
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   // Add login-mode class to body when in login mode
-  document.body.classList.add("login-mode");
+  useEffect(() => {
+    document.body.classList.add("login-mode");
+
+    return () => {
+      // Clean up on unmount
+      document.body.classList.remove("login-mode");
+    };
+  }, []);
 
   // Custom WhatsApp Logo SVG
   const WhatsAppLogo = () => (
@@ -81,23 +103,31 @@ const Login = ({ setIsLoggedIn }) => {
   );
 
   return (
-    <div className="login-container1">
-      <div className="login-card1">
-        <div className="login-header1">
-          <div className="logo-container1">
+    <div className="whatsapp-crm-login-main-container">
+      <div className="whatsapp-crm-login-card-wrapper">
+        <div className="whatsapp-crm-login-header-section">
+          <div className="whatsapp-crm-logo-container-circle">
             <WhatsAppLogo />
           </div>
           <h1>WhatsApp CRM</h1>
           <p>Sign in to your account to continue</p>
         </div>
 
-        {error && <div className="error-message">{error}</div>}
+        {error && (
+          <div className="whatsapp-crm-error-message-banner">
+            <AlertCircle size={16} />
+            <span>{error}</span>
+          </div>
+        )}
 
-        <form className="login-form1" onSubmit={handleLogin}>
-          <div className="form-group1">
+        <form
+          className="whatsapp-crm-login-form-container"
+          onSubmit={handleLogin}
+        >
+          <div className="whatsapp-crm-form-field-group">
             <label htmlFor="email">Email</label>
-            <div className="input-with-icon1">
-              <Mail size={18} className="input-icon" />
+            <div className="whatsapp-crm-input-icon-wrapper">
+              <Mail size={18} className="whatsapp-crm-input-left-icon" />
               <input
                 type="email"
                 id="email"
@@ -108,10 +138,10 @@ const Login = ({ setIsLoggedIn }) => {
             </div>
           </div>
 
-          <div className="form-group1">
+          <div className="whatsapp-crm-form-field-group">
             <label htmlFor="password">Password</label>
-            <div className="input-with-icon1">
-              <Lock size={18} className="input-icon" />
+            <div className="whatsapp-crm-input-icon-wrapper">
+              <Lock size={18} className="whatsapp-crm-input-left-icon" />
               <input
                 type={showPassword ? "text" : "password"}
                 id="password"
@@ -121,7 +151,7 @@ const Login = ({ setIsLoggedIn }) => {
               />
               <button
                 type="button"
-                className="password-toggle"
+                className="whatsapp-crm-password-visibility-toggle"
                 onClick={() => setShowPassword(!showPassword)}
               >
                 {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
@@ -129,8 +159,8 @@ const Login = ({ setIsLoggedIn }) => {
             </div>
           </div>
 
-          <div className="form-options">
-            <div className="remember-me">
+          <div className="whatsapp-crm-form-bottom-options">
+            <div className="whatsapp-crm-remember-me-section">
               <input
                 type="checkbox"
                 id="remember-me"
@@ -139,19 +169,21 @@ const Login = ({ setIsLoggedIn }) => {
               />
               <label htmlFor="remember-me">Remember me</label>
             </div>
-            <a href="#" className="forgot-password">
+            <a href="#" className="whatsapp-crm-forgot-password-link">
               Forgot password?
             </a>
           </div>
 
           <button
             type="submit"
-            className={`login-button ${isLoading ? "loading" : ""}`}
+            className={`whatsapp-crm-submit-login-button ${
+              isLoading ? "whatsapp-crm-loading-state" : ""
+            }`}
             disabled={isLoading}
           >
             {isLoading ? (
               <>
-                <span className="spinner"></span>
+                <span className="whatsapp-crm-loading-spinner"></span>
                 <span>Signing in...</span>
               </>
             ) : (

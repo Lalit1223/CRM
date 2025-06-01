@@ -117,7 +117,7 @@ const ConversationAutomation = () => {
       commands: filteredCommands,
     };
 
-    console.log("Submitting data:", submissionData);
+    //console.log("Submitting data:", submissionData);
 
     // Simulate API call
     setIsSaving(true);

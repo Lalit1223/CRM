@@ -1,0 +1,196 @@
+/* src/pages/Agents/AgentRegistration.css - FIXED VERSION */
+.agent-registration-container {
+  padding: 24px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.agent-registration-header {
+  margin-bottom: 24px;
+}
+
+.agent-registration-header h1 {
+  font-size: 24px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.agent-registration-header p {
+  color: #666;
+  font-size: 14px;
+}
+
+.agent-registration-form {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  padding: 24px;
+}
+
+.form-row {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-weight: 500;
+  margin-bottom: 8px;
+  color: #333;
+  font-size: 14px;
+}
+
+/* FIXED: Input icon container positioning */
+.input-with-icon {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+/* FIXED: Input icon positioning to prevent overlapping */
+.input-with-icon .input-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%); /* Center vertically */
+  color: #9e9e9e;
+  z-index: 1; /* Ensure icon is above input */
+  pointer-events: none; /* Allow clicks to pass through to the input */
+}
+
+/* FIXED: Input padding to prevent text overlap with icon */
+.input-with-icon input,
+.input-with-icon select {
+  width: 100%;
+  padding: 12px 12px 12px 40px !important; /* Force increased left padding */
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  height: 44px; /* Consistent height */
+  line-height: normal; /* Ensure text is vertically centered */
+  position: relative; /* Ensure proper stacking context */
+  background-color: white; /* Prevent transparency issues */
+}
+
+.input-with-icon input:focus,
+.input-with-icon select:focus {
+  border-color: #25D366;
+  box-shadow: 0 0 0 3px rgba(37, 211, 102, 0.1);
+  outline: none;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.cancel-button {
+  background-color: transparent;
+  color: #666;
+  border: 1px solid #e0e0e0;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.cancel-button:hover {
+  background-color: #f5f5f5;
+  border-color: #d0d0d0;
+}
+
+.register-button {
+  background-color: #25D366;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.register-button:hover {
+  background-color: #128C7E;
+}
+
+.register-button:disabled {
+  background-color: #a8e5c2;
+  cursor: not-allowed;
+}
+
+.register-button.loading {
+  background-color: #a8e5c2;
+}
+
+.spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: white;
+  animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.error-message {
+  background-color: #ffebee;
+  color: #f44336;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.success-message {
+  background-color: #e8f5e9;
+  color: #4caf50;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .form-row {
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .agent-registration-container {
+    padding: 16px;
+  }
+  
+  .agent-registration-form {
+    padding: 16px;
+  }
+}

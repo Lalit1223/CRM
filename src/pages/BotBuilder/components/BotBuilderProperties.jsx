@@ -1,613 +1,632 @@
 // src/pages/BotBuilder/components/BotBuilderProperties.jsx
-import React from "react";
-import * as Icons from "lucide-react";
-import { getNodeTypeById } from "../constants/nodeTypes";
+import React, { useState, useEffect } from "react";
 
-const BotBuilderProperties = ({
-  selectedNode,
-  onUpdateNodeProperties,
-  onRemoveNode,
-}) => {
-  // Helper to render icons
-  const renderIcon = (iconName, size = 16) => {
-    const IconComponent = Icons[iconName];
-    return IconComponent ? <IconComponent size={size} strokeWidth={2} /> : null;
+const BotBuilderProperties = ({ node, updateNodeData, nodes }) => {
+  // Add state to track editable values
+  const [localData, setLocalData] = useState({});
+
+  // Update local state when the selected node changes
+  useEffect(() => {
+    if (node && node.data) {
+      setLocalData({ ...node.data });
+    }
+  }, [node]);
+
+  // Handle input changes and update both local state and node data
+  const handleInputChange = (field, value) => {
+    const updatedData = { ...localData, [field]: value };
+    setLocalData(updatedData);
+    updateNodeData(node.id, { [field]: value });
   };
 
-  // Render properties based on node type
-  const renderNodeProperties = () => {
-    if (!selectedNode) return null;
+  // Handle changes to button items
+  const handleButtonChange = (index, field, value) => {
+    if (!localData.buttons) return;
 
-    const nodeType = getNodeTypeById(selectedNode.type);
+    const updatedButtons = [...localData.buttons];
+    updatedButtons[index] = {
+      ...updatedButtons[index],
+      [field]: value,
+    };
 
-    // Common properties (for all node types)
-    const commonProperties = (
-      <div className="property-field">
-        <label>Node Name</label>
-        <input
-          type="text"
-          value={selectedNode.data.label || ""}
-          onChange={(e) => {
-            onUpdateNodeProperties({ label: e.target.value });
-          }}
-        />
-      </div>
+    setLocalData({ ...localData, buttons: updatedButtons });
+    updateNodeData(node.id, { buttons: updatedButtons });
+  };
+
+  // Add a new button
+  const addButton = () => {
+    const newButton = {
+      id: Date.now().toString(),
+      text: "New Button",
+      value: "new_value",
+    };
+
+    const updatedButtons = localData.buttons
+      ? [...localData.buttons, newButton]
+      : [newButton];
+    setLocalData({ ...localData, buttons: updatedButtons });
+    updateNodeData(node.id, { buttons: updatedButtons });
+  };
+
+  // Remove a button
+  const removeButton = (index) => {
+    const updatedButtons = localData.buttons.filter((_, i) => i !== index);
+    setLocalData({ ...localData, buttons: updatedButtons });
+    updateNodeData(node.id, { buttons: updatedButtons });
+  };
+
+  // Handle changes to condition items
+  const handleConditionChange = (index, field, value) => {
+    if (!localData.conditions) return;
+
+    const updatedConditions = [...localData.conditions];
+    updatedConditions[index] = {
+      ...updatedConditions[index],
+      [field]: value,
+    };
+
+    setLocalData({ ...localData, conditions: updatedConditions });
+    updateNodeData(node.id, { conditions: updatedConditions });
+  };
+
+  // Add a new condition
+  const addCondition = () => {
+    const newCondition = {
+      id: Date.now().toString(),
+      field: "",
+      operator: "equals",
+      value: "",
+      targetNode: "",
+    };
+
+    const updatedConditions = localData.conditions
+      ? [...localData.conditions, newCondition]
+      : [newCondition];
+    setLocalData({ ...localData, conditions: updatedConditions });
+    updateNodeData(node.id, { conditions: updatedConditions });
+  };
+
+  // Remove a condition
+  const removeCondition = (index) => {
+    const updatedConditions = localData.conditions.filter(
+      (_, i) => i !== index
     );
+    setLocalData({ ...localData, conditions: updatedConditions });
+    updateNodeData(node.id, { conditions: updatedConditions });
+  };
 
-    // Type-specific properties
-    let specificProperties = null;
+  const renderNodeProperties = () => {
+    if (!node || !localData) return null;
 
-    switch (selectedNode.type) {
-      case "message":
-        specificProperties = (
-          <div className="property-field">
-            <label>Message Content</label>
-            <textarea
-              placeholder="Enter your message"
-              rows={6}
-              value={selectedNode.data.content || ""}
-              onChange={(e) => {
-                onUpdateNodeProperties({ content: e.target.value });
-              }}
-            />
-
-            <div className="message-format-controls">
-              <button className="format-button" title="Bold">
-                {renderIcon("Bold", 16)}
-              </button>
-              <button className="format-button" title="Italic">
-                {renderIcon("Italic", 16)}
-              </button>
-              <button className="format-button" title="Add Link">
-                {renderIcon("Link", 16)}
-              </button>
-              <button className="format-button" title="Add Variable">
-                {renderIcon("Variable", 16)}
-              </button>
-            </div>
-
-            <div className="message-options">
-              <label className="checkbox-field">
-                <input type="checkbox" /> Include link preview
-              </label>
-            </div>
-          </div>
-        );
-        break;
-
-      case "input":
-        specificProperties = (
+    switch (node.type) {
+      case "triggerNode":
+        return (
           <>
-            <div className="property-field">
-              <label>Question Text</label>
-              <textarea
-                placeholder="Enter your question"
-                rows={3}
-                value={selectedNode.data.content || ""}
-                onChange={(e) => {
-                  onUpdateNodeProperties({ content: e.target.value });
-                }}
-              />
-            </div>
-
-            <div className="property-field">
-              <label>Input Type</label>
-              <select>
-                <option value="options">Button Options</option>
-                <option value="text">Free Text</option>
-                <option value="number">Number</option>
-                <option value="date">Date</option>
-                <option value="file">File Upload</option>
-              </select>
-            </div>
-
-            <div className="property-field">
-              <label>
-                Button Options
-                <button
-                  className="add-option-button"
-                  onClick={() => {
-                    const newOptions = [
-                      ...(selectedNode.data.options || []),
-                      {
-                        id: `opt_${Date.now()}`,
-                        text: `Option ${
-                          (selectedNode.data.options || []).length + 1
-                        }`,
-                      },
-                    ];
-                    onUpdateNodeProperties({ options: newOptions });
-                  }}
+            <div className="property-group">
+              <h4>Trigger Settings</h4>
+              <div className="property-field">
+                <label>Trigger Type</label>
+                <select
+                  value={localData.triggerType || ""}
+                  onChange={(e) =>
+                    handleInputChange("triggerType", e.target.value)
+                  }
                 >
-                  {renderIcon("Plus", 14)} Add Option
-                </button>
-              </label>
+                  <option value="New Message Received">
+                    New Message Received
+                  </option>
+                  <option value="Message Match Keyword Condition">
+                    Message Match Keyword
+                  </option>
+                  <option value="Hot Keyword">Hot Keyword</option>
+                  <option value="Inbound Webhook Trigger">
+                    Inbound Webhook
+                  </option>
+                  <option value="Click to WhatsApp Ads">
+                    Click to WhatsApp Ads
+                  </option>
+                </select>
+              </div>
 
-              <div className="options-list">
-                {(selectedNode.data.options || []).map((option, index) => (
-                  <div key={option.id} className="option-row">
-                    <input
-                      type="text"
-                      value={option.text}
-                      onChange={(e) => {
-                        const newOptions = [...selectedNode.data.options];
-                        newOptions[index] = {
-                          ...newOptions[index],
-                          text: e.target.value,
-                        };
-                        onUpdateNodeProperties({ options: newOptions });
-                      }}
-                    />
-                    <button
-                      className="remove-option"
-                      onClick={() => {
-                        const newOptions = selectedNode.data.options.filter(
-                          (_, i) => i !== index
-                        );
-                        onUpdateNodeProperties({ options: newOptions });
-                      }}
-                    >
-                      {renderIcon("X", 14)}
-                    </button>
-                  </div>
-                ))}
+              {(localData.triggerType || "").includes("Keyword") && (
+                <div className="property-field">
+                  <label>Keywords</label>
+                  <input
+                    type="text"
+                    placeholder="Enter keywords separated by commas"
+                    value={localData.condition || ""}
+                    onChange={(e) =>
+                      handleInputChange("condition", e.target.value)
+                    }
+                  />
+                </div>
+              )}
+            </div>
+          </>
+        );
+
+      case "messageNode":
+        return (
+          <>
+            <div className="property-group">
+              <h4>Message Settings</h4>
+              <div className="property-field">
+                <label>Message Text</label>
+                <textarea
+                  placeholder="Enter your message here"
+                  value={localData.message || ""}
+                  onChange={(e) => handleInputChange("message", e.target.value)}
+                  rows="4"
+                />
+              </div>
+
+              <div className="property-field checkbox">
+                <label>
+                  <input
+                    type="checkbox"
+                    checked={localData.waitForReply || false}
+                    onChange={(e) =>
+                      handleInputChange("waitForReply", e.target.checked)
+                    }
+                  />
+                  Wait for reply
+                </label>
               </div>
             </div>
           </>
         );
-        break;
 
-      case "condition":
-        specificProperties = (
-          <div className="property-field condition-fields">
-            <label>Condition Expression</label>
-
-            <input
-              type="text"
-              placeholder="Variable name or {{placeholder}}"
-              value={selectedNode.data.condition?.variable || ""}
-              onChange={(e) => {
-                onUpdateNodeProperties({
-                  condition: {
-                    ...selectedNode.data.condition,
-                    variable: e.target.value,
-                  },
-                });
-              }}
-            />
-
-            <select
-              value={selectedNode.data.condition?.operator || "=="}
-              onChange={(e) => {
-                onUpdateNodeProperties({
-                  condition: {
-                    ...selectedNode.data.condition,
-                    operator: e.target.value,
-                  },
-                });
-              }}
-            >
-              <option value="==">equals (==)</option>
-              <option value="!=">not equals (!=)</option>
-              <option value=">">greater than (&gt;)</option>
-              <option value="<">less than (&lt;)</option>
-              <option value=">=">greater or equal (&gt;=)</option>
-              <option value="<=">less or equal (&lt;=)</option>
-              <option value="contains">contains</option>
-              <option value="startsWith">starts with</option>
-              <option value="endsWith">ends with</option>
-            </select>
-
-            <input
-              type="text"
-              placeholder="Value to compare with"
-              value={selectedNode.data.condition?.value || ""}
-              onChange={(e) => {
-                onUpdateNodeProperties({
-                  condition: {
-                    ...selectedNode.data.condition,
-                    value: e.target.value,
-                  },
-                });
-              }}
-            />
-
-            <div className="condition-paths">
-              <div className="condition-path">
-                <span className="path-label yes">Yes path:</span>
-                <span className="path-description">If condition is true</span>
+      case "questionNode":
+        return (
+          <>
+            <div className="property-group">
+              <h4>Question Settings</h4>
+              <div className="property-field">
+                <label>Question Text</label>
+                <textarea
+                  placeholder="Enter your question here"
+                  value={localData.question || ""}
+                  onChange={(e) =>
+                    handleInputChange("question", e.target.value)
+                  }
+                  rows="3"
+                />
               </div>
-              <div className="condition-path">
-                <span className="path-label no">No path:</span>
-                <span className="path-description">If condition is false</span>
+
+              <div className="property-field">
+                <label>Response Field</label>
+                <input
+                  type="text"
+                  placeholder="Field name to store response"
+                  value={localData.responseField || ""}
+                  onChange={(e) =>
+                    handleInputChange("responseField", e.target.value)
+                  }
+                />
+              </div>
+
+              <div className="property-field">
+                <label>Wait Time (seconds)</label>
+                <input
+                  type="number"
+                  min="10"
+                  max="300"
+                  value={localData.waitTime || 180}
+                  onChange={(e) =>
+                    handleInputChange("waitTime", parseInt(e.target.value))
+                  }
+                />
+              </div>
+
+              <div className="property-field">
+                <label>Buttons</label>
+                <div className="buttons-container">
+                  {(localData.buttons || []).map((button, index) => (
+                    <div key={button.id || index} className="button-item">
+                      <input
+                        type="text"
+                        placeholder="Button text"
+                        value={button.text || ""}
+                        onChange={(e) =>
+                          handleButtonChange(index, "text", e.target.value)
+                        }
+                      />
+                      <input
+                        type="text"
+                        placeholder="Value"
+                        value={button.value || ""}
+                        onChange={(e) =>
+                          handleButtonChange(index, "value", e.target.value)
+                        }
+                      />
+                      <button
+                        className="remove-button"
+                        onClick={() => removeButton(index)}
+                        type="button"
+                      >
+                        ×
+                      </button>
+                    </div>
+                  ))}
+
+                  <button
+                    className="add-button"
+                    onClick={addButton}
+                    type="button"
+                  >
+                    Add Button
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
+          </>
         );
-        break;
 
-      case "api":
-        specificProperties = (
-          <div className="property-field api-fields">
-            <label>API Endpoint</label>
-            <input
-              type="text"
-              placeholder="https://api.example.com/endpoint"
-              value={selectedNode.data.apiDetails?.url || ""}
-              onChange={(e) => {
-                onUpdateNodeProperties({
-                  apiDetails: {
-                    ...selectedNode.data.apiDetails,
-                    url: e.target.value,
-                  },
-                });
-              }}
-            />
+      case "routerNode":
+        return (
+          <>
+            <div className="property-group">
+              <h4>Router Settings</h4>
+              <div className="conditions-container">
+                {(localData.conditions || []).map((condition, index) => (
+                  <div key={condition.id || index} className="condition-item">
+                    <div className="condition-row">
+                      <select
+                        value={condition.field || ""}
+                        onChange={(e) =>
+                          handleConditionChange(index, "field", e.target.value)
+                        }
+                      >
+                        <option value="">Select Field</option>
+                        <option value="user_response">User Response</option>
+                        <option value="user_name">User Name</option>
+                        <option value="user_phone">User Phone</option>
+                        <option value="custom_field">Custom Field</option>
+                      </select>
 
-            <div className="method-selector">
-              <label>Method</label>
-              <select
-                value={selectedNode.data.apiDetails?.method || "GET"}
-                onChange={(e) => {
-                  onUpdateNodeProperties({
-                    apiDetails: {
-                      ...selectedNode.data.apiDetails,
-                      method: e.target.value,
-                    },
-                  });
-                }}
-              >
-                <option value="GET">GET</option>
-                <option value="POST">POST</option>
-                <option value="PUT">PUT</option>
-                <option value="DELETE">DELETE</option>
-                <option value="PATCH">PATCH</option>
-              </select>
-            </div>
+                      <select
+                        value={condition.operator || "equals"}
+                        onChange={(e) =>
+                          handleConditionChange(
+                            index,
+                            "operator",
+                            e.target.value
+                          )
+                        }
+                      >
+                        <option value="equals">equals</option>
+                        <option value="contains">contains</option>
+                        <option value="startsWith">starts with</option>
+                        <option value="endsWith">ends with</option>
+                        <option value="greaterThan">greater than</option>
+                        <option value="lessThan">less than</option>
+                      </select>
 
-            <label>Headers (JSON format)</label>
-            <textarea
-              placeholder='{"Content-Type": "application/json", "Authorization": "Bearer {{token}}"}'
-              rows={3}
-              value={JSON.stringify(
-                selectedNode.data.apiDetails?.headers || {},
-                null,
-                2
-              )}
-              onChange={(e) => {
-                try {
-                  const headers = JSON.parse(e.target.value);
-                  onUpdateNodeProperties({
-                    apiDetails: {
-                      ...selectedNode.data.apiDetails,
-                      headers,
-                    },
-                  });
-                } catch (error) {
-                  // Allow invalid JSON during typing, but don't update state
-                }
-              }}
-            />
+                      <input
+                        type="text"
+                        placeholder="Value"
+                        value={condition.value || ""}
+                        onChange={(e) =>
+                          handleConditionChange(index, "value", e.target.value)
+                        }
+                      />
 
-            <label>Body (JSON format)</label>
-            <textarea
-              placeholder='{"key": "value", "user": "{{user_name}}"}'
-              rows={4}
-              value={selectedNode.data.apiDetails?.body || "{}"}
-              onChange={(e) => {
-                onUpdateNodeProperties({
-                  apiDetails: {
-                    ...selectedNode.data.apiDetails,
-                    body: e.target.value,
-                  },
-                });
-              }}
-            />
-          </div>
-        );
-        break;
+                      <button
+                        className="remove-button"
+                        onClick={() => removeCondition(index)}
+                        type="button"
+                      >
+                        ×
+                      </button>
+                    </div>
 
-      case "template":
-        specificProperties = (
-          <div className="property-field template-fields">
-            <label>Template Name</label>
-            <input
-              type="text"
-              placeholder="my_template_name"
-              value={selectedNode.data.templateDetails?.name || ""}
-              onChange={(e) => {
-                onUpdateNodeProperties({
-                  templateDetails: {
-                    ...selectedNode.data.templateDetails,
-                    name: e.target.value,
-                  },
-                });
-              }}
-            />
-
-            <label>Language</label>
-            <select
-              value={selectedNode.data.templateDetails?.language || "en"}
-              onChange={(e) => {
-                onUpdateNodeProperties({
-                  templateDetails: {
-                    ...selectedNode.data.templateDetails,
-                    language: e.target.value,
-                  },
-                });
-              }}
-            >
-              <option value="en">English</option>
-              <option value="es">Spanish</option>
-              <option value="fr">French</option>
-              <option value="pt">Portuguese</option>
-              <option value="ar">Arabic</option>
-              <option value="hi">Hindi</option>
-              <option value="zh">Chinese</option>
-            </select>
-
-            <label>
-              Template Parameters
-              <button
-                className="add-param-button"
-                onClick={() => {
-                  const newParams = [
-                    ...(selectedNode.data.templateDetails?.parameters || []),
-                    {
-                      id: `param_${Date.now()}`,
-                      key: "",
-                      value: "",
-                    },
-                  ];
-                  onUpdateNodeProperties({
-                    templateDetails: {
-                      ...selectedNode.data.templateDetails,
-                      parameters: newParams,
-                    },
-                  });
-                }}
-              >
-                {renderIcon("Plus", 14)} Add Parameter
-              </button>
-            </label>
-
-            <div className="params-list">
-              {(selectedNode.data.templateDetails?.parameters || []).map(
-                (param, index) => (
-                  <div key={param.id} className="param-row">
-                    <input
-                      type="text"
-                      placeholder="Key"
-                      value={param.key}
-                      onChange={(e) => {
-                        const newParams = [
-                          ...selectedNode.data.templateDetails.parameters,
-                        ];
-                        newParams[index] = {
-                          ...newParams[index],
-                          key: e.target.value,
-                        };
-                        onUpdateNodeProperties({
-                          templateDetails: {
-                            ...selectedNode.data.templateDetails,
-                            parameters: newParams,
-                          },
-                        });
-                      }}
-                    />
-                    <input
-                      type="text"
-                      placeholder="Value or {{variable}}"
-                      value={param.value}
-                      onChange={(e) => {
-                        const newParams = [
-                          ...selectedNode.data.templateDetails.parameters,
-                        ];
-                        newParams[index] = {
-                          ...newParams[index],
-                          value: e.target.value,
-                        };
-                        onUpdateNodeProperties({
-                          templateDetails: {
-                            ...selectedNode.data.templateDetails,
-                            parameters: newParams,
-                          },
-                        });
-                      }}
-                    />
-                    <button
-                      className="remove-param"
-                      onClick={() => {
-                        const newParams =
-                          selectedNode.data.templateDetails.parameters.filter(
-                            (_, i) => i !== index
-                          );
-                        onUpdateNodeProperties({
-                          templateDetails: {
-                            ...selectedNode.data.templateDetails,
-                            parameters: newParams,
-                          },
-                        });
-                      }}
-                    >
-                      {renderIcon("X", 14)}
-                    </button>
+                    <div className="target-row">
+                      <label>Target Node:</label>
+                      <select
+                        value={condition.targetNode || ""}
+                        onChange={(e) =>
+                          handleConditionChange(
+                            index,
+                            "targetNode",
+                            e.target.value
+                          )
+                        }
+                      >
+                        <option value="">Select Target Node</option>
+                        {nodes
+                          .filter((n) => n.id !== node.id)
+                          .map((n) => (
+                            <option key={n.id} value={n.id}>
+                              {n.data.label || n.type} (ID: {n.id})
+                            </option>
+                          ))}
+                      </select>
+                    </div>
                   </div>
-                )
-              )}
+                ))}
+
+                <button
+                  className="add-button"
+                  onClick={addCondition}
+                  type="button"
+                >
+                  Add Condition
+                </button>
+              </div>
+
+              <div className="property-field">
+                <label>Default Target Node</label>
+                <select
+                  value={localData.defaultTargetNode || ""}
+                  onChange={(e) =>
+                    handleInputChange("defaultTargetNode", e.target.value)
+                  }
+                >
+                  <option value="">Select Default Target</option>
+                  {nodes
+                    .filter((n) => n.id !== node.id)
+                    .map((n) => (
+                      <option key={n.id} value={n.id}>
+                        {n.data.label || n.type} (ID: {n.id})
+                      </option>
+                    ))}
+                </select>
+              </div>
             </div>
-          </div>
+          </>
         );
-        break;
 
-      case "delay":
-        specificProperties = (
-          <div className="property-field delay-fields">
-            <label>Delay Duration</label>
-            <div className="delay-input-group">
-              <input
-                type="number"
-                min="1"
-                value={selectedNode.data.delayTime?.value || 5}
-                onChange={(e) => {
-                  onUpdateNodeProperties({
-                    delayTime: {
-                      ...selectedNode.data.delayTime,
-                      value: parseInt(e.target.value, 10) || 1,
-                    },
-                  });
-                }}
-              />
-              <select
-                value={selectedNode.data.delayTime?.unit || "minutes"}
-                onChange={(e) => {
-                  onUpdateNodeProperties({
-                    delayTime: {
-                      ...selectedNode.data.delayTime,
-                      unit: e.target.value,
-                    },
-                  });
-                }}
-              >
-                <option value="seconds">Seconds</option>
-                <option value="minutes">Minutes</option>
-                <option value="hours">Hours</option>
-                <option value="days">Days</option>
-              </select>
+      case "assignNode":
+        return (
+          <>
+            <div className="property-group">
+              <h4>Assign Settings</h4>
+              <div className="property-field">
+                <label>Agent ID / Name</label>
+                <input
+                  type="text"
+                  placeholder="Enter agent ID or name"
+                  value={localData.agentId || ""}
+                  onChange={(e) => handleInputChange("agentId", e.target.value)}
+                />
+              </div>
+
+              <div className="property-field">
+                <label>Team</label>
+                <select
+                  value={localData.team || ""}
+                  onChange={(e) => handleInputChange("team", e.target.value)}
+                >
+                  <option value="">Select Team</option>
+                  <option value="sales">Sales</option>
+                  <option value="support">Support</option>
+                  <option value="technical">Technical</option>
+                  <option value="billing">Billing</option>
+                </select>
+              </div>
+
+              <div className="property-field">
+                <label>Handover Message</label>
+                <textarea
+                  placeholder="Message to display when assigning to agent"
+                  value={localData.message || ""}
+                  onChange={(e) => handleInputChange("message", e.target.value)}
+                  rows="3"
+                />
+              </div>
             </div>
-          </div>
+          </>
         );
-        break;
 
-      case "webhook":
-        specificProperties = (
-          <div className="property-field webhook-fields">
-            <label>Webhook URL</label>
-            <input
-              type="text"
-              placeholder="https://webhooks.example.com/trigger"
-              value={selectedNode.data.webhookDetails?.url || ""}
-              onChange={(e) => {
-                onUpdateNodeProperties({
-                  webhookDetails: {
-                    ...selectedNode.data.webhookDetails,
-                    url: e.target.value,
-                  },
-                });
-              }}
-            />
+      case "webhookNode":
+        return (
+          <>
+            <div className="property-group">
+              <h4>API Request Settings</h4>
+              <div className="property-field">
+                <label>URL</label>
+                <input
+                  type="text"
+                  placeholder="https://api.example.com/endpoint"
+                  value={localData.url || ""}
+                  onChange={(e) => handleInputChange("url", e.target.value)}
+                />
+              </div>
 
-            <div className="method-selector">
-              <label>Method</label>
-              <select
-                value={selectedNode.data.webhookDetails?.method || "POST"}
-                onChange={(e) => {
-                  onUpdateNodeProperties({
-                    webhookDetails: {
-                      ...selectedNode.data.webhookDetails,
-                      method: e.target.value,
-                    },
-                  });
-                }}
-              >
-                <option value="GET">GET</option>
-                <option value="POST">POST</option>
-                <option value="PUT">PUT</option>
-              </select>
+              <div className="property-field">
+                <label>Method</label>
+                <select
+                  value={localData.method || "GET"}
+                  onChange={(e) => handleInputChange("method", e.target.value)}
+                >
+                  <option value="GET">GET</option>
+                  <option value="POST">POST</option>
+                  <option value="PUT">PUT</option>
+                  <option value="DELETE">DELETE</option>
+                </select>
+              </div>
+
+              <div className="property-field">
+                <label>Headers (JSON)</label>
+                <textarea
+                  placeholder='{"Content-Type": "application/json"}'
+                  value={
+                    localData.headers
+                      ? JSON.stringify(localData.headers, null, 2)
+                      : ""
+                  }
+                  onChange={(e) => {
+                    try {
+                      const headers = JSON.parse(e.target.value);
+                      handleInputChange("headers", headers);
+                    } catch (error) {
+                      // Invalid JSON, don't update
+                      console.error("Invalid JSON for headers:", error);
+                    }
+                  }}
+                  rows="3"
+                />
+              </div>
+
+              <div className="property-field">
+                <label>Body (JSON)</label>
+                <textarea
+                  placeholder='{"key": "value"}'
+                  value={
+                    localData.body
+                      ? JSON.stringify(localData.body, null, 2)
+                      : ""
+                  }
+                  onChange={(e) => {
+                    try {
+                      const body = JSON.parse(e.target.value);
+                      handleInputChange("body", body);
+                    } catch (error) {
+                      // Invalid JSON, don't update
+                      console.error("Invalid JSON for body:", error);
+                    }
+                  }}
+                  rows="3"
+                />
+              </div>
+
+              <div className="property-field">
+                <label>Response Field</label>
+                <input
+                  type="text"
+                  placeholder="Field to store API response"
+                  value={localData.responseField || ""}
+                  onChange={(e) =>
+                    handleInputChange("responseField", e.target.value)
+                  }
+                />
+              </div>
             </div>
-
-            <label>Headers (JSON format)</label>
-            <textarea
-              placeholder='{"Content-Type": "application/json"}'
-              rows={3}
-              value={JSON.stringify(
-                selectedNode.data.webhookDetails?.headers || {},
-                null,
-                2
-              )}
-              onChange={(e) => {
-                try {
-                  const headers = JSON.parse(e.target.value);
-                  onUpdateNodeProperties({
-                    webhookDetails: {
-                      ...selectedNode.data.webhookDetails,
-                      headers,
-                    },
-                  });
-                } catch (error) {
-                  // Allow invalid JSON during typing, but don't update state
-                }
-              }}
-            />
-
-            <label>Payload (JSON format)</label>
-            <textarea
-              placeholder='{"event": "flow_triggered", "data": {{flow_data}}}'
-              rows={4}
-              value={selectedNode.data.webhookDetails?.payload || "{}"}
-              onChange={(e) => {
-                onUpdateNodeProperties({
-                  webhookDetails: {
-                    ...selectedNode.data.webhookDetails,
-                    payload: e.target.value,
-                  },
-                });
-              }}
-            />
-          </div>
+          </>
         );
-        break;
 
-      case "start":
-      case "end":
-        specificProperties = (
-          <div className="property-field">
-            <p className="node-description">
-              {selectedNode.type === "start"
-                ? "This node represents the starting point of your bot flow. Users will begin their journey here."
-                : "This node represents the end of a conversation path. The bot flow will terminate when it reaches this point."}
-            </p>
-          </div>
+      case "googleSheetNode":
+        return (
+          <>
+            <div className="property-group">
+              <h4>Google Sheet Settings</h4>
+              <div className="property-field">
+                <label>Sheet ID</label>
+                <input
+                  type="text"
+                  placeholder="Google Sheet ID"
+                  value={localData.sheetId || ""}
+                  onChange={(e) => handleInputChange("sheetId", e.target.value)}
+                />
+              </div>
+
+              <div className="property-field">
+                <label>Range</label>
+                <input
+                  type="text"
+                  placeholder="e.g., Sheet1!A1:D10"
+                  value={localData.range || ""}
+                  onChange={(e) => handleInputChange("range", e.target.value)}
+                />
+              </div>
+
+              <div className="property-field">
+                <label>Lookup Column</label>
+                <input
+                  type="text"
+                  placeholder="Column to search in (e.g., A or 1)"
+                  value={localData.lookupColumn || ""}
+                  onChange={(e) =>
+                    handleInputChange("lookupColumn", e.target.value)
+                  }
+                />
+              </div>
+
+              <div className="property-field">
+                <label>Lookup Value</label>
+                <input
+                  type="text"
+                  placeholder="Value to search for"
+                  value={localData.lookupValue || ""}
+                  onChange={(e) =>
+                    handleInputChange("lookupValue", e.target.value)
+                  }
+                />
+              </div>
+
+              <div className="property-field">
+                <label>Result Field</label>
+                <input
+                  type="text"
+                  placeholder="Field to store result"
+                  value={localData.resultField || ""}
+                  onChange={(e) =>
+                    handleInputChange("resultField", e.target.value)
+                  }
+                />
+              </div>
+            </div>
+          </>
         );
-        break;
+
+      case "stayInSessionNode":
+        return (
+          <>
+            <div className="property-group">
+              <h4>Stay In Session Settings</h4>
+              <div className="property-field">
+                <label>Message</label>
+                <textarea
+                  placeholder="Message to display when keeping session active"
+                  value={localData.message || ""}
+                  onChange={(e) => handleInputChange("message", e.target.value)}
+                  rows="3"
+                />
+              </div>
+            </div>
+          </>
+        );
 
       default:
-        specificProperties = (
-          <div className="property-field">
-            <p>No specific properties for this node type.</p>
+        return (
+          <div className="property-group">
+            <h4>Node Properties</h4>
+            <p>Properties not available for this node type.</p>
           </div>
         );
     }
-
-    return (
-      <>
-        {commonProperties}
-        {specificProperties}
-        <button
-          className="action-button danger full-width"
-          onClick={() => onRemoveNode(selectedNode.id)}
-        >
-          {renderIcon("Trash", 16)}
-          <span>Delete Node</span>
-        </button>
-      </>
-    );
   };
 
+  if (!node)
+    return (
+      <div className="bot-builder-properties">
+        <div className="properties-header">
+          <h3>No Node Selected</h3>
+        </div>
+      </div>
+    );
+
   return (
-    <div className="properties-panel">
-      <div className="panel-header">
-        <h3>Properties</h3>
+    <div className="bot-builder-properties">
+      <div className="properties-header">
+        <h3>Properties: {localData.label || node.type}</h3>
       </div>
 
-      <div className="panel-content">
-        {selectedNode ? (
-          <div className="property-fields">{renderNodeProperties()}</div>
-        ) : (
-          <div className="empty-state">
-            <p>Select a node to view and edit its properties</p>
+      <div className="properties-content">
+        <div className="property-group">
+          <h4>Basic Settings</h4>
+          <div className="property-field">
+            <label>Node Label</label>
+            <input
+              type="text"
+              value={localData.label || ""}
+              onChange={(e) => handleInputChange("label", e.target.value)}
+              placeholder="Enter node label"
+            />
           </div>
-        )}
+        </div>
+
+        {renderNodeProperties()}
       </div>
     </div>
   );

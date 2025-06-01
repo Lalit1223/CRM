@@ -1,78 +1,115 @@
 /* src/components/Header/Header.css */
 .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 16px;
-    background-color: #ffffff;
-    border-bottom: 1px solid #e0e0e0;
-    height: 60px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background-color: #fff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  z-index: 1000;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+}
+
+.address-bar {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  width: 28px;
+  height: 28px;
+  margin-right: 10px;
+}
+
+.app-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.icon-button {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  color: #555;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.icon-button:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.help-button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background-color: rgba(37, 211, 102, 0.1);
+  color: #25D366;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.help-button:hover {
+  background-color: rgba(37, 211, 102, 0.2);
+}
+
+.logout-button {
+  margin-left: 10px;
+  background-color: #f45b69;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.logout-button:hover {
+  background-color: #d64550;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .header {
+    padding: 0 15px;
   }
   
-  .header-left {
-    display: flex;
-    align-items: center;
+  .help-button span {
+    display: none;
   }
   
-  .navigation-buttons {
-    display: flex;
-    margin-right: 16px;
-  }
-  
-  .icon-button {
-    background: none;
-    border: none;
-    color: #5a5a5a;
-    padding: 8px;
-    border-radius: 50%;
-    cursor: pointer;
+  .help-button {
+    width: 36px;
+    height: 36px;
+    padding: 0;
     display: flex;
     align-items: center;
     justify-content: center;
   }
-  
-  .icon-button:hover {
-    background-color: #f5f5f5;
-  }
-  
-  .address-bar {
-    display: flex;
-    align-items: center;
-  }
-  
-  .logo {
-    width: 24px;
-    height: 24px;
-    margin-right: 8px;
-  }
-  
-  .app-title {
-    font-size: 18px;
-    font-weight: 600;
-    color: #333;
-  }
-  
-  .header-right {
-    display: flex;
-    align-items: center;
-  }
-  
-  .help-button {
-    display: flex;
-    align-items: center;
-    background: none;
-    border: none;
-    color: #5a5a5a;
-    padding: 8px 12px;
-    border-radius: 4px;
-    cursor: pointer;
-    margin-left: 8px;
-  }
-  
-  .help-button span {
-    margin-left: 6px;
-  }
-  
-  .help-button:hover {
-    background-color: #f5f5f5;
-  }
+}

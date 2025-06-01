@@ -235,7 +235,7 @@ const ChatWidgetForm = () => {
     e.preventDefault();
 
     // In a real application, you would send the data to an API
-    console.log("Form submitted:", formData);
+    //console.log("Form submitted:", formData);
 
     // Simulating a successful save
     setTimeout(() => {

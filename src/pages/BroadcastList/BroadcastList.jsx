@@ -336,7 +336,7 @@ const BroadcastList = () => {
       setShowBroadcastModal(false);
 
       // Show success notification (you could add a toast notification here)
-      console.log("Broadcast message sent successfully!");
+      //console.log("Broadcast message sent successfully!");
     }, 2000);
   };
 

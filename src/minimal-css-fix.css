@@ -1,0 +1,2421 @@
+/* =============================================================================
+   UPDATED MINIMAL CSS FIX - Resolves Input and Placeholder Conflicts
+   Import this file AFTER your existing CSS files
+   ============================================================================= */
+
+/* 1. SCOPE WORKFLOW BUILDER STYLES - Prevent conflicts */
+.workflow-builder,
+.workflow-builder *,
+.workflow-management,
+.workflow-management * {
+  box-sizing: border-box;
+}
+
+/* Scope all workflow-specific button styles */
+.workflow-builder .btn,
+.workflow-management .btn,
+.workflow-builder .btn-primary,
+.workflow-management .btn-primary,
+.workflow-builder .btn-secondary,
+.workflow-management .btn-secondary,
+.workflow-builder .btn-success,
+.workflow-management .btn-success,
+.workflow-builder .btn-danger,
+.workflow-management .btn-danger {
+  /* Keep workflow button styles isolated */
+  all: revert;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+  font-weight: 500;
+  font-size: 0.875rem;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+.workflow-builder .btn-primary,
+.workflow-management .btn-primary {
+  background: #3b82f6 !important;
+  color: white !important;
+}
+
+.workflow-builder .btn-primary:hover,
+.workflow-management .btn-primary:hover {
+  background: #2563eb !important;
+}
+
+.workflow-builder .btn-secondary,
+.workflow-management .btn-secondary {
+  background: #f9fafb !important;
+  color: #374151 !important;
+  border: 1px solid #d1d5db !important;
+}
+
+.workflow-builder .btn-success,
+.workflow-management .btn-success {
+  background: #10b981 !important;
+  color: white !important;
+}
+
+.workflow-builder .btn-danger,
+.workflow-management .btn-danger {
+  background: #ef4444 !important;
+  color: white !important;
+}
+
+/* 2. FIX GLOBAL BUTTON CONFLICTS - SAFER APPROACH */
+.main-content .btn:not(.workflow-builder .btn):not(.workflow-management .btn),
+.page-container .btn:not(.workflow-builder .btn):not(.workflow-management .btn),
+.feature-cards-container .btn:not(.workflow-builder .btn):not(.workflow-management .btn) {
+  /* SAFER: Don't use 'all: unset' - instead reset specific properties */
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+  font-weight: 500;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  white-space: nowrap;
+  user-select: none;
+  outline: none;
+  font-family: inherit;
+  background-color: #25D366;
+  color: white;
+  border-color: #25D366;
+}
+
+.main-content .btn:not(.workflow-builder .btn):not(.workflow-management .btn):hover,
+.page-container .btn:not(.workflow-builder .btn):not(.workflow-management .btn):hover,
+.feature-cards-container .btn:not(.workflow-builder .btn):not(.workflow-management .btn):hover {
+  background-color: #1da856;
+  border-color: #1da856;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(37, 211, 102, 0.3);
+}
+
+/* 3. FIX FORM INPUTS - Comprehensive Input Styling */
+.form-control,
+.form-group input,
+.form-group textarea,
+.form-group select,
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+input[type="tel"],
+input[type="url"],
+input[type="search"],
+textarea,
+select {
+  /* Ensure proper input styling */
+  box-sizing: border-box !important;
+  width: 100% !important;
+  padding: 0.75rem !important;
+  border: 1px solid #e0e0e0 !important;
+  border-radius: 0.375rem !important;
+  font-size: 0.875rem !important;
+  line-height: 1.5 !important;
+  background-color: #ffffff !important;
+  color: #333333 !important;
+  font-family: inherit !important;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease !important;
+  outline: none !important;
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+}
+
+/* 4. FIX PLACEHOLDER STYLING */
+.form-control::placeholder,
+.form-group input::placeholder,
+.form-group textarea::placeholder,
+input[type="text"]::placeholder,
+input[type="email"]::placeholder,
+input[type="password"]::placeholder,
+input[type="number"]::placeholder,
+input[type="tel"]::placeholder,
+input[type="url"]::placeholder,
+input[type="search"]::placeholder,
+textarea::placeholder {
+  color: #9ca3af !important;
+  opacity: 1 !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-size: inherit !important;
+}
+
+/* Firefox placeholder fix */
+.form-control::-moz-placeholder,
+.form-group input::-moz-placeholder,
+.form-group textarea::-moz-placeholder,
+input[type="text"]::-moz-placeholder,
+input[type="email"]::-moz-placeholder,
+input[type="password"]::-moz-placeholder,
+input[type="number"]::-moz-placeholder,
+input[type="tel"]::-moz-placeholder,
+input[type="url"]::-moz-placeholder,
+input[type="search"]::-moz-placeholder,
+textarea::-moz-placeholder {
+  color: #9ca3af !important;
+  opacity: 1 !important;
+}
+
+/* 5. FIX INPUT FOCUS STATES */
+.form-control:focus,
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus,
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="number"]:focus,
+input[type="tel"]:focus,
+input[type="url"]:focus,
+input[type="search"]:focus,
+textarea:focus,
+select:focus {
+  border-color: #25D366 !important;
+  box-shadow: 0 0 0 3px rgba(37, 211, 102, 0.1) !important;
+  outline: none !important;
+}
+
+/* 6. FIX SELECT DROPDOWN STYLING */
+select {
+  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3E%3C/svg%3E") !important;
+  background-position: right 0.5rem center !important;
+  background-repeat: no-repeat !important;
+  background-size: 1.5em 1.5em !important;
+  padding-right: 2.5rem !important;
+}
+
+/* 7. FIX FORM LABELS */
+.form-group label,
+label {
+  display: block !important;
+  font-size: 0.875rem !important;
+  font-weight: 500 !important;
+  color: #333333 !important;
+  margin-bottom: 0.5rem !important;
+  line-height: 1.4 !important;
+}
+
+/* 8. FIX BUTTON VARIANTS - SAFER APPROACH */
+.btn-primary:not(.workflow-builder .btn-primary):not(.workflow-management .btn-primary) {
+  background-color: #25D366 !important;
+  color: white !important;
+  border-color: #25D366 !important;
+}
+
+.btn-secondary:not(.workflow-builder .btn-secondary):not(.workflow-management .btn-secondary) {
+  background-color: white !important;
+  color: #333333 !important;
+  border-color: #e0e0e0 !important;
+}
+
+.btn-secondary:not(.workflow-builder .btn-secondary):not(.workflow-management .btn-secondary):hover {
+  background-color: #f0f0f0 !important;
+  border-color: #9ca3af !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+}
+
+.btn-danger:not(.workflow-builder .btn-danger):not(.workflow-management .btn-danger) {
+  background-color: #ef4444 !important;
+  color: white !important;
+  border-color: #ef4444 !important;
+}
+
+.btn-danger:not(.workflow-builder .btn-danger):not(.workflow-management .btn-danger):hover {
+  background-color: #dc2626 !important;
+  border-color: #dc2626 !important;
+}
+
+/* 9. FIX FEATURE CARDS - Keep your beautiful design intact */
+.feature-cards-container {
+  display: grid !important;
+  grid-template-columns: repeat(4, 1fr) !important;
+  gap: 20px !important;
+  margin-top: 30px !important;
+  margin-bottom: 30px !important;
+}
+
+@media (max-width: 1200px) {
+  .feature-cards-container {
+    grid-template-columns: repeat(3, 1fr) !important;
+  }
+}
+
+@media (max-width: 900px) {
+  .feature-cards-container {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .feature-cards-container {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+.feature-card {
+  background-color: #ffffff !important;
+  border-radius: 16px !important;
+  padding: 24px !important;
+  transition: all 0.3s ease !important;
+  display: flex !important;
+  flex-direction: column !important;
+  height: 100% !important;
+  position: relative !important;
+  overflow: hidden !important;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.05) !important;
+  border: 1px solid #e0e0e0 !important;
+}
+
+.feature-card:hover {
+  transform: translateY(-6px) !important;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1) !important;
+}
+
+.feature-button {
+  background-color: transparent !important;
+  color: #25D366 !important;
+  border: 1px solid #25D366 !important;
+  border-radius: 30px !important;
+  padding: 8px 18px !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  cursor: pointer !important;
+  text-decoration: none !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  width: fit-content !important;
+  transition: all 0.3s ease !important;
+  position: relative !important;
+  z-index: 1 !important;
+  overflow: hidden !important;
+}
+
+.feature-button:hover {
+  color: white !important;
+  background-color: #25D366 !important;
+  transform: translateY(-2px) !important;
+}
+
+/* 10. FIX LAYOUT SPACING */
+.main-content {
+  margin-left: 60px !important;
+  margin-top: 60px !important;
+  transition: margin-left 0.3s ease !important;
+  background-color: #f5f5f5 !important;
+  min-height: calc(100vh - 60px) !important;
+}
+
+.main-content.sidebar-expanded {
+  margin-left: 220px !important;
+}
+
+.page-container {
+  background-color: #fff !important;
+  border-radius: 8px !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+  padding: 24px !important;
+  margin: 20px !important;
+  min-height: calc(100vh - 140px) !important;
+}
+
+/* 11. FIX HEADER POSITIONING */
+.header {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  height: 60px !important;
+  background-color: #fff !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  padding: 0 20px !important;
+  z-index: 1000 !important;
+  border-bottom: 1px solid #e0e0e0 !important;
+}
+
+/* 12. FIX SIDEBAR POSITIONING */
+.sidebar {
+  width: 60px !important;
+  height: calc(100vh - 60px) !important;
+  background-color: #ffffff !important;
+  box-shadow: 2px 0 4px rgba(0, 0, 0, 0.1) !important;
+  position: fixed !important;
+  left: 0 !important;
+  top: 60px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  transition: width 0.3s ease !important;
+  overflow-x: hidden !important;
+  z-index: 900 !important;
+  border-right: 1px solid #e0e0e0 !important;
+}
+
+.sidebar.expanded {
+  width: 220px !important;
+}
+
+/* 13. FIX CARDS */
+.card {
+  background-color: #fff !important;
+  border-radius: 8px !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+  border: 1px solid #e0e0e0 !important;
+  padding: 20px !important;
+  margin-bottom: 20px !important;
+  transition: box-shadow 0.2s ease !important;
+}
+
+.card:hover {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* 14. FIX FORM GROUPS */
+.form-group {
+  margin-bottom: 1rem !important;
+}
+
+/* 15. FIX LOADING STATES */
+.loading-container {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 4rem !important;
+  gap: 1rem !important;
+}
+
+.loading-spinner {
+  width: 40px !important;
+  height: 40px !important;
+  border: 4px solid rgba(37, 211, 102, 0.2) !important;
+  border-radius: 50% !important;
+  border-top-color: #25D366 !important;
+  animation: minimal-spin 1s ease-in-out infinite !important;
+}
+
+@keyframes minimal-spin {
+  to { 
+    transform: rotate(360deg);
+  }
+}
+
+/* 16. FIX SPECIFIC PRODUCT FORM INPUTS */
+.standalone-product-form-container input,
+.standalone-product-form-container textarea,
+.standalone-product-form-container select,
+.product-form input,
+.product-form textarea,
+.product-form select {
+  /* Ensure product form inputs work correctly */
+  box-sizing: border-box !important;
+  font-family: inherit !important;
+  font-size: 0.875rem !important;
+  line-height: 1.5 !important;
+  color: #333333 !important;
+  background-color: #ffffff !important;
+  border: 1px solid #e0e0e0 !important;
+  border-radius: 0.375rem !important;
+  padding: 0.75rem !important;
+  width: 100% !important;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease !important;
+}
+
+.standalone-product-form-container input::placeholder,
+.standalone-product-form-container textarea::placeholder,
+.product-form input::placeholder,
+.product-form textarea::placeholder {
+  color: #9ca3af !important;
+  opacity: 1 !important;
+  font-style: normal !important;
+}
+
+/* 17. FIX PRICE INPUT WRAPPERS */
+.price-input-wrapper {
+  display: flex !important;
+  align-items: stretch !important;
+  border: 1px solid #e0e0e0 !important;
+  border-radius: 8px !important;
+  /* Fixed focus and display issues */
+}
+
+.price-input-wrapper input {
+  border: none !important;
+  border-radius: 0 !important;
+  flex: 1 !important;
+  margin: 0 !important;
+  padding: 0.75rem !important;
+}
+
+.price-input-wrapper select,
+.price-input-wrapper .currency-symbol {
+  border: none !important;
+  border-radius: 0 !important;
+  padding: 0.75rem 0.5rem !important;
+  background-color: #f8f9fa !important;
+  border-right: 1px solid #e0e0e0 !important;
+  font-size: 0.875rem !important;
+  color: #666666 !important;
+}
+
+/* 18. FIX RESPONSIVE BEHAVIOR */
+@media (max-width: 768px) {
+  .main-content {
+    margin-left: 0 !important;
+    padding: 16px !important;
+  }
+  
+  .main-content.sidebar-expanded {
+    margin-left: 0 !important;
+  }
+  
+  .sidebar {
+    transform: translateX(-100%) !important;
+    transition: transform 0.3s ease !important;
+  }
+  
+  .sidebar.expanded {
+    transform: translateX(0) !important;
+    width: 280px !important;
+  }
+  
+  .page-container {
+    margin: 10px !important;
+    padding: 16px !important;
+  }
+  
+  .feature-cards-container {
+    gap: 15px !important;
+    margin: 20px 0 !important;
+  }
+}
+
+/* 19. PRESERVE WORKFLOW BUILDER ISOLATION */
+.workflow-builder,
+.workflow-management {
+  contain: layout style paint !important;
+}
+
+.workflow-builder .main-content,
+.workflow-management .main-content {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* 20. ENSURE LOGIN VIEW WORKS */
+.login-view {
+  margin-left: 0 !important;
+  margin-top: 0 !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  min-height: 100vh !important;
+  width: 100% !important;
+  background-color: #f5f5f5 !important;
+}
+
+.login-container1 {
+  width: 100% !important;
+  max-width: 400px !important;
+  padding: 2rem !important;
+}
+
+/* 21. ADDITIONAL INPUT TYPE FIXES */
+input[type="file"] {
+  padding: 0.5rem !important;
+  font-size: 0.875rem !important;
+  border: 1px solid #e0e0e0 !important;
+  border-radius: 0.375rem !important;
+  background-color: #ffffff !important;
+  width: 100% !important;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+  width: auto !important;
+  margin-right: 0.5rem !important;
+  transform: scale(1.1) !important;
+}
+
+/* 22. FIX SCROLLBARS */
+::-webkit-scrollbar {
+  width: 8px !important;
+  height: 8px !important;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1 !important;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c1c1c1 !important;
+  border-radius: 4px !important;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8 !important;
+}
+
+/* =============================================================================
+   END OF UPDATED MINIMAL CSS FIX
+   
+   KEY CHANGES:
+   1. Removed aggressive 'all: unset' resets
+   2. Added comprehensive input and placeholder styling
+   3. Fixed form input conflicts
+   4. Added specific ProductForm input fixes
+   5. Enhanced focus states for better UX
+   
+   USAGE: Replace your existing minimal-css-fix.css with this version
+   ============================================================================= */
+
+
+   /* =============================================================================
+   CAMPAIGNS SCOPED CSS - Non-Conflicting
+   Import this AFTER your minimal-css-fix.css
+   ============================================================================= */
+
+/* 1. CAMPAIGNS LIST STYLES */
+.campaigns-list-container,
+.campaigns-list-container * {
+  box-sizing: border-box !important;
+}
+
+.campaigns-list-container {
+  padding: 24px !important;
+  background-color: transparent !important;
+}
+
+/* Header */
+.campaigns-list-header {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: flex-start !important;
+  margin-bottom: 24px !important;
+}
+
+.campaigns-list-header-left h1 {
+  font-size: 24px !important;
+  font-weight: 600 !important;
+  color: #333 !important;
+  margin-bottom: 8px !important;
+  line-height: 1.3 !important;
+}
+
+.campaigns-list-header-left p {
+  color: #666 !important;
+  font-size: 14px !important;
+  margin: 0 !important;
+  line-height: 1.4 !important;
+}
+
+.campaigns-list-add-button {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  background-color: #25D366 !important;
+  color: white !important;
+  border: none !important;
+  padding: 12px 20px !important;
+  border-radius: 8px !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  cursor: pointer !important;
+  transition: background-color 0.3s ease !important;
+  text-decoration: none !important;
+}
+
+.campaigns-list-add-button:hover {
+  background-color: #128C7E !important;
+}
+
+/* Error Message */
+.campaigns-list-error-message {
+  background-color: #ffebee !important;
+  color: #f44336 !important;
+  padding: 12px !important;
+  border-radius: 8px !important;
+  margin-bottom: 20px !important;
+  font-size: 14px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  border: 1px solid #ffcdd2 !important;
+}
+
+/* Filters */
+.campaigns-list-filters {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  gap: 16px !important;
+  margin-bottom: 24px !important;
+  padding: 16px !important;
+  background-color: #fff !important;
+  border-radius: 8px !important;
+  border: 1px solid #e0e0e0 !important;
+}
+
+.campaigns-list-search-filter {
+  flex: 1 !important;
+}
+
+.campaigns-list-search-container {
+  position: relative !important;
+  max-width: 400px !important;
+}
+
+.campaigns-list-search-icon {
+  position: absolute !important;
+  left: 12px !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  color: #666 !important;
+  pointer-events: none !important;
+}
+
+.campaigns-list-search-input {
+  width: 100% !important;
+  padding: 10px 12px 10px 40px !important;
+  border: 1px solid #e0e0e0 !important;
+  border-radius: 6px !important;
+  font-size: 14px !important;
+  background-color: #f8f9fa !important;
+  color: #333 !important;
+  transition: border-color 0.3s ease !important;
+}
+
+.campaigns-list-search-input:focus {
+  border-color: #25D366 !important;
+  background-color: white !important;
+  outline: none !important;
+}
+
+.campaigns-list-filters-right {
+  display: flex !important;
+  gap: 12px !important;
+  align-items: center !important;
+}
+
+.campaigns-list-filter-group {
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+}
+
+.campaigns-list-filter-icon {
+  color: #666 !important;
+}
+
+.campaigns-list-filter-select {
+  padding: 8px 12px !important;
+  border: 1px solid #e0e0e0 !important;
+  border-radius: 6px !important;
+  font-size: 14px !important;
+  background-color: white !important;
+  color: #333 !important;
+  cursor: pointer !important;
+  min-width: 120px !important;
+}
+
+.campaigns-list-filter-select:focus {
+  border-color: #25D366 !important;
+  outline: none !important;
+}
+
+.campaigns-list-refresh-button {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 36px !important;
+  height: 36px !important;
+  background-color: #f8f9fa !important;
+  color: #666 !important;
+  border: 1px solid #e0e0e0 !important;
+  border-radius: 6px !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+}
+
+.campaigns-list-refresh-button:hover {
+  background-color: #25D366 !important;
+  color: white !important;
+  border-color: #25D366 !important;
+}
+
+/* Table Container */
+.campaigns-list-table-container {
+  background-color: #fff !important;
+  border-radius: 8px !important;
+  border: 1px solid #e0e0e0 !important;
+  overflow: hidden !important;
+}
+
+/* Loading */
+.campaigns-list-loading {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 60px 20px !important;
+  gap: 16px !important;
+}
+
+.campaigns-list-spinner {
+  width: 40px !important;
+  height: 40px !important;
+  border: 3px solid rgba(37, 211, 102, 0.1) !important;
+  border-radius: 50% !important;
+  border-top-color: #25D366 !important;
+  animation: campaigns-list-spin 1s ease-in-out infinite !important;
+}
+
+@keyframes campaigns-list-spin {
+  to { transform: rotate(360deg); }
+}
+
+.campaigns-list-loading p {
+  color: #666 !important;
+  font-size: 14px !important;
+  margin: 0 !important;
+}
+
+/* No Campaigns */
+.campaigns-list-no-campaigns {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 60px 20px !important;
+  gap: 20px !important;
+  text-align: center !important;
+}
+
+.campaigns-list-no-campaigns p {
+  color: #666 !important;
+  font-size: 16px !important;
+  margin: 0 !important;
+  line-height: 1.5 !important;
+}
+
+/* Table */
+.campaigns-list-table {
+  width: 100% !important;
+  border-collapse: collapse !important;
+  font-size: 14px !important;
+}
+
+.campaigns-list-table th {
+  background-color: #f8f9fa !important;
+  color: #333 !important;
+  font-weight: 600 !important;
+  padding: 16px 12px !important;
+  text-align: left !important;
+  border-bottom: 1px solid #e0e0e0 !important;
+}
+
+.campaigns-list-table td {
+  padding: 16px 12px !important;
+  border-bottom: 1px solid #f0f0f0 !important;
+  vertical-align: top !important;
+}
+
+.campaigns-list-table tr:hover {
+  background-color: #f8f9fa !important;
+}
+
+.campaigns-list-campaign-name {
+  min-width: 200px !important;
+}
+
+.campaigns-list-campaign-title {
+  font-weight: 600 !important;
+  color: #333 !important;
+  margin-bottom: 4px !important;
+  line-height: 1.3 !important;
+}
+
+.campaigns-list-campaign-description {
+  color: #666 !important;
+  font-size: 13px !important;
+  line-height: 1.4 !important;
+}
+
+.campaigns-list-objective-badge {
+  display: inline-block !important;
+  padding: 4px 12px !important;
+  border-radius: 20px !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  text-transform: capitalize !important;
+  background-color: #e3f2fd !important;
+  color: #1976d2 !important;
+}
+
+.campaigns-list-objective-badge.awareness {
+  background-color: #e8f5e9 !important;
+  color: #2e7d32 !important;
+}
+
+.campaigns-list-objective-badge.traffic {
+  background-color: #fff3e0 !important;
+  color: #f57c00 !important;
+}
+
+.campaigns-list-objective-badge.engagement {
+  background-color: #fce4ec !important;
+  color: #c2185b !important;
+}
+
+.campaigns-list-platform {
+  font-weight: 500 !important;
+  color: #333 !important;
+}
+
+.campaigns-list-budget-info,
+.campaigns-list-schedule-info {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 4px !important;
+}
+
+.campaigns-list-budget-info div,
+.campaigns-list-schedule-info div {
+  font-size: 13px !important;
+  color: #666 !important;
+  line-height: 1.3 !important;
+}
+
+/* Status Badge */
+.campaigns-list-status-badge {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  padding: 6px 12px !important;
+  border-radius: 20px !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  text-transform: capitalize !important;
+}
+
+.campaigns-list-status-badge.submitted {
+  background-color: #fff3e0 !important;
+  color: #f57c00 !important;
+}
+
+.campaigns-list-status-badge.approved {
+  background-color: #e8f5e9 !important;
+  color: #2e7d32 !important;
+}
+
+.campaigns-list-status-badge.rejected {
+  background-color: #ffebee !important;
+  color: #d32f2f !important;
+}
+
+.campaigns-list-status-badge.running {
+  background-color: #e3f2fd !important;
+  color: #1976d2 !important;
+}
+
+.campaigns-list-status-badge.paused {
+  background-color: #f3e5f5 !important;
+  color: #7b1fa2 !important;
+}
+
+.campaigns-list-status-badge.completed {
+  background-color: #e0f2f1 !important;
+  color: #00695c !important;
+}
+
+.campaigns-list-status-badge.unknown {
+  background-color: #f5f5f5 !important;
+  color: #666 !important;
+}
+
+.campaigns-list-status-icon {
+  display: flex !important;
+  align-items: center !important;
+}
+
+/* View Button */
+.campaigns-list-view-button {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  background-color: #f8f9fa !important;
+  color: #333 !important;
+  border: 1px solid #e0e0e0 !important;
+  padding: 8px 12px !important;
+  border-radius: 6px !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+  text-decoration: none !important;
+}
+
+.campaigns-list-view-button:hover {
+  background-color: #25D366 !important;
+  color: white !important;
+  border-color: #25D366 !important;
+}
+
+/* Pagination */
+.campaigns-list-pagination-container {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  margin-top: 24px !important;
+  padding: 16px !important;
+  background-color: #fff !important;
+  border-radius: 8px !important;
+  border: 1px solid #e0e0e0 !important;
+}
+
+.campaigns-list-pagination-info {
+  display: flex !important;
+  align-items: center !important;
+  gap: 20px !important;
+  font-size: 14px !important;
+  color: #666 !important;
+}
+
+.campaigns-list-pagination-limit {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+}
+
+.campaigns-list-limit-select {
+  padding: 6px 10px !important;
+  border: 1px solid #e0e0e0 !important;
+  border-radius: 4px !important;
+  font-size: 14px !important;
+  background-color: white !important;
+  cursor: pointer !important;
+}
+
+.campaigns-list-pagination-controls {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+}
+
+.campaigns-list-pagination-button {
+  padding: 8px 12px !important;
+  border: 1px solid #e0e0e0 !important;
+  background-color: white !important;
+  color: #333 !important;
+  border-radius: 4px !important;
+  font-size: 14px !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+}
+
+.campaigns-list-pagination-button:disabled {
+  opacity: 0.5 !important;
+  cursor: not-allowed !important;
+}
+
+.campaigns-list-pagination-button:not(:disabled):hover {
+  background-color: #25D366 !important;
+  color: white !important;
+  border-color: #25D366 !important;
+}
+
+.campaigns-list-pagination-pages {
+  display: flex !important;
+  gap: 4px !important;
+}
+
+.campaigns-list-pagination-page {
+  padding: 8px 12px !important;
+  border: 1px solid #e0e0e0 !important;
+  background-color: white !important;
+  color: #333 !important;
+  border-radius: 4px !important;
+  font-size: 14px !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+  min-width: 40px !important;
+  text-align: center !important;
+}
+
+.campaigns-list-pagination-page.active {
+  background-color: #25D366 !important;
+  color: white !important;
+  border-color: #25D366 !important;
+}
+
+.campaigns-list-pagination-page:not(.active):hover {
+  background-color: #f8f9fa !important;
+}
+
+/* 2. CAMPAIGN DETAIL STYLES */
+.campaign-detail-container,
+.campaign-detail-container * {
+  box-sizing: border-box !important;
+}
+
+.campaign-detail-container {
+  padding: 24px !important;
+  max-width: 1200px !important;
+  margin: 0 auto !important;
+  background-color: transparent !important;
+}
+
+/* Header */
+.campaign-detail-header {
+  margin-bottom: 24px !important;
+}
+
+.campaign-detail-header-left {
+  display: flex !important;
+  align-items: flex-start !important;
+  gap: 16px !important;
+}
+
+.campaign-detail-back-button {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  padding: 8px 12px !important;
+  background: none !important;
+  border: 1px solid #e0e0e0 !important;
+  border-radius: 6px !important;
+  color: #666 !important;
+  font-size: 14px !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+  text-decoration: none !important;
+}
+
+.campaign-detail-back-button:hover {
+  background-color: #f5f5f5 !important;
+  border-color: #d0d0d0 !important;
+}
+
+.campaign-detail-title-section h1 {
+  font-size: 24px !important;
+  font-weight: 600 !important;
+  color: #333 !important;
+  margin-bottom: 8px !important;
+  line-height: 1.3 !important;
+}
+
+.campaign-detail-title-section p {
+  color: #666 !important;
+  font-size: 14px !important;
+  margin: 0 !important;
+  line-height: 1.4 !important;
+}
+
+/* Error Message */
+.campaign-detail-error-message {
+  background-color: #ffebee !important;
+  color: #f44336 !important;
+  padding: 12px !important;
+  border-radius: 8px !important;
+  margin-bottom: 20px !important;
+  font-size: 14px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  border: 1px solid #ffcdd2 !important;
+}
+
+/* Loading */
+.campaign-detail-loading {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 60px 20px !important;
+  gap: 16px !important;
+}
+
+.campaign-detail-spinner {
+  width: 40px !important;
+  height: 40px !important;
+  border: 3px solid rgba(37, 211, 102, 0.1) !important;
+  border-radius: 50% !important;
+  border-top-color: #25D366 !important;
+  animation: campaign-detail-spin 1s ease-in-out infinite !important;
+}
+
+@keyframes campaign-detail-spin {
+  to { transform: rotate(360deg); }
+}
+
+.campaign-detail-loading p {
+  color: #666 !important;
+  font-size: 14px !important;
+  margin: 0 !important;
+}
+
+/* Content */
+.campaign-detail-content {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 24px !important;
+}
+
+/* Sections */
+.campaign-detail-section {
+  background-color: #fff !important;
+  border-radius: 8px !important;
+  padding: 24px !important;
+  border: 1px solid #e0e0e0 !important;
+}
+
+.campaign-detail-section-header {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  margin-bottom: 20px !important;
+}
+
+.campaign-detail-section-title {
+  font-size: 18px !important;
+  font-weight: 600 !important;
+  color: #333 !important;
+  margin: 0 0 16px 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  line-height: 1.3 !important;
+}
+
+/* Overview */
+.campaign-detail-overview {
+  margin-bottom: 24px !important;
+}
+
+.campaign-detail-overview h3 {
+  font-size: 20px !important;
+  font-weight: 600 !important;
+  color: #333 !important;
+  margin-bottom: 8px !important;
+  line-height: 1.3 !important;
+}
+
+.campaign-detail-overview p {
+  color: #666 !important;
+  font-size: 14px !important;
+  line-height: 1.5 !important;
+  margin: 0 !important;
+}
+
+/* Grid */
+.campaign-detail-grid {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)) !important;
+  gap: 20px !important;
+}
+
+.campaign-detail-item {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 8px !important;
+}
+
+.campaign-detail-item.campaign-detail-full-width {
+  grid-column: 1 / -1 !important;
+}
+
+.campaign-detail-label {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  color: #666 !important;
+}
+
+.campaign-detail-value {
+  font-size: 14px !important;
+  color: #333 !important;
+  font-weight: 500 !important;
+  line-height: 1.4 !important;
+}
+
+.campaign-detail-empty-value {
+  color: #999 !important;
+  font-style: italic !important;
+}
+
+/* Status Badge */
+.campaign-detail-status-badge {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  padding: 8px 16px !important;
+  border-radius: 20px !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  text-transform: capitalize !important;
+}
+
+.campaign-detail-status-badge.submitted {
+  background-color: #fff3e0 !important;
+  color: #f57c00 !important;
+}
+
+.campaign-detail-status-badge.approved {
+  background-color: #e8f5e9 !important;
+  color: #2e7d32 !important;
+}
+
+.campaign-detail-status-badge.rejected {
+  background-color: #ffebee !important;
+  color: #d32f2f !important;
+}
+
+.campaign-detail-status-badge.running {
+  background-color: #e3f2fd !important;
+  color: #1976d2 !important;
+}
+
+.campaign-detail-status-badge.paused {
+  background-color: #f3e5f5 !important;
+  color: #7b1fa2 !important;
+}
+
+.campaign-detail-status-badge.completed {
+  background-color: #e0f2f1 !important;
+  color: #00695c !important;
+}
+
+.campaign-detail-status-badge.unknown {
+  background-color: #f5f5f5 !important;
+  color: #666 !important;
+}
+
+.campaign-detail-status-icon {
+  display: flex !important;
+  align-items: center !important;
+}
+
+/* Objective Badge */
+.campaign-detail-objective-badge {
+  display: inline-block !important;
+  padding: 6px 12px !important;
+  border-radius: 20px !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  text-transform: capitalize !important;
+  background-color: #e3f2fd !important;
+  color: #1976d2 !important;
+}
+
+.campaign-detail-objective-badge.awareness {
+  background-color: #e8f5e9 !important;
+  color: #2e7d32 !important;
+}
+
+.campaign-detail-objective-badge.traffic {
+  background-color: #fff3e0 !important;
+  color: #f57c00 !important;
+}
+
+.campaign-detail-objective-badge.engagement {
+  background-color: #fce4ec !important;
+  color: #c2185b !important;
+}
+
+/* Tags */
+.campaign-detail-tags-container {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 8px !important;
+}
+
+.campaign-detail-tag {
+  display: inline-block !important;
+  padding: 4px 12px !important;
+  background-color: #f5f5f5 !important;
+  border-radius: 4px !important;
+  font-size: 13px !important;
+  color: #333 !important;
+  border: 1px solid #e0e0e0 !important;
+}
+
+/* Creatives */
+.campaign-detail-creatives-container {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 16px !important;
+}
+
+.campaign-detail-creative-card {
+  background-color: #f9f9f9 !important;
+  border-radius: 8px !important;
+  padding: 20px !important;
+  border: 1px solid #e5e7eb !important;
+}
+
+.campaign-detail-creative-header {
+  margin-bottom: 16px !important;
+}
+
+.campaign-detail-creative-header h3 {
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  color: #333 !important;
+  margin: 0 !important;
+  line-height: 1.3 !important;
+}
+
+.campaign-detail-creative-content {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 12px !important;
+}
+
+.campaign-detail-creative-field {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 4px !important;
+}
+
+.campaign-detail-field-label {
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  color: #666 !important;
+}
+
+.campaign-detail-field-value {
+  font-size: 14px !important;
+  color: #333 !important;
+  line-height: 1.4 !important;
+}
+
+/* Creative Images */
+.campaign-detail-creative-images {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 8px !important;
+  margin-top: 8px !important;
+}
+
+.campaign-detail-images-container {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)) !important;
+  gap: 12px !important;
+}
+
+.campaign-detail-creative-image {
+  position: relative !important;
+  aspect-ratio: 4/3 !important;
+  border-radius: 6px !important;
+  overflow: hidden !important;
+  cursor: pointer !important;
+  border: 1px solid #e0e0e0 !important;
+  transition: transform 0.3s ease !important;
+}
+
+.campaign-detail-creative-image:hover {
+  transform: scale(1.02) !important;
+}
+
+.campaign-detail-creative-image img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  display: block !important;
+}
+
+.campaign-detail-image-overlay {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  background-color: rgba(0, 0, 0, 0.5) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  opacity: 0 !important;
+  transition: opacity 0.3s ease !important;
+  color: white !important;
+}
+
+.campaign-detail-creative-image:hover .campaign-detail-image-overlay {
+  opacity: 1 !important;
+}
+
+/* No Creatives */
+.campaign-detail-no-creatives {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 40px 20px !important;
+  text-align: center !important;
+  color: #666 !important;
+  background-color: #f9f9f9 !important;
+  border-radius: 8px !important;
+  border: 1px dashed #d0d0d0 !important;
+}
+
+.campaign-detail-no-creatives p {
+  margin: 0 !important;
+  font-size: 14px !important;
+}
+
+/* Files Section */
+.campaign-detail-files-section {
+  margin-top: 24px !important;
+}
+
+.campaign-detail-files-section h3 {
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  color: #333 !important;
+  margin-bottom: 16px !important;
+}
+
+.campaign-detail-image-gallery {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)) !important;
+  gap: 16px !important;
+}
+
+.campaign-detail-image-container {
+  position: relative !important;
+  aspect-ratio: 4/3 !important;
+  border-radius: 8px !important;
+  overflow: hidden !important;
+  cursor: pointer !important;
+  border: 1px solid #e0e0e0 !important;
+  transition: transform 0.3s ease !important;
+}
+
+.campaign-detail-image-container:hover {
+  transform: scale(1.02) !important;
+}
+
+.campaign-detail-image-container img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  display: block !important;
+}
+
+.campaign-detail-image-container:hover .campaign-detail-image-overlay {
+  opacity: 1 !important;
+}
+
+.campaign-detail-file-info {
+  position: absolute !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.7)) !important;
+  padding: 8px 12px 12px !important;
+  color: white !important;
+}
+
+.campaign-detail-file-name {
+  font-size: 12px !important;
+  display: block !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+
+/* No Images */
+.campaign-detail-no-images {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 40px 20px !important;
+  text-align: center !important;
+  color: #666 !important;
+  background-color: #f9f9f9 !important;
+  border-radius: 8px !important;
+  border: 1px dashed #d0d0d0 !important;
+  gap: 12px !important;
+}
+
+.campaign-detail-no-images p {
+  margin: 0 !important;
+  font-size: 14px !important;
+}
+
+/* Admin Notes */
+.campaign-detail-admin-notes-section .campaign-detail-admin-notes {
+  background-color: #f8f9fa !important;
+  padding: 16px !important;
+  border-radius: 6px !important;
+  border-left: 4px solid #25D366 !important;
+}
+
+.campaign-detail-admin-notes p {
+  margin: 0 !important;
+  font-size: 14px !important;
+  color: #333 !important;
+  line-height: 1.5 !important;
+}
+
+.campaign-detail-notes-label {
+  font-weight: 600 !important;
+  color: #333 !important;
+  margin-bottom: 8px !important;
+}
+
+/* Rejection Section */
+.campaign-detail-rejection-section {
+  border-left: 4px solid #f44336 !important;
+}
+
+.campaign-detail-rejection-reason {
+  display: flex !important;
+  gap: 12px !important;
+  padding: 16px !important;
+  background-color: #ffebee !important;
+  border-radius: 6px !important;
+  margin-bottom: 16px !important;
+}
+
+.campaign-detail-reason-text {
+  flex: 1 !important;
+}
+
+.campaign-detail-reason-label {
+  font-weight: 600 !important;
+  color: #d32f2f !important;
+  margin-bottom: 8px !important;
+  font-size: 14px !important;
+}
+
+.campaign-detail-reason-text p:last-child {
+  margin: 0 !important;
+  font-size: 14px !important;
+  color: #333 !important;
+  line-height: 1.5 !important;
+}
+
+/* Approval Section */
+.campaign-detail-approval-section {
+  border-left: 4px solid #4caf50 !important;
+}
+
+.campaign-detail-approval-info {
+  display: flex !important;
+  gap: 12px !important;
+  padding: 16px !important;
+  background-color: #e8f5e9 !important;
+  border-radius: 6px !important;
+  margin-bottom: 16px !important;
+}
+
+.campaign-detail-approval-text {
+  flex: 1 !important;
+}
+
+.campaign-detail-approval-text p {
+  margin: 0 0 8px 0 !important;
+  font-size: 14px !important;
+  color: #333 !important;
+  line-height: 1.5 !important;
+}
+
+.campaign-detail-approval-text p:last-child {
+  margin: 0 !important;
+}
+
+.campaign-detail-approval-date {
+  font-size: 13px !important;
+  color: #666 !important;
+  font-weight: 500 !important;
+}
+
+/* Not Found */
+.campaign-detail-not-found {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 60px 20px !important;
+  text-align: center !important;
+  gap: 20px !important;
+}
+
+.campaign-detail-not-found p {
+  color: #666 !important;
+  font-size: 16px !important;
+  margin: 0 !important;
+}
+
+.campaign-detail-back-to-list-button {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  background-color: #25D366 !important;
+  color: white !important;
+  border: none !important;
+  padding: 12px 20px !important;
+  border-radius: 8px !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  cursor: pointer !important;
+  transition: background-color 0.3s ease !important;
+  text-decoration: none !important;
+}
+
+.campaign-detail-back-to-list-button:hover {
+  background-color: #128C7E !important;
+}
+
+/* Fullscreen Modal */
+.campaign-detail-fullscreen-modal {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  background-color: rgba(0, 0, 0, 0.9) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  z-index: 1000 !important;
+  padding: 20px !important;
+}
+
+.campaign-detail-fullscreen-container {
+  position: relative !important;
+  max-width: 90vw !important;
+  max-height: 90vh !important;
+}
+
+.campaign-detail-fullscreen-container img {
+  max-width: 100% !important;
+  max-height: 100% !important;
+  object-fit: contain !important;
+  border-radius: 8px !important;
+}
+
+.campaign-detail-close-fullscreen-button {
+  position: absolute !important;
+  top: -40px !important;
+  right: 0 !important;
+  background-color: rgba(255, 255, 255, 0.9) !important;
+  color: #333 !important;
+  border: none !important;
+  border-radius: 50% !important;
+  width: 40px !important;
+  height: 40px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  cursor: pointer !important;
+  transition: background-color 0.3s ease !important;
+}
+
+.campaign-detail-close-fullscreen-button:hover {
+  background-color: white !important;
+}
+
+/* 3. RESPONSIVE DESIGN */
+@media (max-width: 768px) {
+  .campaigns-list-container {
+    padding: 16px !important;
+  }
+  
+  .campaigns-list-header {
+    flex-direction: column !important;
+    gap: 16px !important;
+  }
+  
+  .campaigns-list-filters {
+    flex-direction: column !important;
+    gap: 16px !important;
+  }
+  
+  .campaigns-list-filters-right {
+    flex-wrap: wrap !important;
+    width: 100% !important;
+  }
+  
+  .campaigns-list-table-container {
+    overflow-x: auto !important;
+  }
+  
+  .campaigns-list-table {
+    min-width: 700px !important;
+  }
+  
+  .campaigns-list-pagination-container {
+    flex-direction: column !important;
+    gap: 16px !important;
+  }
+  
+  .campaigns-list-pagination-controls {
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+  }
+  
+  /* Campaign Detail Mobile */
+  .campaign-detail-container {
+    padding: 16px !important;
+  }
+  
+  .campaign-detail-header-left {
+    flex-direction: column !important;
+    gap: 12px !important;
+  }
+  
+  .campaign-detail-grid {
+    grid-template-columns: 1fr !important;
+  }
+  
+  .campaign-detail-image-gallery {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)) !important;
+  }
+  
+  .campaign-detail-images-container {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)) !important;
+  }
+  
+  .campaign-detail-section-header {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 12px !important;
+  }
+}
+
+/* =============================================================================
+   END OF CAMPAIGNS SCOPED CSS
+   
+   USAGE:
+   1. Import this CSS file after your minimal-css-fix.css
+   2. All styles are scoped to campaign-related containers
+   3. All styles use !important to ensure they don't get overridden
+   4. This CSS will not conflict with your existing styles
+   
+   EXAMPLE IMPORT ORDER:
+   @import './minimal-css-fix.css';
+   @import './campaigns-scoped.css';
+   ============================================================================= */
+
+   /* =============================================================================
+   SCOPED CAMPAIGN FORM CSS - Non-Conflicting
+   Import this AFTER your minimal-css-fix.css
+   ============================================================================= */
+
+/* 1. SCOPE ALL CAMPAIGN FORM STYLES TO PREVENT CONFLICTS */
+.campaign-form-container,
+.campaign-form-container * {
+  box-sizing: border-box !important;
+}
+
+/* 2. CAMPAIGN FORM CONTAINER */
+.campaign-form-container {
+  padding: 24px !important;
+  max-width: 900px !important;
+  margin: 0 auto !important;
+  background-color: transparent !important;
+}
+
+/* 3. CAMPAIGN FORM HEADER */
+.campaign-form-container .campaign-form-header {
+  margin-bottom: 24px !important;
+}
+
+.campaign-form-container .header-left {
+  display: flex !important;
+  align-items: flex-start !important;
+  gap: 16px !important;
+}
+
+/* 4. CAMPAIGN BACK BUTTON - SCOPED */
+.campaign-form-container .back-button {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 6px !important;
+  padding: 8px 12px !important;
+  background: none !important;
+  border: 1px solid #e0e0e0 !important;
+  border-radius: 6px !important;
+  color: #666 !important;
+  font-size: 14px !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+  height: 36px !important;
+  text-decoration: none !important;
+  font-family: inherit !important;
+}
+
+.campaign-form-container .back-button:hover {
+  background-color: #f5f5f5 !important;
+  border-color: #d0d0d0 !important;
+}
+
+/* 5. CAMPAIGN TITLE SECTION */
+.campaign-form-container .title-section h1 {
+  font-size: 24px !important;
+  font-weight: 600 !important;
+  color: #333 !important;
+  margin-bottom: 8px !important;
+  line-height: 1.3 !important;
+}
+
+.campaign-form-container .title-section p {
+  color: #666 !important;
+  font-size: 14px !important;
+  margin: 0 !important;
+  line-height: 1.4 !important;
+}
+
+/* 6. CAMPAIGN ALERT MESSAGES */
+.campaign-form-container .error-message {
+  background-color: #ffebee !important;
+  color: #f44336 !important;
+  padding: 12px !important;
+  border-radius: 8px !important;
+  margin-bottom: 20px !important;
+  font-size: 14px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  border: 1px solid #ffcdd2 !important;
+}
+
+.campaign-form-container .success-message {
+  background-color: #e8f5e9 !important;
+  color: #4caf50 !important;
+  padding: 12px !important;
+  border-radius: 8px !important;
+  margin-bottom: 20px !important;
+  font-size: 14px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  border: 1px solid #c8e6c9 !important;
+}
+
+/* 7. CAMPAIGN FORM MAIN CONTAINER */
+.campaign-form-container .campaign-form {
+  background-color: #fff !important;
+  border-radius: 10px !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05) !important;
+  padding: 24px !important;
+  border: 1px solid #e0e0e0 !important;
+}
+
+/* 8. CAMPAIGN FORM SECTIONS */
+.campaign-form-container .form-section {
+  margin-bottom: 24px !important;
+  padding-bottom: 24px !important;
+  border-bottom: 1px solid #f0f0f0 !important;
+}
+
+.campaign-form-container .form-section:last-child {
+  border-bottom: none !important;
+  margin-bottom: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+.campaign-form-container .section-title {
+  font-size: 18px !important;
+  font-weight: 600 !important;
+  color: #333 !important;
+  margin-bottom: 16px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  line-height: 1.3 !important;
+}
+
+/* 9. CAMPAIGN FORM ROWS AND GROUPS */
+.campaign-form-container .form-row {
+  display: flex !important;
+  gap: 20px !important;
+  margin-bottom: 20px !important;
+}
+
+.campaign-form-container .form-row:last-child {
+  margin-bottom: 0 !important;
+}
+
+.campaign-form-container .form-group {
+  flex: 1 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  margin-bottom: 16px !important;
+}
+
+.campaign-form-container .form-group:last-child {
+  margin-bottom: 0 !important;
+}
+
+/* 10. CAMPAIGN FORM LABELS */
+.campaign-form-container .form-group label {
+  font-weight: 500 !important;
+  margin-bottom: 8px !important;
+  color: #333 !important;
+  font-size: 14px !important;
+  display: block !important;
+  line-height: 1.4 !important;
+}
+
+/* 11. CAMPAIGN FORM INPUTS - COMPREHENSIVE STYLING */
+.campaign-form-container .form-group input,
+.campaign-form-container .form-group select,
+.campaign-form-container .form-group textarea {
+  width: 100% !important;
+  padding: 12px !important;
+  border: 1px solid #e0e0e0 !important;
+  border-radius: 8px !important;
+  font-size: 14px !important;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease !important;
+  background-color: white !important;
+  color: #333 !important;
+  font-family: inherit !important;
+  line-height: 1.5 !important;
+  outline: none !important;
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+}
+
+.campaign-form-container .form-group textarea {
+  resize: vertical !important;
+  min-height: 80px !important;
+}
+
+/* 12. CAMPAIGN FORM INPUT FOCUS STATES */
+.campaign-form-container .form-group input:focus,
+.campaign-form-container .form-group select:focus,
+.campaign-form-container .form-group textarea:focus {
+  border-color: #25D366 !important;
+  box-shadow: 0 0 0 3px rgba(37, 211, 102, 0.1) !important;
+  outline: none !important;
+}
+
+/* 13. CAMPAIGN FORM PLACEHOLDERS */
+.campaign-form-container .form-group input::placeholder,
+.campaign-form-container .form-group textarea::placeholder {
+  color: #9ca3af !important;
+  opacity: 1 !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+}
+
+/* 14. CAMPAIGN SELECT DROPDOWN STYLING */
+.campaign-form-container .form-group select {
+  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3E%3C/svg%3E") !important;
+  background-position: right 12px center !important;
+  background-repeat: no-repeat !important;
+  background-size: 16px 16px !important;
+  padding-right: 40px !important;
+}
+
+/* 15. CAMPAIGN TAG INPUT SYSTEM */
+.campaign-form-container .tag-input-container {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 10px !important;
+}
+
+.campaign-form-container .tag-input-field {
+  display: flex !important;
+  gap: 8px !important;
+}
+
+.campaign-form-container .tag-input-field input {
+  flex: 1 !important;
+}
+
+.campaign-form-container .tag-add-button {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 0 16px !important;
+  background-color: #25D366 !important;
+  color: white !important;
+  border: none !important;
+  border-radius: 8px !important;
+  cursor: pointer !important;
+  transition: background-color 0.3s ease !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  height: 44px !important;
+  white-space: nowrap !important;
+}
+
+.campaign-form-container .tag-add-button:hover {
+  background-color: #128C7E !important;
+}
+
+.campaign-form-container .tags-container {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 8px !important;
+}
+
+.campaign-form-container .tag {
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  background-color: #f5f5f5 !important;
+  border-radius: 4px !important;
+  padding: 6px 10px !important;
+  font-size: 14px !important;
+  color: #333 !important;
+  border: 1px solid #e0e0e0 !important;
+}
+
+.campaign-form-container .tag-remove-button {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: none !important;
+  border: none !important;
+  color: #666 !important;
+  cursor: pointer !important;
+  padding: 2px !important;
+  border-radius: 50% !important;
+  width: 18px !important;
+  height: 18px !important;
+  font-size: 14px !important;
+  line-height: 1 !important;
+}
+
+.campaign-form-container .tag-remove-button:hover {
+  background-color: #e0e0e0 !important;
+  color: #f44336 !important;
+}
+
+/* 16. CAMPAIGN CREATIVE ITEMS */
+.campaign-form-container .creative-item {
+  background-color: #f9f9f9 !important;
+  border-radius: 8px !important;
+  padding: 20px !important;
+  margin-bottom: 16px !important;
+  border: 1px solid #e5e7eb !important;
+}
+
+.campaign-form-container .creative-header {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  margin-bottom: 16px !important;
+}
+
+.campaign-form-container .creative-header h3 {
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  color: #333 !important;
+  margin: 0 !important;
+  line-height: 1.3 !important;
+}
+
+.campaign-form-container .remove-creative-button {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 32px !important;
+  height: 32px !important;
+  background-color: #f0f0f0 !important;
+  color: #666 !important;
+  border: none !important;
+  border-radius: 6px !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+}
+
+.campaign-form-container .remove-creative-button:hover {
+  background-color: #ffebee !important;
+  color: #f44336 !important;
+}
+
+.campaign-form-container .add-creative-button {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  background: none !important;
+  border: 1px dashed #25D366 !important;
+  padding: 12px 16px !important;
+  border-radius: 8px !important;
+  color: #25D366 !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  width: 100% !important;
+  cursor: pointer !important;
+  margin-bottom: 24px !important;
+  transition: all 0.3s ease !important;
+  height: 48px !important;
+}
+
+.campaign-form-container .add-creative-button:hover {
+  background-color: rgba(37, 211, 102, 0.05) !important;
+  border-color: #128C7E !important;
+}
+
+/* 17. CAMPAIGN FILE UPLOAD */
+.campaign-form-container .file-upload-area {
+  margin-bottom: 16px !important;
+}
+
+.campaign-form-container .file-input {
+  display: none !important;
+}
+
+.campaign-form-container .file-upload-label {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  background-color: #f8f9fa !important;
+  border: 2px dashed #dee2e6 !important;
+  border-radius: 8px !important;
+  padding: 32px 16px !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+  text-align: center !important;
+}
+
+.campaign-form-container .file-upload-label:hover {
+  background-color: #e8f5e9 !important;
+  border-color: #25D366 !important;
+}
+
+.campaign-form-container .file-upload-label span {
+  color: #666 !important;
+  font-size: 14px !important;
+  line-height: 1.4 !important;
+}
+
+.campaign-form-container .file-types {
+  font-size: 12px !important;
+  color: #999 !important;
+}
+
+.campaign-form-container .uploaded-files {
+  margin-top: 16px !important;
+}
+
+.campaign-form-container .uploaded-files h4 {
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  color: #333 !important;
+  margin-bottom: 8px !important;
+}
+
+.campaign-form-container .uploaded-files ul {
+  list-style: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.campaign-form-container .uploaded-files li {
+  padding: 8px 12px !important;
+  background-color: #f5f5f5 !important;
+  border-radius: 4px !important;
+  margin-bottom: 4px !important;
+  font-size: 14px !important;
+  color: #333 !important;
+}
+
+/* 18. CAMPAIGN FORM ACTIONS */
+.campaign-form-container .form-actions {
+  display: flex !important;
+  justify-content: flex-end !important;
+  gap: 12px !important;
+  margin-top: 32px !important;
+  padding-top: 24px !important;
+  border-top: 1px solid #f0f0f0 !important;
+}
+
+.campaign-form-container .cancel-button {
+  background-color: transparent !important;
+  color: #666 !important;
+  border: 1px solid #e0e0e0 !important;
+  padding: 12px 20px !important;
+  border-radius: 8px !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+  text-decoration: none !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-width: 100px !important;
+}
+
+.campaign-form-container .cancel-button:hover {
+  background-color: #f5f5f5 !important;
+  border-color: #d0d0d0 !important;
+}
+
+.campaign-form-container .submit-button {
+  background-color: #25D366 !important;
+  color: white !important;
+  border: none !important;
+  padding: 12px 24px !important;
+  border-radius: 8px !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  cursor: pointer !important;
+  transition: background-color 0.3s ease !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  min-width: 140px !important;
+}
+
+.campaign-form-container .submit-button:hover {
+  background-color: #128C7E !important;
+}
+
+.campaign-form-container .submit-button:disabled {
+  background-color: #a8e5c2 !important;
+  cursor: not-allowed !important;
+}
+
+.campaign-form-container .submit-button.loading {
+  background-color: #a8e5c2 !important;
+}
+
+/* 19. CAMPAIGN SPINNER */
+.campaign-form-container .spinner {
+  width: 16px !important;
+  height: 16px !important;
+  border: 2px solid rgba(255, 255, 255, 0.3) !important;
+  border-radius: 50% !important;
+  border-top-color: white !important;
+  animation: campaign-spin 1s ease-in-out infinite !important;
+}
+
+@keyframes campaign-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* 20. CAMPAIGN HELP TEXT */
+.campaign-form-container .help-text {
+  font-size: 12px !important;
+  color: #666 !important;
+  margin-top: 6px !important;
+  line-height: 1.4 !important;
+}
+
+/* 21. CAMPAIGN RESPONSIVE DESIGN */
+@media (max-width: 768px) {
+  .campaign-form-container {
+    padding: 16px !important;
+  }
+  
+  .campaign-form-container .campaign-form {
+    padding: 16px !important;
+  }
+  
+  .campaign-form-container .form-row {
+    flex-direction: column !important;
+    gap: 16px !important;
+  }
+  
+  .campaign-form-container .header-left {
+    flex-direction: column !important;
+    gap: 12px !important;
+  }
+  
+  .campaign-form-container .back-button {
+    align-self: flex-start !important;
+  }
+  
+  .campaign-form-container .form-actions {
+    flex-direction: column !important;
+    gap: 10px !important;
+  }
+  
+  .campaign-form-container .cancel-button,
+  .campaign-form-container .submit-button {
+    width: 100% !important;
+  }
+}
+
+/* 22. CAMPAIGN INPUT ICONS (IF USED) */
+.campaign-form-container .input-with-icon {
+  position: relative !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+.campaign-form-container .input-with-icon .input-icon {
+  position: absolute !important;
+  left: 12px !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  color: #9e9e9e !important;
+  z-index: 1 !important;
+  pointer-events: none !important;
+}
+
+.campaign-form-container .input-with-icon input,
+.campaign-form-container .input-with-icon select {
+  padding-left: 40px !important;
+}
+
+/* 23. CAMPAIGN NUMBER INPUTS */
+.campaign-form-container input[type="number"] {
+  -moz-appearance: textfield !important;
+}
+
+.campaign-form-container input[type="number"]::-webkit-outer-spin-button,
+.campaign-form-container input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none !important;
+  margin: 0 !important;
+}
+
+/* 24. CAMPAIGN DATE INPUTS */
+.campaign-form-container input[type="date"] {
+  padding-right: 12px !important;
+}
+
+/* 25. CAMPAIGN FILE INPUTS */
+.campaign-form-container input[type="file"] {
+  padding: 8px 12px !important;
+  height: auto !important;
+  min-height: 44px !important;
+}
+
+/* =============================================================================
+   END OF SCOPED CAMPAIGN FORM CSS
+   
+   USAGE:
+   1. Import this CSS file after your minimal-css-fix.css
+   2. All styles are scoped to .campaign-form-container
+   3. All styles use !important to ensure they don't get overridden
+   4. This CSS will not conflict with your existing styles
+   
+   EXAMPLE IMPORT ORDER:
+   @import './minimal-css-fix.css';
+   @import './campaign-form-scoped.css';
+   ============================================================================= */
