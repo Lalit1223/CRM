@@ -5,22 +5,22 @@ import { Link } from "react-router-dom";
 
 const FeatureCards = () => {
   const features = [
-    {
-      id: 1,
-      icon: "channels",
-      title: "Social Channels",
-      description: "One stop solution to manage your channels.",
-      buttonText: "Go To Channels",
-      buttonLink: "/channels",
-    },
-    {
-      id: 2,
-      icon: "crm",
-      title: "Contact Management",
-      description: "One stop solution to manage your contacts.",
-      buttonText: "Go To CRM",
-      buttonLink: "/crm",
-    },
+    // {
+    //   id: 1,
+    //   icon: "channels",
+    //   title: "Social Channels",
+    //   description: "One stop solution to manage your channels.",
+    //   buttonText: "Go To Channels",
+    //   buttonLink: "/channels",
+    // },
+    // {
+    //   id: 2,
+    //   icon: "crm",
+    //   title: "Contact Management",
+    //   description: "One stop solution to manage your contacts.",
+    //   buttonText: "Go To CRM",
+    //   buttonLink: "/crm",
+    // },
     {
       id: 3,
       icon: "inbox",
@@ -32,7 +32,7 @@ const FeatureCards = () => {
     {
       id: 4,
       icon: "whatsapp",
-      title: "WhatsApp MiniApps",
+      title: "Workflows",
       description: "Create WhatsApp Native Flows",
       buttonText: "Go To WhatsApp MiniApps",
       buttonLink: "/workflow-builder",

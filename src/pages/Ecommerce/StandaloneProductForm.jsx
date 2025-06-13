@@ -79,7 +79,7 @@ const StandaloneProductForm = () => {
 
   const baseUrl =
     import.meta.env.VITE_API_BASE_URL ||
-    "https://pixe-backend-tkrb.onrender.com";
+    "https://pixe-backend-83iz.onrender.com";
 
   // Updated Categories to match backend enum values
   const categories = [

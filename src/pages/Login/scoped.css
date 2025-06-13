@@ -1,0 +1,553 @@
+/* =============================================================================
+   LOGIN PAGE SCOPED CSS - Non-Conflicting
+   Import this AFTER your minimal-css-fix.css
+   ============================================================================= */
+
+/* 1. SCOPE ALL LOGIN STYLES TO PREVENT CONFLICTS */
+.whatsapp-crm-login-main-container,
+.whatsapp-crm-login-main-container * {
+  box-sizing: border-box !important;
+}
+
+/* 2. BODY CLASS FOR LOGIN MODE */
+body.login-mode {
+  margin: 0 !important;
+  padding: 0 !important;
+  background: linear-gradient(135deg, #25D366 0%, #128C7E 100%) !important;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+  height: 100vh !important;
+  overflow: hidden !important;
+}
+
+/* 3. MAIN LOGIN CONTAINER */
+.whatsapp-crm-login-main-container {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  height: 100vh !important;
+  padding: 1rem !important;
+  background: linear-gradient(135deg, #25D366 0%, #128C7E 100%) !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+/* Background pattern overlay */
+.whatsapp-crm-login-main-container::before {
+  content: '' !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  background-image: radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                    radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                    radial-gradient(circle at 40% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%) !important;
+  pointer-events: none !important;
+}
+
+/* 4. LOGIN CARD WRAPPER */
+.whatsapp-crm-login-card-wrapper {
+  background: rgba(255, 255, 255, 0.95) !important;
+  backdrop-filter: blur(20px) !important;
+  border-radius: 20px !important;
+  padding: 2rem !important;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  width: 100% !important;
+  max-width: 400px !important;
+  max-height: 90vh !important;
+  overflow-y: auto !important;
+  position: relative !important;
+  z-index: 1 !important;
+  animation: slideInUp 0.6s ease-out !important;
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0 !important;
+    transform: translateY(30px) !important;
+  }
+  to {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+  }
+}
+
+/* 5. LOGIN HEADER SECTION */
+.whatsapp-crm-login-header-section {
+  text-align: center !important;
+  margin-bottom: 1.5rem !important;
+}
+
+.whatsapp-crm-logo-container-circle {
+  width: 60px !important;
+  height: 60px !important;
+  background: linear-gradient(135deg, #25D366 0%, #128C7E 100%) !important;
+  border-radius: 50% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin: 0 auto 1rem !important;
+  box-shadow: 0 10px 30px rgba(37, 211, 102, 0.3) !important;
+  position: relative !important;
+  animation: logoFloat 3s ease-in-out infinite !important;
+}
+
+@keyframes logoFloat {
+  0%, 100% {
+    transform: translateY(0px) !important;
+  }
+  50% {
+    transform: translateY(-5px) !important;
+  }
+}
+
+/* Logo glow effect */
+.whatsapp-crm-logo-container-circle::after {
+  content: '' !important;
+  position: absolute !important;
+  top: -2px !important;
+  left: -2px !important;
+  right: -2px !important;
+  bottom: -2px !important;
+  background: linear-gradient(135deg, #25D366, #128C7E) !important;
+  border-radius: 50% !important;
+  z-index: -1 !important;
+  filter: blur(8px) !important;
+  opacity: 0.6 !important;
+}
+
+.whatsapp-crm-login-header-section h1 {
+  font-size: 1.5rem !important;
+  font-weight: 700 !important;
+  color: #1e293b !important;
+  margin-bottom: 0.25rem !important;
+  background: linear-gradient(135deg, #1e293b 0%, #475569 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+}
+
+.whatsapp-crm-login-header-section p {
+  color: #64748b !important;
+  font-size: 0.875rem !important;
+  font-weight: 400 !important;
+  margin: 0 !important;
+  line-height: 1.4 !important;
+}
+
+/* 6. ERROR MESSAGE BANNER */
+.whatsapp-crm-error-message-banner {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.5rem !important;
+  background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%) !important;
+  color: #dc2626 !important;
+  padding: 0.75rem 1rem !important;
+  border-radius: 8px !important;
+  margin-bottom: 1rem !important;
+  border: 1px solid #fca5a5 !important;
+  font-size: 0.875rem !important;
+  font-weight: 500 !important;
+  animation: errorSlideIn 0.3s ease-out !important;
+}
+
+@keyframes errorSlideIn {
+  from {
+    opacity: 0 !important;
+    transform: translateY(-10px) !important;
+  }
+  to {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+  }
+}
+
+/* 7. LOGIN FORM CONTAINER */
+.whatsapp-crm-login-form-container {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 1rem !important;
+}
+
+/* 8. FORM FIELD GROUPS */
+.whatsapp-crm-form-field-group {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0.5rem !important;
+}
+
+.whatsapp-crm-form-field-group label {
+  font-weight: 600 !important;
+  color: #374151 !important;
+  font-size: 0.875rem !important;
+  margin-bottom: 0.25rem !important;
+}
+
+/* 9. INPUT WITH ICON WRAPPER */
+.whatsapp-crm-input-icon-wrapper {
+  position: relative !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+.whatsapp-crm-input-left-icon {
+  position: absolute !important;
+  left: 0.875rem !important;
+  color: #9ca3af !important;
+  z-index: 1 !important;
+  pointer-events: none !important;
+}
+
+.whatsapp-crm-input-icon-wrapper input {
+  width: 100% !important;
+  padding: 0.875rem 0.875rem 0.875rem 2.75rem !important;
+  border: 2px solid #e5e7eb !important;
+  border-radius: 8px !important;
+  background-color: #ffffff !important;
+  font-size: 0.875rem !important;
+  color: #374151 !important;
+  transition: all 0.3s ease !important;
+  font-family: inherit !important;
+  outline: none !important;
+}
+
+.whatsapp-crm-input-icon-wrapper input:focus {
+  border-color: #25D366 !important;
+  box-shadow: 0 0 0 4px rgba(37, 211, 102, 0.1) !important;
+  background-color: #ffffff !important;
+}
+
+.whatsapp-crm-input-icon-wrapper input::placeholder {
+  color: #9ca3af !important;
+  font-weight: 400 !important;
+}
+
+/* 10. PASSWORD VISIBILITY TOGGLE */
+.whatsapp-crm-password-visibility-toggle {
+  position: absolute !important;
+  right: 0.875rem !important;
+  background: none !important;
+  border: none !important;
+  color: #9ca3af !important;
+  cursor: pointer !important;
+  padding: 0.25rem !important;
+  border-radius: 4px !important;
+  transition: all 0.2s ease !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.whatsapp-crm-password-visibility-toggle:hover {
+  color: #25D366 !important;
+  background-color: rgba(37, 211, 102, 0.1) !important;
+}
+
+.whatsapp-crm-password-visibility-toggle:focus {
+  outline: none !important;
+  box-shadow: 0 0 0 2px rgba(37, 211, 102, 0.2) !important;
+}
+
+/* 11. FORM BOTTOM OPTIONS */
+.whatsapp-crm-form-bottom-options {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  margin-top: 0.5rem !important;
+  margin-bottom: 0.5rem !important;
+}
+
+/* 12. REMEMBER ME SECTION */
+.whatsapp-crm-remember-me-section {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.5rem !important;
+}
+
+.whatsapp-crm-remember-me-section input[type="checkbox"] {
+  width: 1.125rem !important;
+  height: 1.125rem !important;
+  accent-color: #25D366 !important;
+  cursor: pointer !important;
+}
+
+.whatsapp-crm-remember-me-section label {
+  font-size: 0.875rem !important;
+  color: #64748b !important;
+  cursor: pointer !important;
+  font-weight: 500 !important;
+  margin: 0 !important;
+}
+
+/* 13. FORGOT PASSWORD LINK */
+.whatsapp-crm-forgot-password-link {
+  color: #25D366 !important;
+  text-decoration: none !important;
+  font-size: 0.875rem !important;
+  font-weight: 600 !important;
+  transition: all 0.2s ease !important;
+}
+
+.whatsapp-crm-forgot-password-link:hover {
+  color: #128C7E !important;
+  text-decoration: underline !important;
+}
+
+/* 14. SUBMIT LOGIN BUTTON */
+.whatsapp-crm-submit-login-button {
+  width: 100% !important;
+  padding: 0.875rem 1.25rem !important;
+  background: linear-gradient(135deg, #25D366 0%, #128C7E 100%) !important;
+  color: white !important;
+  border: none !important;
+  border-radius: 8px !important;
+  font-size: 0.875rem !important;
+  font-weight: 600 !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+  position: relative !important;
+  overflow: hidden !important;
+  margin-top: 0.5rem !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0.5rem !important;
+  box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3) !important;
+}
+
+.whatsapp-crm-submit-login-button:hover:not(:disabled) {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4) !important;
+}
+
+.whatsapp-crm-submit-login-button:active:not(:disabled) {
+  transform: translateY(0px) !important;
+}
+
+.whatsapp-crm-submit-login-button:disabled {
+  opacity: 0.7 !important;
+  cursor: not-allowed !important;
+  transform: none !important;
+}
+
+/* 15. LOADING STATE */
+.whatsapp-crm-submit-login-button.whatsapp-crm-loading-state {
+  background: linear-gradient(135deg, #a8e5c2 0%, #7dd3a3 100%) !important;
+  cursor: not-allowed !important;
+}
+
+.whatsapp-crm-loading-spinner {
+  width: 1.25rem !important;
+  height: 1.25rem !important;
+  border: 2px solid rgba(255, 255, 255, 0.3) !important;
+  border-radius: 50% !important;
+  border-top-color: white !important;
+  animation: loginSpinner 1s linear infinite !important;
+}
+
+@keyframes loginSpinner {
+  to {
+    transform: rotate(360deg) !important;
+  }
+}
+
+/* 16. RESPONSIVE DESIGN */
+@media (max-width: 768px) {
+  .whatsapp-crm-login-main-container {
+    padding: 0.75rem !important;
+  }
+  
+  .whatsapp-crm-login-card-wrapper {
+    padding: 1.5rem !important;
+    max-width: 100% !important;
+    border-radius: 16px !important;
+  }
+  
+  .whatsapp-crm-logo-container-circle {
+    width: 55px !important;
+    height: 55px !important;
+    margin-bottom: 0.75rem !important;
+  }
+  
+  .whatsapp-crm-login-header-section h1 {
+    font-size: 1.375rem !important;
+  }
+  
+  .whatsapp-crm-login-header-section p {
+    font-size: 0.8125rem !important;
+  }
+  
+  .whatsapp-crm-form-bottom-options {
+    flex-direction: column !important;
+    gap: 0.75rem !important;
+    align-items: flex-start !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .whatsapp-crm-login-main-container {
+    padding: 0.5rem !important;
+  }
+  
+  .whatsapp-crm-login-card-wrapper {
+    padding: 1.25rem !important;
+    border-radius: 12px !important;
+  }
+  
+  .whatsapp-crm-logo-container-circle {
+    width: 50px !important;
+    height: 50px !important;
+  }
+  
+  .whatsapp-crm-login-header-section h1 {
+    font-size: 1.25rem !important;
+  }
+  
+  .whatsapp-crm-login-header-section p {
+    font-size: 0.75rem !important;
+  }
+  
+  .whatsapp-crm-input-icon-wrapper input {
+    padding: 0.75rem 0.75rem 0.75rem 2.5rem !important;
+    font-size: 0.8125rem !important;
+  }
+  
+  .whatsapp-crm-submit-login-button {
+    padding: 0.75rem 1rem !important;
+    font-size: 0.8125rem !important;
+  }
+}
+
+@media (max-height: 600px) {
+  .whatsapp-crm-login-card-wrapper {
+    padding: 1rem !important;
+    max-height: 95vh !important;
+  }
+  
+  .whatsapp-crm-login-header-section {
+    margin-bottom: 1rem !important;
+  }
+  
+  .whatsapp-crm-logo-container-circle {
+    width: 45px !important;
+    height: 45px !important;
+    margin-bottom: 0.5rem !important;
+  }
+  
+  .whatsapp-crm-login-header-section h1 {
+    font-size: 1.125rem !important;
+    margin-bottom: 0.125rem !important;
+  }
+  
+  .whatsapp-crm-login-form-container {
+    gap: 0.75rem !important;
+  }
+}
+
+/* 17. FOCUS STATES FOR ACCESSIBILITY */
+.whatsapp-crm-login-main-container *:focus-visible {
+  outline: 2px solid #25D366 !important;
+  outline-offset: 2px !important;
+}
+
+/* 18. HIGH CONTRAST MODE SUPPORT */
+@media (prefers-contrast: high) {
+  .whatsapp-crm-login-card-wrapper {
+    background: #ffffff !important;
+    border: 2px solid #000000 !important;
+  }
+  
+  .whatsapp-crm-input-icon-wrapper input {
+    border: 2px solid #000000 !important;
+  }
+  
+  .whatsapp-crm-submit-login-button {
+    background: #000000 !important;
+    color: #ffffff !important;
+  }
+}
+
+/* 19. REDUCED MOTION SUPPORT */
+@media (prefers-reduced-motion: reduce) {
+  .whatsapp-crm-login-card-wrapper,
+  .whatsapp-crm-error-message-banner,
+  .whatsapp-crm-logo-container-circle {
+    animation: none !important;
+  }
+  
+  .whatsapp-crm-submit-login-button:hover:not(:disabled) {
+    transform: none !important;
+  }
+}
+
+/* 20. DARK MODE SUPPORT (OPTIONAL) */
+@media (prefers-color-scheme: dark) {
+  body.login-mode {
+    background: linear-gradient(135deg, #1a4a3a 0%, #0f2924 100%) !important;
+  }
+  
+  .whatsapp-crm-login-main-container {
+    background: linear-gradient(135deg, #1a4a3a 0%, #0f2924 100%) !important;
+  }
+  
+  .whatsapp-crm-login-card-wrapper {
+    background: rgba(26, 32, 44, 0.95) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  }
+  
+  .whatsapp-crm-login-header-section h1 {
+    color: #f7fafc !important;
+    background: linear-gradient(135deg, #f7fafc 0%, #e2e8f0 100%) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    background-clip: text !important;
+  }
+  
+  .whatsapp-crm-login-header-section p {
+    color: #a0aec0 !important;
+  }
+  
+  .whatsapp-crm-form-field-group label {
+    color: #e2e8f0 !important;
+  }
+  
+  .whatsapp-crm-input-icon-wrapper input {
+    background-color: #2d3748 !important;
+    border-color: #4a5568 !important;
+    color: #f7fafc !important;
+  }
+  
+  .whatsapp-crm-input-icon-wrapper input::placeholder {
+    color: #718096 !important;
+  }
+  
+  .whatsapp-crm-remember-me-section label {
+    color: #a0aec0 !important;
+  }
+}
+
+/* =============================================================================
+   END OF LOGIN PAGE SCOPED CSS
+   
+   USAGE:
+   1. Import this CSS file after your minimal-css-fix.css
+   2. All styles are scoped to .whatsapp-crm-login-main-container
+   3. All styles use !important to ensure they don't get overridden
+   4. This CSS will not conflict with your existing styles
+   
+   EXAMPLE IMPORT ORDER:
+   @import './minimal-css-fix.css';
+   @import './login-scoped.css';
+   
+   FEATURES:
+   - Beautiful gradient background with floating patterns
+   - Glassmorphism login card with backdrop blur
+   - Animated WhatsApp logo with floating effect
+   - Smooth form interactions and hover effects
+   - Loading states and error handling
+   - Fully responsive design for all devices
+   - Accessibility support with focus states
+   - Dark mode and reduced motion support
+   - High contrast mode compatibility
+   ============================================================================= */

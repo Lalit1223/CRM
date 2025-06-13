@@ -21,6 +21,8 @@ const SimulationPanel = ({
   onStartSimulation,
   onStopSimulation,
 }) => {
+  const PAYMENT_PENDING = false; // Set to false after payment
+
   const [inputValue, setInputValue] = useState("");
   const [chatHistory, setChatHistory] = useState([]);
   const [isWaitingForInput, setIsWaitingForInput] = useState(false);
@@ -124,9 +126,24 @@ const SimulationPanel = ({
       setLoading(false);
     }
   };
-
   const processNode = async (node, variables = {}) => {
     if (!node) return;
+
+    // PAYMENT PENDING - Show demo message instead of real processing
+    if (PAYMENT_PENDING) {
+      const demoMessage = {
+        id: Date.now(),
+        type: "bot",
+        content:
+          "⚠️ Demo Mode: Workflow simulation is limited in demo version. Contact administrator for full access.",
+        timestamp: new Date().toISOString(),
+        nodeId: node.nodeId,
+        nodeName: node.name,
+      };
+      setChatHistory((prev) => [...prev, demoMessage]);
+      setIsWaitingForInput(false);
+      return;
+    }
 
     // Check for maximum execution depth to prevent infinite loops
     if (sessionData.executionDepth >= 20) {
@@ -347,6 +364,16 @@ const SimulationPanel = ({
   };
 
   const simulateAPICall = async (node, variables) => {
+    // PAYMENT PENDING - Return demo responses
+    if (PAYMENT_PENDING) {
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+      return {
+        success: false,
+        message: "Demo mode - API calls disabled until payment confirmation",
+        verified: false,
+        demo: true,
+      };
+    }
     // Simulate API delay
     await new Promise((resolve) => setTimeout(resolve, 1000));
 

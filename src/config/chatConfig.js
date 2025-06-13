@@ -2,7 +2,7 @@
 
 export const CHAT_CONFIG = {
   // API Base URL
-  API_BASE_URL: "https://pixe-backend-tkrb.onrender.com/api",
+  API_BASE_URL: "https://pixe-backend-83iz.onrender.com/api",
 
   // Default IDs (you should make these configurable per environment)
   DEFAULT_WORKFLOW_ID: "683a056f8c2a1cd97bfe1d1e",

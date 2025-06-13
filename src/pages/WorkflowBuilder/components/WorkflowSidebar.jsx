@@ -280,7 +280,6 @@ const WorkflowSidebar = ({ onCreateNode }) => {
 
       <div className="sidebar-search">
         <div className="search-input-wrapper">
-          <Search className="search-icon" />
           <input
             type="text"
             placeholder="Search nodes..."

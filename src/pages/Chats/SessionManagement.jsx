@@ -53,7 +53,7 @@ const SessionManagement = () => {
         }).toString();
 
         const response = await fetch(
-          `https://pixe-backend-tkrb.onrender.com/api/sessions/admin?${queryParams}`,
+          `https://pixe-backend-83iz.onrender.com/api/sessions/admin?${queryParams}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -75,7 +75,7 @@ const SessionManagement = () => {
       try {
         const token = localStorage.getItem("token");
         const response = await fetch(
-          "https://pixe-backend-tkrb.onrender.com/api/sessions",
+          "https://pixe-backend-83iz.onrender.com/api/sessions",
           {
             method: "POST",
             headers: {
@@ -99,7 +99,7 @@ const SessionManagement = () => {
       try {
         const token = localStorage.getItem("token");
         const response = await fetch(
-          "https://pixe-backend-tkrb.onrender.com/api/users",
+          "https://pixe-backend-83iz.onrender.com/api/users",
           {
             headers: {
               Authorization: `Bearer ${token}`,

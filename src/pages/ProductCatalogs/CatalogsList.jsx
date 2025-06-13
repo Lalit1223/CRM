@@ -341,7 +341,6 @@ const CatalogsList = () => {
       <div className="catalogs-list-filters">
         <div className="catalogs-list-search-filter">
           <div className="catalogs-list-search-container">
-            <Search size={18} className="catalogs-list-search-icon" />
             <input
               type="text"
               placeholder="Search catalogs..."

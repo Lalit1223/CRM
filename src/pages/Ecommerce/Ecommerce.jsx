@@ -47,7 +47,7 @@ const Ecommerce = () => {
   // API base URL
   const baseUrl =
     import.meta.env.VITE_API_BASE_URL ||
-    "https://pixe-backend-tkrb.onrender.com";
+    "https://pixe-backend-83iz.onrender.com";
 
   // Get admin token from localStorage or sessionStorage
   const token =
@@ -412,7 +412,6 @@ const Ecommerce = () => {
 
               <div className="filters">
                 <div className="filter-group">
-                  <Filter size={16} className="filter-icon" />
                   <select
                     name="status"
                     value={filters.status}
@@ -429,7 +428,6 @@ const Ecommerce = () => {
                 </div>
 
                 <div className="filter-group">
-                  <Filter size={16} className="filter-icon" />
                   <select
                     name="category"
                     value={filters.category}

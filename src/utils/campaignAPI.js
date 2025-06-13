@@ -4,7 +4,7 @@ import { getAuthToken, handleApiError } from "./apiUtils";
 
 const BASE_URL =
   process.env.REACT_APP_API_BASE_URL ||
-  "https://pixe-backend-tkrb.onrender.com";
+  "https://pixe-backend-83iz.onrender.com";
 
 /**
  * API utility functions for Campaign management

@@ -237,7 +237,6 @@ const CampaignsList = () => {
       <div className="campaigns-list-filters">
         <div className="campaigns-list-search-filter">
           <div className="campaigns-list-search-container">
-            <Search size={18} className="campaigns-list-search-icon" />
             <input
               type="text"
               placeholder="Search campaigns..."

@@ -48,6 +48,8 @@ const WorkflowBuilder = ({ workflowId, onBackToManagement }) => {
   const [loading, setLoading] = useState(false);
   const [saving, setSaving] = useState(false);
 
+  const PAYMENT_PENDING = false; // Set to false after payment
+
   // Memoize nodeTypes to prevent React Flow warnings
   const memoizedNodeTypes = useMemo(() => nodeTypes, []);
 
@@ -306,6 +308,12 @@ const WorkflowBuilder = ({ workflowId, onBackToManagement }) => {
   };
 
   const saveWorkflow = async () => {
+    if (PAYMENT_PENDING) {
+      alert(
+        "⚠️ Demo Mode: Workflow saving is disabled in demo version. Please contact administrator for full access."
+      );
+      return;
+    }
     setSaving(true);
     try {
       // Update positions from React Flow nodes

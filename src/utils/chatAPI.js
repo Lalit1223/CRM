@@ -1,7 +1,7 @@
 // src/utils/chatAPI.js
 import api from "./api.js";
 
-const BASE_URL = "https://pixe-backend-tkrb.onrender.com";
+const BASE_URL = "https://pixe-backend-83iz.onrender.com";
 
 // Chat API functions
 export const chatAPI = {

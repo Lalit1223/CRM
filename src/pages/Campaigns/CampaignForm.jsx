@@ -66,10 +66,16 @@ const CampaignForm = () => {
 
   // Ad type options
   const adTypeOptions = [
-    { value: "single_image", label: "Single Image" },
-    { value: "carousel", label: "Carousel" },
+    { value: "image", label: "Single Image" },
     { value: "video", label: "Video" },
+    { value: "carousel", label: "Carousel" },
     { value: "collection", label: "Collection" },
+    { value: "stories", label: "Stories" },
+    { value: "reels", label: "Reels" },
+    { value: "slideshow", label: "Slideshow" },
+    { value: "dynamic", label: "Dynamic" },
+    { value: "playable", label: "Playable" },
+    { value: "instant_experience", label: "Instant Experience" },
   ];
 
   // Form state
@@ -77,7 +83,7 @@ const CampaignForm = () => {
     name: "",
     description: "",
     objective: "awareness",
-    adType: "single_image",
+    adType: "image",
     platform: "facebook",
     adminNotes: "",
     targeting: {
@@ -122,6 +128,8 @@ const CampaignForm = () => {
   // Set default dates
   useEffect(() => {
     const today = new Date();
+    const tomorrow = new Date();
+    tomorrow.setDate(today.getDate() + 1);
     const nextMonth = new Date();
     nextMonth.setMonth(today.getMonth() + 1);
 
@@ -129,11 +137,17 @@ const CampaignForm = () => {
       ...prev,
       budgetSchedule: {
         ...prev.budgetSchedule,
-        startDate: today.toISOString().split("T")[0],
+        startDate: tomorrow.toISOString().split("T")[0],
         endDate: nextMonth.toISOString().split("T")[0],
       },
     }));
   }, []);
+
+  const getTomorrowDate = () => {
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    return tomorrow.toISOString().split("T")[0];
+  };
 
   // Load campaign data if editing
   useEffect(() => {
@@ -155,7 +169,7 @@ const CampaignForm = () => {
           name: campaign.name || "",
           description: campaign.description || "",
           objective: campaign.objective || "awareness",
-          adType: campaign.adType || "single_image",
+          adType: campaign.adType || "image",
           platform: campaign.platform || "facebook",
           adminNotes: campaign.adminNotes || "",
           targeting: campaign.targeting || formData.targeting,
@@ -331,7 +345,17 @@ const CampaignForm = () => {
       setError("All creatives must have a call to action");
       return;
     }
+    // Add this validation after the existing validations and before try block:
+    const today = new Date().toISOString().split("T")[0];
+    if (formData.budgetSchedule.startDate <= today) {
+      setError("Start date must be at least tomorrow");
+      return;
+    }
 
+    if (formData.budgetSchedule.endDate <= formData.budgetSchedule.startDate) {
+      setError("End date must be after start date");
+      return;
+    }
     try {
       setIsLoading(true);
 
@@ -582,6 +606,7 @@ const CampaignForm = () => {
                 name="budgetSchedule.startDate"
                 value={formData.budgetSchedule.startDate}
                 onChange={handleChange}
+                min={getTomorrowDate()}
                 required
               />
             </div>
@@ -594,6 +619,7 @@ const CampaignForm = () => {
                 name="budgetSchedule.endDate"
                 value={formData.budgetSchedule.endDate}
                 onChange={handleChange}
+                min={formData.budgetSchedule.startDate || getTomorrowDate()}
                 required
               />
             </div>

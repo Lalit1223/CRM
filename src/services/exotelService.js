@@ -1,7 +1,7 @@
 // src/services/exotelService.js
 
 const EXOTEL_CONFIG = {
-  BASE_URL: "https://pixe-backend-tkrb.onrender.com/api/exotel",
+  BASE_URL: "https://pixe-backend-83iz.onrender.com/api/exotel",
   DEFAULT_CALLER_ID: "02248906259", // Your Exotel number
   AGENT_NUMBER: "+918562800573", // Your agent number
 };

@@ -37,7 +37,7 @@ const CHAT_CONFIG = {
   MESSAGE_POLL_INTERVAL: 1000, // 1 second
   DEFAULT_WORKFLOW_ID: "68397fcd465994036c73321e",
   DEFAULT_CAMPAIGN_ID: "682ded90cfcfdc4c36964618",
-  EXOTEL_BASE_URL: "https://pixe-backend-tkrb.onrender.com/api/exotel",
+  EXOTEL_BASE_URL: "https://pixe-backend-83iz.onrender.com/api/exotel",
 };
 
 // Enhanced API functions for chat using existing API structure
@@ -134,7 +134,7 @@ const chatAPI = {
   getCampaigns: async (page = 1, limit = 100) => {
     try {
       const response = await api.get(
-        `/api/campaigns/requests?status=approved&page=${page}&limit=${limit}`
+        `/api/campaigns/requests?status=&page=${page}&limit=${limit}`
       );
       return response.data;
     } catch (error) {
@@ -468,10 +468,19 @@ const Chats = () => {
   }, []);
 
   // Auto scroll to bottom of messages
-  useEffect(() => {
-    scrollToBottom();
-  }, [messages]);
 
+  // Update the useEffect for messages
+  useEffect(() => {
+    // Only scroll to bottom when new messages are added, not on every render
+    if (messages.length > 0) {
+      const lastMessage = messages[messages.length - 1];
+      const isNewMessage = lastMessage && lastMessage.sender !== "user";
+
+      if (isNewMessage) {
+        scrollToBottom();
+      }
+    }
+  }, [messages.length]); // Only depend on message count, not the entire messages array
   // Poll for new messages when a chat is selected
   useEffect(() => {
     if (selectedChat) {
@@ -757,9 +766,17 @@ const Chats = () => {
     setSelectedChat(null);
     stopMessagePolling();
   };
-
+  // In your Chats.jsx, update the scrollToBottom function
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    if (messagesEndRef.current) {
+      // Add smooth scroll with proper timing
+      setTimeout(() => {
+        messagesEndRef.current?.scrollIntoView({
+          behavior: "smooth",
+          block: "end",
+        });
+      }, 100);
+    }
   };
 
   // UPDATED Send message function - NO AUTOMATIC SESSION CREATION
@@ -967,24 +984,10 @@ const Chats = () => {
                 >
                   <RefreshCw size={20} className={loading ? "spinning" : ""} />
                 </button>
-                <button
-                  className="whatsapp-crm-chats-filter-btn"
-                  title="Filter chats"
-                >
-                  <Filter size={20} />
-                </button>
-                <button
-                  className="whatsapp-crm-chats-more-btn"
-                  title="More options"
-                >
-                  <MoreVertical size={20} />
-                </button>
               </div>
             </div>
-
             {/* Search Bar */}
             <div className="whatsapp-crm-chats-search-container">
-              <Search className="whatsapp-crm-chats-search-icon" size={18} />
               <input
                 type="text"
                 placeholder="Search chats..."
@@ -993,8 +996,7 @@ const Chats = () => {
                 className="whatsapp-crm-chats-search-input"
               />
             </div>
-
-            {/* Stats */}
+            Stats
             <div className="whatsapp-crm-chats-stats">
               <div className="whatsapp-crm-chats-stat-item">
                 <MessageSquare size={16} />
@@ -1218,9 +1220,6 @@ const Chats = () => {
                   ) : (
                     <PlayCircle size={20} />
                   )}
-                </button>
-                <button className="whatsapp-crm-chat-action-btn">
-                  <MoreVertical size={20} />
                 </button>
               </div>
             </div>
@@ -1751,14 +1750,6 @@ const Chats = () => {
                 onSubmit={handleSendMessage}
                 className="whatsapp-crm-message-input-form"
               >
-                <button
-                  type="button"
-                  className="whatsapp-crm-attachment-btn"
-                  title="Attach file"
-                >
-                  <Paperclip size={20} />
-                </button>
-
                 <div className="whatsapp-crm-message-input-wrapper">
                   <input
                     type="text"
@@ -1768,13 +1759,6 @@ const Chats = () => {
                     className="whatsapp-crm-message-input"
                     disabled={sendingMessage}
                   />
-                  <button
-                    type="button"
-                    className="whatsapp-crm-emoji-btn"
-                    title="Add emoji"
-                  >
-                    <Smile size={20} />
-                  </button>
                 </div>
 
                 <button

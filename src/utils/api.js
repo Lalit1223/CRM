@@ -3,7 +3,7 @@ import axios from "axios";
 
 // Base URL from environment variable or default
 const BASE_URL =
-  import.meta.env.VITE_API_BASE_URL || "https://pixe-backend-tkrb.onrender.com";
+  import.meta.env.VITE_API_BASE_URL || "https://pixe-backend-83iz.onrender.com";
 
 // Create axios instance with default config
 const api = axios.create({
@@ -1265,4 +1265,126 @@ export const sessionAPI = {
   },
 };
 
+// Statistics/Analytics API calls
+export const statisticsAPI = {
+  // Get dashboard statistics
+  getDashboardStats: async (period = "daily", startDate, endDate) => {
+    try {
+      let queryString = `/api/statistics/dashboard?period=${period}`;
+
+      if (startDate) {
+        queryString += `&startDate=${startDate}`;
+      }
+      if (endDate) {
+        queryString += `&endDate=${endDate}`;
+      }
+
+      const response = await api.get(queryString);
+      return response.data;
+    } catch (error) {
+      return handleApiError(error);
+    }
+  },
+
+  // Export statistics data
+  exportStatistics: async (format = "csv", entityType, metricType) => {
+    try {
+      let queryString = `/api/statistics/export?format=${format}`;
+
+      if (entityType) {
+        queryString += `&entityType=${entityType}`;
+      }
+      if (metricType) {
+        queryString += `&metricType=${metricType}`;
+      }
+
+      const response = await api.get(queryString, {
+        responseType: "blob", // For file download
+      });
+      return response.data;
+    } catch (error) {
+      return handleApiError(error);
+    }
+  },
+};
+
+// Activity Logs API calls
+export const activityLogsAPI = {
+  // Get admin activity logs
+  getAdminActivityLogs: async (
+    action = "",
+    startDate,
+    endDate,
+    page = 1,
+    limit = 20
+  ) => {
+    try {
+      let queryString = `/api/activity-logs/admin?page=${page}&limit=${limit}`;
+
+      if (action) {
+        queryString += `&action=${action}`;
+      }
+      if (startDate) {
+        queryString += `&startDate=${startDate}`;
+      }
+      if (endDate) {
+        queryString += `&endDate=${endDate}`;
+      }
+
+      const response = await api.get(queryString);
+      return response.data;
+    } catch (error) {
+      return handleApiError(error);
+    }
+  },
+};
+
+// Notifications API calls
+export const notificationsAPI = {
+  // Get admin notifications list
+  getAdminNotifications: async (status = "unread", page = 1, limit = 20) => {
+    try {
+      const response = await api.get(
+        `/api/notifications/admin/list?status=${status}&page=${page}&limit=${limit}`
+      );
+      return response.data;
+    } catch (error) {
+      return handleApiError(error);
+    }
+  },
+
+  // Mark notification as read
+  markNotificationAsRead: async (notificationId) => {
+    try {
+      const response = await api.patch(
+        `/api/notifications/${notificationId}/read`
+      );
+      return response.data;
+    } catch (error) {
+      return handleApiError(error);
+    }
+  },
+
+  // Mark all notifications as read
+  markAllNotificationsAsRead: async () => {
+    try {
+      const response = await api.patch(
+        "/api/notifications/admin/mark-all-read"
+      );
+      return response.data;
+    } catch (error) {
+      return handleApiError(error);
+    }
+  },
+
+  // Delete notification
+  deleteNotification: async (notificationId) => {
+    try {
+      const response = await api.delete(`/api/notifications/${notificationId}`);
+      return response.data;
+    } catch (error) {
+      return handleApiError(error);
+    }
+  },
+};
 export default api;

@@ -77,7 +77,7 @@ const WorkflowSimulator = ({ workflowId, onClose, authToken }) => {
       setError(null);
       setActiveStep(0);
 
-      const apiUrl = `https://pixe-backend-tkrb.onrender.com/api/workflows/${workflowId}/preview`;
+      const apiUrl = `https://pixe-backend-83iz.onrender.com/api/workflows/${workflowId}/preview`;
 
       const response = await fetch(apiUrl, {
         method: "POST",

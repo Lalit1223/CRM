@@ -23,20 +23,6 @@ const Header = () => {
       </div>
 
       <div className="header-right">
-        <button className="icon-button">
-          <Star size={20} />
-        </button>
-        <button className="icon-button">
-          <Download size={20} />
-        </button>
-        <button className="icon-button">
-          <User size={20} />
-        </button>
-        <button className="help-button">
-          <HelpCircle size={16} />
-          <span>Get help</span>
-        </button>
-
         <button onClick={handleLogout} className="logout-button">
           Logout
         </button>

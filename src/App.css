@@ -1,10 +1,18 @@
 @import './minimal-css-fix.css';
+
+
 @import './pages/ProductCatalogs/ProductCatalogsScoped.css';
 @import './pages/Ecommerce/EcommerceComplete.css';
+
+@import './pages/Agents/agent.css';
+@import './pages/WorkflowBuilder/workflow-scoped.css';
+@import './pages/Login/scoped.css';
+@import './pages/Analytics/Analytics.css';
+
+
+
+
 @import './pages/Chats/style1.css';
-
-
-
 /* src/App.css */
 * {
   margin: 0;
@@ -158,3 +166,4 @@ body {
     padding: 16px;
   }
 }
+

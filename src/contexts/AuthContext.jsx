@@ -6,7 +6,7 @@ import axios from "axios";
 const AuthContext = createContext(null);
 
 // Base URL for API calls
-const API_BASE_URL = "https://pixe-backend-tkrb.onrender.com";
+const API_BASE_URL = "https://pixe-backend-83iz.onrender.com";
 
 // Create API instance
 const api = axios.create({

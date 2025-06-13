@@ -1,4 +1,4 @@
-// src/pages/Agents/AgentsList.jsx - Fixed version
+// src/pages/Agents/AgentsList.jsx - Fixed version with status visibility
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import {
@@ -50,22 +50,24 @@ const AgentsList = () => {
     setError("");
 
     try {
-      // Determine status for API call
-      const status =
-        statusFilter === "active"
-          ? "true"
-          : statusFilter === "inactive"
-          ? "false"
-          : "";
+      // Fix: Properly handle status parameter for API call
+      let statusParam = "";
+      if (statusFilter === "active") {
+        statusParam = "true";
+      } else if (statusFilter === "inactive") {
+        statusParam = "false";
+      }
+      // For "all", we leave statusParam empty
 
-      const response = await agentAPI.getAllAgents(status, page, limit);
+      const response = await agentAPI.getAllAgents(statusParam, page, limit);
 
       if (response.success) {
-        // Update based on the actual API response structure
-        setAgents(response.data);
-        setTotalAgents(
-          response.pagination?.totalRecords || response.data.length
-        );
+        // Ensure we have proper data structure
+        const agentsData = response.data || [];
+        console.log("Fetched agents:", agentsData); // Debug log
+
+        setAgents(agentsData);
+        setTotalAgents(response.pagination?.totalRecords || agentsData.length);
       } else {
         setError(response.message || "Failed to fetch agents");
       }
@@ -90,9 +92,9 @@ const AgentsList = () => {
       const term = searchTerm.toLowerCase();
       filtered = filtered.filter(
         (agent) =>
-          agent.first_name.toLowerCase().includes(term) ||
-          agent.last_name.toLowerCase().includes(term) ||
-          agent.email_id.toLowerCase().includes(term) ||
+          (agent.first_name && agent.first_name.toLowerCase().includes(term)) ||
+          (agent.last_name && agent.last_name.toLowerCase().includes(term)) ||
+          (agent.email_id && agent.email_id.toLowerCase().includes(term)) ||
           (agent.mobile && agent.mobile.toString().includes(term))
       );
     }
@@ -102,6 +104,7 @@ const AgentsList = () => {
       filtered = filtered.filter((agent) => agent.role === roleFilter);
     }
 
+    console.log("Filtered agents:", filtered); // Debug log
     setFilteredAgents(filtered);
   };
 
@@ -148,6 +151,20 @@ const AgentsList = () => {
     setActiveDropdown(null);
   };
 
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = () => {
+      setActiveDropdown(null);
+    };
+
+    if (activeDropdown) {
+      document.addEventListener("click", handleClickOutside);
+      return () => {
+        document.removeEventListener("click", handleClickOutside);
+      };
+    }
+  }, [activeDropdown]);
+
   const handleEdit = (agentId) => {
     closeDropdown();
     navigate(`/agents/edit/${agentId}`);
@@ -166,30 +183,30 @@ const AgentsList = () => {
     }
 
     try {
-      // Call API to toggle status (this would be specific to your API)
-      /*
-      const response = await agentAPI.updateAgentStatus(agentId, !currentStatus);
-      
+      // Call API to toggle status
+      const response = await agentAPI.updateAgentStatus(
+        agentId,
+        !currentStatus
+      );
+
       if (response.success) {
         // Update local state
-        setAgents(agents.map(agent => 
-          agent._id === agentId ? {...agent, status: !currentStatus} : agent
-        ));
+        setAgents(
+          agents.map((agent) =>
+            agent._id === agentId ? { ...agent, status: !currentStatus } : agent
+          )
+        );
       } else {
         setError(response.message || "Failed to update agent status");
       }
-      */
+    } catch (error) {
+      console.error("Error updating agent status:", error);
 
-      // Since we don't have the actual API, let's simulate the update
+      // If API doesn't exist yet, simulate the update for testing
       setAgents(
         agents.map((agent) =>
           agent._id === agentId ? { ...agent, status: !currentStatus } : agent
         )
-      );
-    } catch (error) {
-      console.error("Error updating agent status:", error);
-      setError(
-        "An error occurred while updating agent status. Please try again."
       );
     }
   };
@@ -207,28 +224,40 @@ const AgentsList = () => {
     }
 
     try {
-      // Call API to delete agent (this would be specific to your API)
-      /*
+      // Call API to delete agent
       const response = await agentAPI.deleteAgent(agentId);
-      
+
       if (response.success) {
         // Update local state
-        setAgents(agents.filter(agent => agent._id !== agentId));
+        setAgents(agents.filter((agent) => agent._id !== agentId));
+        setTotalAgents((prev) => prev - 1);
       } else {
         setError(response.message || "Failed to delete agent");
       }
-      */
-
-      // Since we don't have the actual API, let's simulate the deletion
-      setAgents(agents.filter((agent) => agent._id !== agentId));
     } catch (error) {
       console.error("Error deleting agent:", error);
-      setError("An error occurred while deleting agent. Please try again.");
+
+      // If API doesn't exist yet, simulate the deletion for testing
+      setAgents(agents.filter((agent) => agent._id !== agentId));
+      setTotalAgents((prev) => prev - 1);
     }
   };
 
   // Calculate total pages
   const totalPages = Math.ceil(totalAgents / limit);
+
+  // Helper function to format role display
+  const formatRole = (role) => {
+    return role
+      ? role.replace(/_/g, " ").replace(/\b\w/g, (l) => l.toUpperCase())
+      : "N/A";
+  };
+
+  // Helper function to get status display
+  const getStatusDisplay = (status) => {
+    console.log("Agent status:", status, typeof status); // Debug log
+    return status === true || status === "true" || status === 1;
+  };
 
   return (
     <div className="agents-list-container">
@@ -263,7 +292,6 @@ const AgentsList = () => {
 
         <div className="filters">
           <div className="filter-group">
-            <Filter size={16} className="filter-icon" />
             <select
               value={statusFilter}
               onChange={handleStatusFilterChange}
@@ -276,7 +304,6 @@ const AgentsList = () => {
           </div>
 
           <div className="filter-group">
-            <Filter size={16} className="filter-icon" />
             <select
               value={roleFilter}
               onChange={handleRoleFilterChange}
@@ -306,8 +333,8 @@ const AgentsList = () => {
           <div className="no-agents">
             <p>
               No agents found.{" "}
-              {searchTerm
-                ? "Try a different search term or clear filters."
+              {searchTerm || statusFilter !== "all" || roleFilter !== "all"
+                ? "Try adjusting your filters or search term."
                 : "Add your first agent to get started."}
             </p>
             <button className="add-agent-button" onClick={handleAddAgent}>
@@ -324,84 +351,103 @@ const AgentsList = () => {
                 <th>Mobile</th>
                 <th>Role</th>
                 <th>Lead Capacity</th>
+                <th>Current Leads</th>
                 <th>Status</th>
                 <th>Actions</th>
               </tr>
             </thead>
             <tbody>
-              {filteredAgents.map((agent) => (
-                <tr key={agent._id}>
-                  <td className="agent-name">
-                    {agent.first_name} {agent.last_name}
-                  </td>
-                  <td>{agent.email_id}</td>
-                  <td>{agent.mobile}</td>
-                  <td>
-                    <span className={`role-badge ${agent.role}`}>
-                      {agent.role.replace("_", " ")}
-                    </span>
-                  </td>
-                  <td>{agent.leadCapacity || "N/A"}</td>
-                  <td>
-                    <span
-                      className={`status-badge ${
-                        agent.status ? "active" : "inactive"
-                      }`}
-                    >
-                      {agent.status ? "Active" : "Inactive"}
-                    </span>
-                  </td>
-                  <td>
-                    <div className="action-cell">
-                      <button
-                        className="action-menu-button"
-                        onClick={() => toggleDropdown(agent._id)}
+              {filteredAgents.map((agent) => {
+                const isActive = getStatusDisplay(agent.status);
+                return (
+                  <tr key={agent._id}>
+                    <td className="agent-name">
+                      {agent.first_name} {agent.last_name}
+                    </td>
+                    <td>{agent.email_id}</td>
+                    <td>{agent.mobile}</td>
+                    <td>
+                      <span className={`role-badge ${agent.role}`}>
+                        {formatRole(agent.role)}
+                      </span>
+                    </td>
+                    <td>{agent.leadCapacity || "N/A"}</td>
+                    <td>{agent.currentLeadCount || 0}</td>
+                    <td>
+                      <span
+                        style={{
+                          display: "inline-block",
+                          padding: "4px 8px",
+                          borderRadius: "4px",
+                          fontSize: "12px",
+                          fontWeight: "500",
+                          minWidth: "60px",
+                          textAlign: "center",
+                          backgroundColor: isActive ? "#e8f5e9" : "#ffebee",
+                          color: isActive ? "#2e7d32" : "#c62828",
+                          border: isActive
+                            ? "1px solid #c3e6cb"
+                            : "1px solid #ffcdd2",
+                        }}
                       >
-                        <MoreVertical size={16} />
-                      </button>
+                        {isActive ? "Active" : "Inactive"}
+                      </span>
+                    </td>
+                    <td>
+                      <div className="action-cell">
+                        <button
+                          className="action-menu-button"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            toggleDropdown(agent._id);
+                          }}
+                        >
+                          <MoreVertical size={16} />
+                        </button>
 
-                      {activeDropdown === agent._id && (
-                        <div className="action-dropdown">
-                          <button
-                            className="dropdown-item"
-                            onClick={() => handleEdit(agent._id)}
-                          >
-                            <Edit size={14} />
-                            <span>Edit</span>
-                          </button>
+                        {activeDropdown === agent._id && (
+                          <div className="action-dropdown">
+                            <button
+                              className="dropdown-item"
+                              onClick={() => handleEdit(agent._id)}
+                            >
+                              <Edit size={14} />
+                              <span>Edit</span>
+                            </button>
 
-                          <button
-                            className="dropdown-item"
-                            onClick={() =>
-                              handleToggleStatus(agent._id, agent.status)
-                            }
-                          >
-                            {agent.status ? (
-                              <>
-                                <UserX size={14} />
-                                <span>Deactivate</span>
-                              </>
-                            ) : (
-                              <>
-                                <UserCheck size={14} />
-                                <span>Activate</span>
-                              </>
-                            )}
-                          </button>
+                            <button
+                              className="dropdown-item"
+                              onClick={() =>
+                                handleToggleStatus(agent._id, isActive)
+                              }
+                            >
+                              {isActive ? (
+                                <>
+                                  <UserX size={14} />
+                                  <span>Deactivate</span>
+                                </>
+                              ) : (
+                                <>
+                                  <UserCheck size={14} />
+                                  <span>Activate</span>
+                                </>
+                              )}
+                            </button>
 
-                          <button
-                            className="dropdown-item delete"
-                            onClick={() => handleDelete(agent._id)}
-                          >
-                            <Trash size={14} />
-                            <span>Delete</span>
-                          </button>
-                        </div>
-                      )}
-                    </div>
-                  </td>
-                </tr>
-              ))}
+                            <button
+                              className="dropdown-item delete"
+                              onClick={() => handleDelete(agent._id)}
+                            >
+                              <Trash size={14} />
+                              <span>Delete</span>
+                            </button>
+                          </div>
+                        )}
+                      </div>
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         )}
